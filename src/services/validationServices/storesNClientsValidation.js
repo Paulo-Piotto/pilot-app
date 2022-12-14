@@ -1,6 +1,6 @@
 import { storeSchema } from "../../schemas/storesSchema";
 
-function storeValidation(storeData){
+function storeNClientValidation(storeData){
     const { error } = storeSchema.validate(storeData)
 
     const errorObject = {
@@ -22,5 +22,5 @@ function storeValidation(storeData){
 }
 
 export {
-    storeValidation,
+    storeNClientValidation,
 }
