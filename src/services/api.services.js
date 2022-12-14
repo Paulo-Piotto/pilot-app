@@ -26,6 +26,18 @@ function searchStoreByName(storeName){
     return axios.get(`${URL}/stores?name=${storeName}`);
 }
 
+function getAllClients(){
+    return axios.get(`${URL}/clients`);
+}
+
+function registerClient(newClient){
+    return axios.post(`${URL}/clients`, newClient);
+}
+
+function searchClientByName(clientName){
+    return axios.get(`${URL}/clients?name=${clientName}`);
+}
+
 export {
     getAllEmployees,
     registerEmployee,
@@ -33,4 +45,7 @@ export {
     getAllStores,
     registerStore,
     searchStoreByName,
+    registerClient,
+    searchClientByName,
+    getAllClients,
 }

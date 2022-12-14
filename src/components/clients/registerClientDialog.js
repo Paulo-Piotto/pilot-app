@@ -5,11 +5,11 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { getAllStores, registerStore } from '../../services/api.services';
+import { getAllClients, registerClient } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
-export default function RegisterStoreDialog({openDialog, handleCloseDialog, setStores, setAbsoluteStores}){
+export default function RegisterClientDialog({openDialog, handleCloseDialog, setClients, setAbsoluteClients}){
 
     const [name, setName] = useState('');
     const [snackbar, setSnackbar] = useState(false)
@@ -24,15 +24,15 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
         setNameError(errorObject.name.error);
         setNameHelper(errorObject.name.helper);
     }else{
-        registerStore({ name })
+        registerClient({ name })
             .then(() => {
                 setSnackbar(true);
                 handleCloseDialog();
                 setName('');
-                getAllStores()
+                getAllClients()
                     .then((resp) => {
-                        setStores(resp.data)
-                        setAbsoluteStores(resp.data.length)
+                        setClients(resp.data)
+                        setAbsoluteClients(resp.data.length)
                     })
             })
             .catch(() => {
@@ -45,7 +45,7 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
     return(
         <>
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth='sm' fullWidth={true} >
-        <DialogTitle>Cadastrar Loja</DialogTitle>
+        <DialogTitle>Cadastrar Obra</DialogTitle>
         <form onSubmit={handleSubmit} noValidate>
         <DialogContent>           
           <TextField
@@ -54,7 +54,7 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
             autoFocus
             margin="dense"
             id="name"
-            label="Nome da loja"
+            label="Nome da Obra"
             type="text"
             required={true}
             helperText={nameHelper}

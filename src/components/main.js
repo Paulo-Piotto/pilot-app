@@ -23,7 +23,7 @@ export default function Main(){
                     <div onClick={() => navigate('/employees')}>
                         <IoPeopleOutline />
                     </div>
-                    <div>
+                    <div onClick={() => navigate('/clients')}>
                         <IoBriefcaseOutline />
                     </div>
                     <div onClick={() => navigate('/stores')} >
