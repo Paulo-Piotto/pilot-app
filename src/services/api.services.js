@@ -38,6 +38,14 @@ function searchClientByName(clientName){
     return axios.get(`${URL}/clients?name=${clientName}`);
 }
 
+function getAllOrders(){
+    return axios.get(`${URL}/orders/all`);
+}
+
+function filterOrders(searchSettings){
+    return axios.get(`${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}`)
+}
+
 export {
     getAllEmployees,
     registerEmployee,
@@ -48,4 +56,6 @@ export {
     registerClient,
     searchClientByName,
     getAllClients,
+    getAllOrders,
+    filterOrders,
 }
