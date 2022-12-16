@@ -43,7 +43,7 @@ function getAllOrders(){
 }
 
 function filterOrders(searchSettings){
-    return axios.get(`${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}`)
+    return axios.get(`${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&store=${searchSettings.store}&client=${searchSettings.client}`)
 }
 
 export {
