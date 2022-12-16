@@ -35,7 +35,7 @@ export default function OrdersPage(){
             <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)} />
             <Card contrast={true} subtitle='Total' number={total.replace('.',',')} money={true} />
         </CardsContainer>
-        <SearchOrdersDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setOrders={setOrders} />
+        <SearchOrdersDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setOrders={setOrders} setTotal={setTotal} />
         {orders[0] ? (
         <>
         <TableHeader>

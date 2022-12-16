@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -8,34 +8,54 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import MenuItem from '@mui/material/MenuItem';
 import RegisterSnackbar from '../generics/registerSnackbar';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { filterOrders } from '../../services/api.services';
+import { filterOrders, getAllStores, getAllClients } from '../../services/api.services';
+import sumTotal from '../../services/sumTotal';
 
-export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOrders}){
+export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOrders, setTotal}){
 
     const todayMinus30 = Date.now() - 86400000*30
 
     const [snackbar, setSnackbar] = useState(false);
-    const [initialDate, setInitialDate] = useState(dayjs(todayMinus30).toISOString());
-    const [endDate, setEndDate] = useState(dayjs(Date.now()).toISOString());
+    const [initialDate, setInitialDate] = useState(dayjs(todayMinus30));
+    const [endDate, setEndDate] = useState(dayjs(Date.now()));
+    const [stores, setStores] = useState([]);
+    const [selectedStore, setSelectedStore] = useState(0)
+    const [clients, setClients] = useState([]);
+    const [selectedClient, setSelectedClient] = useState(0);
+
+    useEffect(() => {
+      getAllStores()
+        .then((resp) => {
+          setStores(resp.data)
+        });
+        getAllClients()
+        .then((resp) => {
+          setClients(resp.data)
+        })
+    }, [])
 
    function handleSubmit(e){
     e.preventDefault();
 
     const searchSettings = {
-      initialDate,
-      endDate,
+      initialDate: initialDate.toISOString(),
+      endDate: endDate.toISOString(),
+      store: selectedStore,
+      client: selectedClient,
     }
     
 
     filterOrders(searchSettings)
       .then((resp) => {
-        setOrders(resp.data)
+        setOrders(resp.data);
+        setTotal(Number(sumTotal(resp.data)/100).toFixed(2))
       })
       .catch(() => {
-        alert('algo deu errado')
+        setSnackbar(true)
       })
     
    }
@@ -58,7 +78,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
             type="date"
             required={true}
             variant="standard"
-            onChange={(e) => setInitialDate(e.toISOString())}
+            onChange={(e) => setInitialDate(e)}
             renderInput={(params) => <TextField {...params} sx={{width: 200}} margin='dense' />}
           />
           <DesktopDatePicker
@@ -71,11 +91,49 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
             type="date"
             required={true}
             variant="standard"
-            onChange={(e) => setEndDate(e.toISOString())}
+            onChange={(e) => setEndDate(e)}
             renderInput={(params) => <TextField {...params} sx={{width: 200, ml: 1}} margin='dense' />}
           />
           </DateContainer>
           </LocalizationProvider>
+          <TextField
+          id="outlined-select-store"
+          sx={{width: 200, mt: 1}}
+          select
+          fullWidth
+          label="Loja"
+          defaultValue={0}
+          value={selectedStore}
+          onChange={(e) => setSelectedStore(e.target.value)}
+        >
+          <MenuItem key={0} value={0}>
+              {'Todas'}
+            </MenuItem>
+          {stores.map((store) => (
+            <MenuItem key={store.id} value={store.id}>
+              {store.name}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          id="outlined-select-store"
+          sx={{width: 200, mt: 1, ml: 1}}
+          select
+          fullWidth
+          label="Obra"
+          defaultValue={0}
+          value={selectedClient}
+          onChange={(e) => setSelectedClient(e.target.value)}
+        >
+          <MenuItem key={0} value={0}>
+              {'Todas'}
+            </MenuItem>
+          {clients.map((client) => (
+            <MenuItem key={client.id} value={client.id}>
+              {client.name}
+            </MenuItem>
+          ))}
+        </TextField>
         </DialogContent>
         <DialogActions>
           <Button  onClick={handleCloseDialog}>Cancelar</Button>
