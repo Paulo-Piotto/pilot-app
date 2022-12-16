@@ -1,6 +1,6 @@
 import { CardStyle } from "../../styles/cardStyles";
 
-export default function Card({contrast, subtitle, title, iconName, number, action}){
+export default function Card({contrast, subtitle, title, iconName, number, action, money}){
     return(
         <CardStyle contrast={contrast} onClick={action} >
             {!contrast ? (
@@ -17,7 +17,7 @@ export default function Card({contrast, subtitle, title, iconName, number, actio
             ) : (
                 <section>
                     <h4>{subtitle}</h4>
-                    <h3>{number}</h3>
+                    <h3>{money ? 'R$' : ''} {number}</h3>
                 </section>
             )}
             
