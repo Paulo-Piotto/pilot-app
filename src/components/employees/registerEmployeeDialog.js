@@ -13,12 +13,13 @@ import styled from 'styled-components';
 import RegisterSnackbar from '../generics/registerSnackbar';
 import { registerEmployee } from '../../services/api.services';
 import { getAllEmployees } from '../../services/api.services';
+import dayjs from 'dayjs';
 
 export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, setEmployees, setAbsoluteEmployees}){
 
     const [name, setName] = useState('');
     const [wageValue, setWageValue] = useState(Number(0).toFixed(2));
-    const [startDate, setStartDate] = useState('');
+    const [startDate, setStartDate] = useState(dayjs(Date.now()));
     const [nameHelper, setNameHelper] = useState('');
     const [wageHelper, setWageHelper] = useState('');
     const [dateHelper, setDateHelper] = useState('');
@@ -107,7 +108,7 @@ export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, s
             required={true}
             variant="standard"
             onChange={(e) => setStartDate(e.toISOString())}
-            renderInput={(params) => <TextField {...params} helperText={dateHelper} />}
+            renderInput={(params) => <TextField {...params} helperText={dateHelper} sx={{mt: 2}} />}
           />
           </DateWrapper>
           </LocalizationProvider>          

@@ -62,10 +62,10 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
 
     return(
         <>
-        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth='sm' fullWidth={true} >
-        <DialogTitle>Configurações de Busca</DialogTitle>
+        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth='sm' fullWidth={true}>
+        <DialogTitle sx={{mt: 2}}>Configurações de Busca</DialogTitle>
         <form onSubmit={handleSubmit} noValidate>
-        <DialogContent>           
+        <DialogContent >           
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateContainer>
           <DesktopDatePicker
@@ -79,7 +79,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
             required={true}
             variant="standard"
             onChange={(e) => setInitialDate(e)}
-            renderInput={(params) => <TextField {...params} sx={{width: 200}} margin='dense' />}
+            renderInput={(params) => <TextField {...params}  margin='dense' />}
           />
           <DesktopDatePicker
             value={endDate}
@@ -92,13 +92,13 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
             required={true}
             variant="standard"
             onChange={(e) => setEndDate(e)}
-            renderInput={(params) => <TextField {...params} sx={{width: 200, ml: 1}} margin='dense' />}
+            renderInput={(params) => <TextField {...params} sx={{ ml: 1}} margin='dense' />}
           />
           </DateContainer>
           </LocalizationProvider>
           <TextField
           id="outlined-select-store"
-          sx={{width: 200, mt: 1}}
+          sx={{mt: 1}}
           select
           fullWidth
           label="Loja"
@@ -117,7 +117,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
         </TextField>
         <TextField
           id="outlined-select-store"
-          sx={{width: 200, mt: 1, ml: 1}}
+          sx={{ mt: 1}}
           select
           fullWidth
           label="Obra"
@@ -135,7 +135,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
           ))}
         </TextField>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{mb: 2, mr: 2}}>
           <Button  onClick={handleCloseDialog}>Cancelar</Button>
           <Button type='submit'>Buscar</Button>
         </DialogActions>

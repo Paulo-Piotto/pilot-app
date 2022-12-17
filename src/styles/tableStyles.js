@@ -3,7 +3,7 @@ import styled from "styled-components";
 const TableHeader = styled.div`
     width: 70.5vw;
     position: fixed;
-    left: calc(50vw - 35vw);
+    left: calc(51.75vw - 35vw);
     top: 35vh;
     font-family: 'Roboto', sans-serif;
     display: flex;
@@ -18,11 +18,11 @@ const TableHeader = styled.div`
 
 const TableContainer = styled.div`
     width: 75vw;
-    height: 60vh;
+    height: 59vh;
     position: fixed;
-    left: calc(50vw - 37.5vw);
+    left: calc(51.75vw - 37.5vw);
     top: 40vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     font-family: 'Roboto', sans-serif;
 
     ::-webkit-scrollbar {
