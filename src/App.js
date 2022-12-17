@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/main";
 import EmployeesPage from "./pages/employeesPage";
 import StoresPage from "./pages/storesPage";
@@ -7,7 +7,7 @@ import OrdersPage from "./pages/ordersPage";
 
 function App() {
   return (
-      <BrowserRouter>
+      <HashRouter>
         <Main />
         <Routes>
           <Route path="/" element={<OrdersPage />} />
@@ -15,7 +15,7 @@ function App() {
           <Route path="/stores" element={<StoresPage />} />
           <Route path="/clients" element={<ClientsPage />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
   );
 }
 
