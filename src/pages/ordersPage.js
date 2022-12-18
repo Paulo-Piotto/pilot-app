@@ -31,9 +31,9 @@ export default function OrdersPage(){
     return (
         <>
         <CardsContainer>
-            <Card contrast={false} subtitle='Novo' title='Pedido' iconName='add-circle-outline' delay={'0s'} />
-            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)} delay={'0.1s'}/>
-            <Card contrast={true} subtitle='Total' number={total.replace('.',',')} money={true} delay={'0.2s'}/>
+            <Card contrast={false} subtitle='Novo' title='Pedido' iconName='add-circle-outline'/>
+            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)}/>
+            <Card contrast={true} subtitle='Total' number={total.replace('.',',')} money={true}/>
         </CardsContainer>
         <SearchOrdersDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setOrders={setOrders} setTotal={setTotal} />
         {orders[0] ? (

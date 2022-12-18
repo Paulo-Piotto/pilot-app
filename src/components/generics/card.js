@@ -1,12 +1,9 @@
 import { CardStyle } from "../../styles/cardStyles";
 import { Grow } from "@material-ui/core";
 
-export default function Card({contrast, subtitle, title, iconName, number, action, money, delay}){
-
-    const delayValue = delay ? delay : '0ms'
-
+export default function Card({contrast, subtitle, title, iconName, number, action, money}){
     return(
-        <Grow in={true} timeout={{ enter: 500, exit: 500 }} style={{ transitionDelay: delayValue }}>
+        <Grow in={true} timeout={{ enter: 500, exit: 500 }} style={{ transitionDelay: '0s' }}>
             <CardStyle contrast={contrast} onClick={action} >
                 {!contrast ? (
                     <>
