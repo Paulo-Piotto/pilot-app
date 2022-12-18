@@ -5,7 +5,7 @@ const CardsContainer = styled.div`
     height: 15vh;
     position: fixed;
     top: 12vh;
-    left: calc(50vw - 35vw);
+    left: calc(51.75vw - 35vw);
     display: flex;
     justify-content: space-between;
 `
