@@ -17,6 +17,8 @@ function employeeValidation(employeeData){
         },
     }
     if(error){
+        
+        console.log(error)
         const errorType = error.details[0].path[0];
 
         if(errorType === 'name'){

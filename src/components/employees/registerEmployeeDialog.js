@@ -14,31 +14,30 @@ import RegisterSnackbar from '../generics/registerSnackbar';
 import { registerEmployee } from '../../services/api.services';
 import { getAllEmployees } from '../../services/api.services';
 import dayjs from 'dayjs';
+import { MoneyInput } from '../../styles/moneyInputStyles';
 
 export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, setEmployees, setAbsoluteEmployees}){
 
     const [name, setName] = useState('');
-    const [wageValue, setWageValue] = useState(Number(0).toFixed(2));
-    const [startDate, setStartDate] = useState(dayjs(Date.now()));
+    const [wageValue, setWageValue] = useState('0,00');
+    const [startDate, setStartDate] = useState(dayjs(Date.now()).toISOString());
     const [nameHelper, setNameHelper] = useState('');
-    const [wageHelper, setWageHelper] = useState('');
     const [dateHelper, setDateHelper] = useState('');
     const [nameError, setNameError] = useState(false);
-    const [wageError, setWageError] = useState(false);
     const [snackbar, setSnackbar] = useState(false)
 
    function handleSubmit(e){
     e.preventDefault();
+
     const errorObject = employeeValidation({name, wageValue, startDate});
 
     if(errorObject){
         setNameError(errorObject.name.error);
         setNameHelper(errorObject.name.helper);
-        setWageError(errorObject.wage.error);
-        setWageHelper(errorObject.wage.helper);
         setDateHelper(errorObject.startDate.helper);
     }else{
-        let wage = Number(wageValue).toFixed(0)*100
+        
+        const wage = Number(wageValue.replace(',','.')*100)
         registerEmployee({name, wage, startDate})
             .then(() => {
                 setSnackbar(true);
@@ -64,7 +63,6 @@ export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, s
         <>
         <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Registrar Funcionário</DialogTitle>
-        <form onSubmit={handleSubmit} noValidate>
         <DialogContent>           
           <TextField
             error={nameError}
@@ -80,21 +78,15 @@ export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, s
             helperText={nameHelper}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextField
-            error={wageError}
+          <MoneyInput
+            id="input-example"
+            name="input-name"
+            placeholder="Please enter a number"
             value={wageValue}
-            autoFocus
-            margin="dense"
-            id="wage"
-            label="Salário base"
-            type="number"
-            required={true}
-            fullWidth
-            variant="standard"
-            helperText={wageHelper}
-            onChange={(e) => e.target.value >= 0 ? setWageValue(Number(e.target.value).toFixed(2)): setWageValue(Number(e.target.value * (-1)).toFixed(2))}
+            intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+            decimalScale={2}
+            onValueChange={(value, name) => setWageValue(value)}
           />
-          
           <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateWrapper>
           <DesktopDatePicker
@@ -111,13 +103,12 @@ export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, s
             renderInput={(params) => <TextField {...params} helperText={dateHelper} sx={{mt: 2}} />}
           />
           </DateWrapper>
-          </LocalizationProvider>          
+          </LocalizationProvider>    
         </DialogContent>
         <DialogActions>
           <Button  onClick={handleCloseDialog}>Cancelar</Button>
-          <Button type='submit'>Registrar</Button>
+          <Button onClick={handleSubmit}>Registrar</Button>
         </DialogActions>
-        </form>
       </Dialog>
       <RegisterSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={'success'} />
       </>
@@ -125,5 +116,5 @@ export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, s
 }
 
 const DateWrapper = styled.div`
-    margin-top: 10px;
- `
+  margin-top: 10px;
+ `  
