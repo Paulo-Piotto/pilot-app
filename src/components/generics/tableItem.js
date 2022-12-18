@@ -46,12 +46,14 @@ export default function TableItem({rowData, type}){
 
 const EditIcon = styled(IoPencilSharp)`
     margin-right: 30px;
+    transition: all ease-in-out 0.7s;
     &&:hover{
         color: blue;
         cursor: pointer;
     }
 `
 const DeleteIcon = styled(IoTrashOutline)`
+    transition: all ease-in-out 0.7s;
     &&:hover{
         color: red;
         cursor: pointer;

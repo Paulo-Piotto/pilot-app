@@ -9,7 +9,7 @@ const Background = styled.div`
 
 const Header = styled.header`
     width: 100%;
-    height: 20%;
+    height: 15%;
     background-color: #131E31;
     position: fixed;
 `
@@ -34,11 +34,24 @@ const IconsContainer = styled.div`
     color: #bababa;
     padding-top: 24vh;
     font-size: 1.8rem;
+    transition: all ease-in-out 0.7s;
 
     div:hover{
-        color: white;
+        color: #E89D17;
         cursor: pointer;
     }
+`
+const IconBox = styled.div`
+   background-color: ${props => props.isSelected ? '#131E31' : 'transparent'}; 
+   width: 100%;
+   padding: 10px;
+   box-shadow: ${props => props.isSelected ? 'inset 2px 2px 8px rgba(0, 0, 0, 0.7)' : 'none'};
+   color: ${props => props.isSelected ? '#E89D17' : '#BABABA'};
+
+   display: flex;
+   justify-content: center;
+
+   transition: ease-in-out 0.7s;
 `
 
 export {
@@ -47,4 +60,5 @@ export {
     Logo,
     SideMenu,
     IconsContainer,
+    IconBox
 }

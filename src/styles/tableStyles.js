@@ -4,7 +4,11 @@ const TableHeader = styled.div`
     width: 70.5vw;
     position: fixed;
     left: calc(51.75vw - 35vw);
+<<<<<<< HEAD
+    top: 25vh;
+=======
     top: 35vh;
+>>>>>>> main
     font-family: 'Roboto', sans-serif;
     display: flex;
     font-size: 0.9rem;
@@ -18,10 +22,10 @@ const TableHeader = styled.div`
 
 const TableContainer = styled.div`
     width: 75vw;
-    height: 59vh;
+    height: 68vh;
     position: fixed;
     left: calc(51.75vw - 37.5vw);
-    top: 40vh;
+    top: 30vh;
     overflow-y: auto;
     font-family: 'Roboto', sans-serif;
 
@@ -42,6 +46,7 @@ const TableContainer = styled.div`
 
 
     ::-webkit-scrollbar-thumb:hover {
+        transition: all ease-in-out 0.7s;
         background: #555; 
     }
 `

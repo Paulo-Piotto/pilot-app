@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 const CardsContainer = styled.div`
     width: 70vw;
-    height: 15vh;
+    height: 12vh;
     position: fixed;
-    top: 12vh;
+    top: 8vh;
     left: calc(51.75vw - 35vw);
     display: flex;
     justify-content: space-between;
@@ -21,6 +21,7 @@ const CardStyle = styled.div`
     align-items: center;
     padding: 18px 27px;
     font-family: 'Roboto', sans-serif;
+    transition: all ease-in-out 0.7s;
 
     &&:hover{
         cursor: ${(props) => props.contrast ? "" : "pointer"};
