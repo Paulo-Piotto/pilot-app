@@ -4,7 +4,7 @@ const TableHeader = styled.div`
     width: 70.5vw;
     position: fixed;
     left: calc(51.75vw - 35vw);
-    top: 35vh;
+    top: 25vh;
     font-family: 'Roboto', sans-serif;
     display: flex;
     font-size: 0.9rem;
@@ -18,10 +18,10 @@ const TableHeader = styled.div`
 
 const TableContainer = styled.div`
     width: 75vw;
-    height: 59vh;
+    height: 69vh;
     position: fixed;
     left: calc(51.75vw - 37.5vw);
-    top: 40vh;
+    top: 30vh;
     overflow-y: auto;
     font-family: 'Roboto', sans-serif;
 
