@@ -20,7 +20,7 @@ const Logo = styled.img`
 
 const SideMenu = styled.div`
     min-width: 50px;
-    width: 3.5%;
+    width: 3.5vw;
     height: 100%;
     background-color: #3F4A5C;
 `
