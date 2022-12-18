@@ -9,7 +9,7 @@ const Background = styled.div`
 
 const Header = styled.header`
     width: 100%;
-    height: 20%;
+    height: 15%;
     background-color: #131E31;
     position: fixed;
 `
@@ -20,7 +20,7 @@ const Logo = styled.img`
 
 const SideMenu = styled.div`
     min-width: 50px;
-    width: 3.5%;
+    width: 3.5vw;
     height: 100%;
     background-color: #3F4A5C;
 `
