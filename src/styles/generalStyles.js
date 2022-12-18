@@ -34,6 +34,7 @@ const IconsContainer = styled.div`
     color: #bababa;
     padding-top: 24vh;
     font-size: 1.8rem;
+    transition: all ease-in-out 0.7s;
 
     div:hover{
         color: #E89D17;
@@ -49,6 +50,8 @@ const IconBox = styled.div`
 
    display: flex;
    justify-content: center;
+
+   transition: ease-in-out 0.7s;
 `
 
 export {

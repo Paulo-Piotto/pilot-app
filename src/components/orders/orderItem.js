@@ -29,6 +29,7 @@ export default function OrderItem({rowData}){
 }
 
 const DeleteIcon = styled(IoTrashOutline)`
+    transition: all ease-in-out 0.7s;
     &&:hover{
         color: red;
         cursor: pointer;

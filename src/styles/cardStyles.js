@@ -21,6 +21,7 @@ const CardStyle = styled.div`
     align-items: center;
     padding: 18px 27px;
     font-family: 'Roboto', sans-serif;
+    transition: all ease-in-out 0.7s;
 
     &&:hover{
         cursor: ${(props) => props.contrast ? "" : "pointer"};

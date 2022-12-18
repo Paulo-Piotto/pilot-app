@@ -18,7 +18,7 @@ const TableHeader = styled.div`
 
 const TableContainer = styled.div`
     width: 75vw;
-    height: 69vh;
+    height: 68vh;
     position: fixed;
     left: calc(51.75vw - 37.5vw);
     top: 30vh;
@@ -42,6 +42,7 @@ const TableContainer = styled.div`
 
 
     ::-webkit-scrollbar-thumb:hover {
+        transition: all ease-in-out 0.7s;
         background: #555; 
     }
 `

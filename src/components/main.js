@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function Main(){
     const navigate = useNavigate();
-    const [selectedIcon, setSelectedIcon] = useState();
+    const [selectedIcon, setSelectedIcon] = useState('home');
 
     function selectPage(icon, page){
         setSelectedIcon(icon)
