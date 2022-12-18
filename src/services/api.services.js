@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //const URL = 'http://3.82.151.240:80/';
 //const URL = 'http://3.82.151.240:80/'
-const URL = 'http://localhost:4000'
+const URL = 'http://localhost:5000'
 
 function getAllEmployees(){
     return axios.get(`${URL}/employees`);

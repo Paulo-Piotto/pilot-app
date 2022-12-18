@@ -4,7 +4,11 @@ const TableHeader = styled.div`
     width: 70.5vw;
     position: fixed;
     left: calc(51.75vw - 35vw);
+<<<<<<< HEAD
     top: 25vh;
+=======
+    top: 35vh;
+>>>>>>> main
     font-family: 'Roboto', sans-serif;
     display: flex;
     font-size: 0.9rem;
