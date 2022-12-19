@@ -4,10 +4,10 @@ import CurrencyInput from "react-currency-input-field";
 const MoneyInput = styled(CurrencyInput)`
    width: 100%;
    border: none;
-   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+   color: ${(props) => !props.warning ? "black" : "#D33740"};
+   border-bottom: ${(props) => !props.warning ? "1px solid rgba(0, 0, 0, 0.42)" : "2px solid #D33740"};
    height: 2.6em;
    outline: none;
-   margin-top: 10px;
    
    &&:hover{
     border-bottom: 2px solid black;

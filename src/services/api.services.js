@@ -48,6 +48,10 @@ function filterOrders(searchSettings){
     return axios.get(`${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&store=${searchSettings.store}&client=${searchSettings.client}`)
 }
 
+function addOrder(orderData){
+    return axios.post(`${URL}/orders`, orderData);
+}
+
 export {
     getAllEmployees,
     registerEmployee,
@@ -60,4 +64,5 @@ export {
     getAllClients,
     getAllOrders,
     filterOrders,
+    addOrder,
 }

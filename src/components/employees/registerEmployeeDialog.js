@@ -81,7 +81,7 @@ export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, s
           <MoneyInput
             id="input-example"
             name="input-name"
-            placeholder="Please enter a number"
+            placeholder="Salário base do Funcionário"
             value={wageValue}
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
             decimalScale={2}
