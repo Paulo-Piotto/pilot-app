@@ -13,7 +13,7 @@ import RegisterSnackbar from '../generics/registerSnackbar';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { filterOrders, getAllStores, getAllClients } from '../../services/api.services';
-import sumTotal from '../../services/sumTotal';
+import sumTotal from '../../services/utils/sumTotal';
 
 export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOrders, setTotal}){
 
