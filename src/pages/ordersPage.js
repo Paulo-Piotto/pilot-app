@@ -51,7 +51,7 @@ export default function OrdersPage(){
         </TableHeader>
             <TableContainer>
             {orders.map((order) => 
-                <OrderItem rowData={order} />
+                <OrderItem rowData={order} setTotal={setTotal} setOrders={setOrders} />
             )}
         </TableContainer>
         </>
