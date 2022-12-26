@@ -40,7 +40,7 @@ export default function ClientsPage(){
         {clients[0] ? (
             <TableContainer>
             {clients.map((employee) => 
-                <TableItem rowData={employee} type='store'/>
+                <TableItem rowData={employee} type='client' setItems={setClients} setAbsolute={setAbsoluteClients} />
             )}
             </TableContainer>
         ): ''}
