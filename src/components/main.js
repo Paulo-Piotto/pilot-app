@@ -1,5 +1,5 @@
 import { Background, Header, Logo, SideMenu, IconsContainer, IconBox } from "../styles/generalStyles";
-import { IoHomeOutline, IoPeopleOutline, IoAddCircleOutline, IoTimeOutline, IoBriefcaseOutline, IoStorefrontOutline, IoEllipsisHorizontalCircleOutline } from "react-icons/io5";
+import { IoHomeOutline, IoPeopleOutline, IoTimeOutline, IoBriefcaseOutline, IoStorefrontOutline, IoEllipsisHorizontalCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
