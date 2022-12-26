@@ -40,7 +40,7 @@ export default function StoresPage(){
         {stores[0] ? (
             <TableContainer>
             {stores.map((employee) => 
-                <TableItem rowData={employee} type='store'/>
+                <TableItem rowData={employee} type='store' setItems={setStores} setAbsolute={setAbsoluteStores}/>
             )}
             </TableContainer>
         ): ''}

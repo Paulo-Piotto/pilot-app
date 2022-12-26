@@ -52,6 +52,22 @@ function addOrder(orderData){
     return axios.post(`${URL}/orders`, orderData);
 }
 
+function deleteOrder(id){
+    return axios.delete(`${URL}/orders?id=${id}`)
+}
+
+function deleteStore(id){
+    return axios.delete(`${URL}/stores?id=${id}`)
+}
+
+function deleteClient(id){
+    return axios.delete(`${URL}/clients?id=${id}`)
+}
+
+function deleteEmployee(id){
+    return axios.delete(`${URL}/employees?id=${id}`)
+}
+
 export {
     getAllEmployees,
     registerEmployee,
@@ -65,4 +81,8 @@ export {
     getAllOrders,
     filterOrders,
     addOrder,
+    deleteOrder,
+    deleteStore,
+    deleteClient,
+    deleteEmployee,
 }
