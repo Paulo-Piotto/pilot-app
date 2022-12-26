@@ -131,7 +131,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
             required={true}
             fullWidth
             variant="standard"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value.toUpperCase())}
             inputProps={{style: {fontSize: 18}}}
           />
           <SelectWrapper>
