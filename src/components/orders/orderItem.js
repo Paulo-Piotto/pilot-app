@@ -54,7 +54,7 @@ export default function OrderItem({rowData, setTotal, setOrders}){
                 {rowData.stores.name}
                 </RowCell>
                 <RowCell>
-                    R$ {Number(rowData.value/100).toFixed(2)}
+                    R$ {(Number(rowData.value/100).toFixed(2)).toString().replace('.',',')}
                 </RowCell>
                 <RowCell >
                     {date}
