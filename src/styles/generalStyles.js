@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { IoPencilSharp, IoTrashOutline } from "react-icons/io5";
 
 const Background = styled.div`
     width: 100vw;
@@ -54,11 +55,29 @@ const IconBox = styled.div`
    transition: ease-in-out 0.7s;
 `
 
+const EditIcon = styled(IoPencilSharp)`
+    margin-right: 30px;
+    transition: all ease-in-out 0.2s;
+    &&:hover{
+        color: blue;
+        cursor: pointer;
+    }
+`
+const DeleteIcon = styled(IoTrashOutline)`
+    transition: all ease-in-out 0.2s;
+    &&:hover{
+        color: red;
+        cursor: pointer;
+    }
+`
+
 export {
     Background,
     Header,
     Logo,
     SideMenu,
     IconsContainer,
-    IconBox
+    IconBox,
+    EditIcon,
+    DeleteIcon,
 }
