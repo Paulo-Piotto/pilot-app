@@ -35,9 +35,6 @@ export default function Main(){
                     <IconBox isSelected={selectedIcon==="stores" ? true : false} onClick={() => {selectPage('stores', '/stores')}}>
                         <IoStorefrontOutline />
                     </IconBox>
-                    <IconBox isSelected={selectedIcon==="ellipsis" ? true : false} onClick={() => {selectPage('ellipsis', '/development')}}>
-                        <IoEllipsisHorizontalCircleOutline />
-                    </IconBox>
                 </IconsContainer>
             </SideMenu>
         </Background>

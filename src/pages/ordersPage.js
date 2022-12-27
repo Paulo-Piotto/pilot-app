@@ -7,12 +7,16 @@ import { getAllOrders } from "../services/api.services";
 import sumTotal from "../services/utils/sumTotal";
 import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
 import AddOrderDialog from "../components/orders/addOrderDialog";
+import GenericSnackbar from "../components/generics/genericSnackbar";
 
 export default function OrdersPage(){    
     const [orders, setOrders] = useState([]);
     const [total, setTotal] = useState(Number(0).toFixed(2))
     const [openSearch, setOpenSearch] = useState(false);
     const [openAdd, setOpenAdd] = useState(false);
+    const [snackbar, setSnackbar] = useState(false);
+    const [snackbarType, setSnackbarType] = useState('success');
+    const [snackbarMessage, setSnackbarMessage] = useState('Item deletado com sucesso')
 
     useEffect(() => {
         getAllOrders()
@@ -21,7 +25,9 @@ export default function OrdersPage(){
                 setTotal(Number(sumTotal(resp.data)/100).toFixed(2));
             })
             .catch(() => {
-                alert('algo deu errado')
+                setSnackbarType('error');
+                setSnackbarMessage('Algo deu errado ao recuperar os itens')
+                setSnackbar(true);
             })
     }, [])
 
@@ -55,7 +61,8 @@ export default function OrdersPage(){
             )}
         </TableContainer>
         </>
-        ): ''}        
+        ): ''}
+        <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
         </>
     );
 }

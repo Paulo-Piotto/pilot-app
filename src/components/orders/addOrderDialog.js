@@ -11,12 +11,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ordersValidation } from '../../services/validationServices/ordersValidation';
 import styled from 'styled-components';
-import RegisterSnackbar from '../generics/registerSnackbar';
 import { getAllClients, getAllStores, getAllOrders, addOrder } from '../../services/api.services';
 import dayjs from 'dayjs';
 import { MoneyInput } from '../../styles/moneyInputStyles';
 import applyDiscount from '../../services/utils/applyDiscount';
 import sumTotal from '../../services/utils/sumTotal';
+import GenericSnackbar from '../generics/genericSnackbar';
 
 export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders, setTotal}){
 
@@ -36,6 +36,8 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
     const [financedError, setFinancedError] = useState(false);
     const [negotiatedError, setNegotiatedError] = useState(false);
     const [snackbar, setSnackbar] = useState(false);
+    const [snackbarType, setSnackbarType] = useState('success');
+    const [snackbarMessage, setSnackbarMessage] = useState('Item deletado com sucesso')
 
     useEffect(() => {
         getAllClients()
@@ -43,14 +45,18 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
                 setClients(resp.data);
             })
             .catch(() => {
-                alert('Algo deu errado');
+              setSnackbarType('error');
+              setSnackbarMessage('Algo deu errado ao recuperar os itens')
+              setSnackbar(true);
             });
         getAllStores()
             .then((resp) => {
                 setStores(resp.data);
             })
             .catch(() => {
-                alert('Algo deu errado');
+              setSnackbarType('error');
+              setSnackbarMessage('Algo deu errado ao recuperar os itens');
+              setSnackbar(true);
             })
     },[])
 
@@ -84,9 +90,9 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
         invoice: name,
         store,
         client,
-        value: Number(validationData.value.replace(',','.'))*100,
-        financed: Number(valueFinanced.replace(',','.'))*100,
-        cash: Number(valueCash.replace(',','.'))*100,
+        value: parseInt(Number(validationData.value.replace(',','.'))*100),
+        financed: parseInt(Number(valueFinanced.replace(',','.'))*100),
+        cash: parseInt(Number(valueCash.replace(',','.'))*100),
         negotiated: negotiatedValue,
         date
       }).then(() => {
@@ -95,10 +101,10 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
             setOrders(resp.data)
             setTotal(Number(sumTotal(resp.data)/100).toFixed(2))
           }).catch(() => {
-            alert('algo deu errado')
+            // alert('algo deu errado')
           })
       }).catch(() => {
-        alert('algo deu errado')
+        // alert('algo deu errado')
       })
 
       handleCloseDialog(true);
@@ -250,7 +256,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
           <Button onClick={handleSubmit}>Registrar</Button>
         </DialogActions>
       </Dialog>
-      <RegisterSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={'success'} />
+      <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
       </>
     );
 }
