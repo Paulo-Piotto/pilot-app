@@ -101,10 +101,14 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
             setOrders(resp.data)
             setTotal(Number(sumTotal(resp.data)/100).toFixed(2))
           }).catch(() => {
-            // alert('algo deu errado')
+            setSnackbarType('error');
+            setSnackbarMessage('Algo deu errado ao recuperar os itens')
+            setSnackbar(true);
           })
       }).catch(() => {
-        // alert('algo deu errado')
+        setSnackbarType('error');
+        setSnackbarMessage('Algo deu errado ao recuperar os itens')
+        setSnackbar(true);
       })
 
       handleCloseDialog(true);
