@@ -68,6 +68,14 @@ function deleteEmployee(id){
     return axios.delete(`${URL}/employees?id=${id}`)
 }
 
+function updateStore(updateData){
+    return axios.put(`${URL}/stores`, updateData);
+}
+
+function updateClient(updateData){
+    return axios.put(`${URL}/clients`, updateData);
+}
+
 export {
     getAllEmployees,
     registerEmployee,
@@ -85,4 +93,6 @@ export {
     deleteStore,
     deleteClient,
     deleteEmployee,
+    updateStore,
+    updateClient,
 }
