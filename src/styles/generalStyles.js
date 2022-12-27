@@ -52,7 +52,7 @@ const IconBox = styled.div`
    display: flex;
    justify-content: center;
 
-   transition: ease-in-out 0.7s;
+   transition: ease-in-out 0.2s;
 `
 
 const EditIcon = styled(IoPencilSharp)`

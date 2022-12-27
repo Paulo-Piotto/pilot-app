@@ -32,11 +32,13 @@ export default function TableItem({rowData, type, setAbsolute, setItems}){
                         setSnackbarType('error');
                         setSnackbarMessage('Algo deu errado ao recuperar os itens')
                         setSnackbar(true);
+                        setOpenDelete(false);
             })
         }).catch(() => {
                 setSnackbarType('error');
                 setSnackbarMessage('Impossível deletar item')
                 setSnackbar(true);
+                setOpenDelete(false);
         })
     }
 

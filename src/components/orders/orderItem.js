@@ -32,12 +32,14 @@ export default function OrderItem({rowData, setTotal, setOrders}){
                         setSnackbarType('error');
                         setSnackbarMessage('Algo deu errado ao recuperar os pedidos')
                         setSnackbar(true);
+                        setOpenDelete(false);
                     })
             })
             .catch(() => {
                 setSnackbarType('error');
                 setSnackbarMessage('Algo deu errado ao recuperar os pedidos')
                 setSnackbar(true);
+                setOpenDelete(false);
             })
     }
 
