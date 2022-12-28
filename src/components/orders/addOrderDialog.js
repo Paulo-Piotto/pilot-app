@@ -16,6 +16,7 @@ import dayjs from 'dayjs';
 import { MoneyInput } from '../../styles/moneyInputStyles';
 import applyDiscount from '../../services/utils/applyDiscount';
 import sumTotal from '../../services/utils/sumTotal';
+import intToMoney from '../../services/utils/intToMoney';
 import GenericSnackbar from '../generics/genericSnackbar';
 
 export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders, setTotal}){
@@ -24,9 +25,9 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
     const [client, setClient] = useState(0);
     const [store, setStore] = useState(0);
     const [date, setDate] = useState(dayjs(Date.now()));
-    const [valueFinanced, setValueFinanced] = useState('0,00');
+    const [valueFinanced, setValueFinanced] = useState('');
     const [valueCash, setValueCash] = useState('0,00');
-    const [valueNegotiated, setValueNegotiated] = useState('0,00');
+    const [valueNegotiated, setValueNegotiated] = useState('');
     const [paymentMethod, setPaymentMethod] = useState(1)
     const [clients, setClients] = useState([]);
     const [stores, setStores] = useState([]);
@@ -99,7 +100,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
         getAllOrders()
           .then((resp) => {
             setOrders(resp.data)
-            setTotal(Number(sumTotal(resp.data)/100).toFixed(2))
+            setTotal(intToMoney(sumTotal(resp.data)))
           }).catch(() => {
             setSnackbarType('error');
             setSnackbarMessage('Algo deu errado ao recuperar os itens')
@@ -117,9 +118,9 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
       setClient(0);
       setStore(0);
       setDate(dayjs(Date.now()))
-      setValueFinanced('0,00');
+      setValueFinanced('');
       setValueCash('0,00');
-      setValueNegotiated('0,00');
+      setValueNegotiated('');
       setPaymentMethod(1);
     }
 
@@ -191,11 +192,11 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
             id="input-financed"
             name="input-financed"
             warning={financedError}
-            placeholder="Valor à prazo"
+            placeholder="R$ 0,00"
             value={valueFinanced}
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
             decimalScale={2}
-            onValueChange={(value, name) => {setValueFinanced(value); setValueCash(applyDiscount(valueFinanced, [0.15, 0.025]))}}
+            onValueChange={(value, name) => {setValueFinanced(value); setValueCash(applyDiscount(value, [0.15, 0.025]))}}
         />
         <MoneyLabel>Valor à vista:</MoneyLabel>
         <MoneyInput
@@ -211,6 +212,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
         <MoneyInput
             id="input-negotiated"
             name="input-negotiated"
+            placeholder='R$ 0,00'
             warning={negotiatedError}
             value={valueNegotiated}
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}

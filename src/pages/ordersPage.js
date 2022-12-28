@@ -8,6 +8,9 @@ import sumTotal from "../services/utils/sumTotal";
 import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
 import AddOrderDialog from "../components/orders/addOrderDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
+import intToMoney from "../services/utils/intToMoney";
+import { Container } from "../components/generics/inProgress";
+import { Clear } from "../styles/generalStyles";
 
 export default function OrdersPage(){    
     const [orders, setOrders] = useState([]);
@@ -22,7 +25,7 @@ export default function OrdersPage(){
         getAllOrders()
             .then((resp) => {
                 setOrders(resp.data)
-                setTotal(Number(sumTotal(resp.data)/100).toFixed(2));
+                setTotal(intToMoney(sumTotal(resp.data)));
             })
             .catch(() => {
                 setSnackbarType('error');
@@ -36,13 +39,27 @@ export default function OrdersPage(){
         setOpenAdd(false);
     }
 
+    function clearFilters(){
+        getAllOrders()
+        .then((resp) => {
+            setOrders(resp.data)
+            setTotal(intToMoney(sumTotal(resp.data)));
+        })
+        .catch(() => {
+            setSnackbarType('error');
+            setSnackbarMessage('Algo deu errado ao recuperar os itens')
+            setSnackbar(true);
+        })
+    }
+
 
     return (
         <>
+        <Clear onClick={clearFilters} >Limpar filtros</Clear>
         <CardsContainer>
             <Card contrast={false} subtitle='Novo' title='Pedido' iconName='add-circle-outline' action={() => setOpenAdd(true)} />
             <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)}/>
-            <Card contrast={true} subtitle='Total' number={total.replace('.',',')} money={true}/>
+            <Card contrast={true} subtitle='Total' number={total} money={true}/>
         </CardsContainer>
         <AddOrderDialog openDialog={openAdd} handleCloseDialog={handleCloseDialog} setOrders={setOrders} setTotal={setTotal} />
         <SearchOrdersDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setOrders={setOrders} setTotal={setTotal} />
@@ -61,7 +78,11 @@ export default function OrdersPage(){
             )}
         </TableContainer>
         </>
-        ): ''}
+        ) : 
+        <Container>
+            Nenhum item encontrado...
+        </Container>
+        }
         <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
         </>
     );

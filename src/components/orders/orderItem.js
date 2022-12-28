@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { deleteOrder, getAllOrders } from "../../services/api.services";
 import sumTotal from "../../services/utils/sumTotal";
 import GenericSnackbar from "../generics/genericSnackbar";
+import intToMoney from "../../services/utils/intToMoney";
 
 export default function OrderItem({rowData, setTotal, setOrders}){
     const date = dayjs(rowData.date).format('DD/MM/YYYY');
@@ -56,7 +57,7 @@ export default function OrderItem({rowData, setTotal, setOrders}){
                 {rowData.stores.name}
                 </RowCell>
                 <RowCell>
-                    R$ {(Number(rowData.value/100).toFixed(2)).toString().replace('.',',')}
+                    R$ {intToMoney(rowData.value)}
                 </RowCell>
                 <RowCell >
                     {date}

@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { searchStoreByName, getAllStores } from '../../services/api.services';
+import { searchStoreByName } from '../../services/api.services';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
 export default function SearchStoreDialog({openDialog, handleCloseDialog, setStores}){
@@ -23,10 +23,7 @@ export default function SearchStoreDialog({openDialog, handleCloseDialog, setSto
         })
         .catch(() => {
             setSnackbar(true)
-            getAllStores()
-                .then((resp) => {
-                    setStores(resp.data)
-                })
+            setStores([])
             })
    }
 
