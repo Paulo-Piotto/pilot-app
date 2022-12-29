@@ -6,6 +6,7 @@ import RegisterEmployeeDialog from "../components/employees/registerEmployeeDial
 import SearchEmployeeDialog from "../components/employees/searchEmployeeDialog";
 import { TableContainer, TableHeader } from "../styles/tableStyles";
 import TableItem from "../components/generics/tableItem";
+import { Container } from "../components/generics/inProgress";
 
 export default function EmployeesPage(){    
     const [employees, setEmployees] = useState([]);
@@ -46,8 +47,11 @@ export default function EmployeesPage(){
                 <TableItem rowData={employee} type='employee' />
             )}
         </TableContainer>
-        ): ''}
-        
+        ):
+        <Container>
+            Nenhum item encontrado...
+        </Container>
+        }
         </>
     );
 }

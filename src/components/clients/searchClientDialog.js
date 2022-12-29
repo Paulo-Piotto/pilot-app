@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { searchClientByName, getAllClients } from '../../services/api.services';
+import { searchClientByName } from '../../services/api.services';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
 export default function SearchClientDialog({openDialog, handleCloseDialog, setClients}){
@@ -23,10 +23,7 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
         })
         .catch(() => {
             setSnackbar(true)
-            getAllClients()
-                .then((resp) => {
-                    setClients(resp.data)
-                })
+            setClients([])
             })
    }
 

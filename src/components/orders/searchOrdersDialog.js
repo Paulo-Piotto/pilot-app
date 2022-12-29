@@ -14,9 +14,10 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { filterOrders, getAllStores, getAllClients } from '../../services/api.services';
 import sumTotal from '../../services/utils/sumTotal';
+import intToMoney from '../../services/utils/intToMoney';
+import { floorDateHour, ceilDateHour } from '../../services/utils/dateServices';
 
 export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOrders, setTotal}){
-
     const todayMinus30 = Date.now() - 86400000*30
 
     const [snackbar, setSnackbar] = useState(false);
@@ -41,9 +42,11 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
    function handleSubmit(e){
     e.preventDefault();
 
+    floorDateHour(initialDate)
+
     const searchSettings = {
-      initialDate: initialDate.toISOString(),
-      endDate: endDate.toISOString(),
+      initialDate: floorDateHour(initialDate),
+      endDate: ceilDateHour(endDate),
       store: selectedStore,
       client: selectedClient,
     }
@@ -52,10 +55,12 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
     filterOrders(searchSettings)
       .then((resp) => {
         setOrders(resp.data);
-        setTotal(Number(sumTotal(resp.data)/100).toFixed(2))
+        setTotal(intToMoney(sumTotal(resp.data)))
+        handleCloseDialog();
       })
       .catch(() => {
         setSnackbar(true)
+        setOrders([])
       })
     
    }

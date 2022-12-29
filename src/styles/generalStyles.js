@@ -71,6 +71,19 @@ const DeleteIcon = styled(IoTrashOutline)`
     }
 `
 
+const Clear = styled.p`
+    position: fixed;
+    left: 7vw;
+    top: 18vh;
+    font-family: 'Roboto',  sans-serif;
+    font-size: 0.75rem;
+    transition: all ease-in-out 0.1s;
+    &&:hover{
+        color: #605c57;
+        cursor: pointer;
+    }
+`
+
 export {
     Background,
     Header,
@@ -80,4 +93,5 @@ export {
     IconBox,
     EditIcon,
     DeleteIcon,
+    Clear,
 }

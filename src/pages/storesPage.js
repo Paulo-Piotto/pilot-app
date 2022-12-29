@@ -6,6 +6,8 @@ import RegisterStoreDialog from "../components/stores/registerStoreDialog";
 import SearchStoreDialog from "../components/stores/searchStoreDialog";
 import { TableContainer, TableHeader } from "../styles/tableStyles";
 import TableItem from "../components/generics/tableItem";
+import { Container } from "../components/generics/inProgress";
+import { Clear } from "../styles/generalStyles";
 
 export default function StoresPage(){    
     const [stores, setStores] = useState([]);
@@ -25,8 +27,16 @@ export default function StoresPage(){
         setOpenSearch(false);
     }
 
+    function clearFilters(){
+        getAllStores()
+        .then((resp) => {
+            setStores(resp.data)
+        })
+    }
+
     return (
         <>
+        <Clear onClick={clearFilters}>Limpar filtros</Clear>
         <CardsContainer>
             <Card contrast={false} subtitle='Cadastrar' title='Loja' iconName='briefcase-outline' action={() => setOpenRegister(true)}/>
             <Card contrast={false} subtitle='Buscar' title='Loja' iconName='search-outline' action={() => setOpenSearch(true)} />
@@ -34,16 +44,22 @@ export default function StoresPage(){
         </CardsContainer>
         <RegisterStoreDialog openDialog={openRegister} handleCloseDialog={handleCloseDialog} setStores={setStores} setAbsoluteStores={setAbsoluteStores} />
         <SearchStoreDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setStores={setStores} />
-        <TableHeader>
-            <p>Nome</p>
-        </TableHeader>
         {stores[0] ? (
+            <>
+            <TableHeader>
+                <p>Nome</p>
+            </TableHeader>
             <TableContainer>
             {stores.map((employee) => 
                 <TableItem rowData={employee} type='store' setItems={setStores} setAbsolute={setAbsoluteStores}/>
             )}
             </TableContainer>
-        ): ''}
+            </>
+        ): 
+        <Container>
+            Nenhum item encontrado...
+        </Container>
+        }
         
         </>
     );
