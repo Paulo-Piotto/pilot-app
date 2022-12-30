@@ -17,7 +17,7 @@ import sumTotal from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
 import { floorDateHour, ceilDateHour } from '../../services/utils/dateServices';
 
-export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOrders, setTotal}){
+export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOrders, setTotal, setLoading}){
     const todayMinus30 = Date.now() - 86400000*30
 
     const [snackbar, setSnackbar] = useState(false);
@@ -41,6 +41,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
 
    function handleSubmit(e){
     e.preventDefault();
+    setLoading(true);
 
     floorDateHour(initialDate)
 
@@ -54,6 +55,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
 
     filterOrders(searchSettings)
       .then((resp) => {
+        setLoading(false)
         setOrders(resp.data);
         setTotal(intToMoney(sumTotal(resp.data)))
         handleCloseDialog();
@@ -61,6 +63,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
       .catch(() => {
         setSnackbar(true)
         setOrders([])
+        setLoading(false)
       })
     
    }

@@ -84,6 +84,16 @@ const Clear = styled.p`
     }
 `
 
+const Loading = styled.div`
+    position: fixed;
+    width: 10vw;
+    font-family: 'Roboto', sans-serif;
+    top: calc(50vh - 1.5vh);
+    left: calc(50vw - 5vh);
+    text-align: center;
+    height: 3vh;
+`
+
 export {
     Background,
     Header,
@@ -94,4 +104,5 @@ export {
     EditIcon,
     DeleteIcon,
     Clear,
+    Loading,
 }

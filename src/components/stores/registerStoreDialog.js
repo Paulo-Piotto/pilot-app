@@ -9,7 +9,7 @@ import { getAllStores, registerStore } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
-export default function RegisterStoreDialog({openDialog, handleCloseDialog, setStores, setAbsoluteStores}){
+export default function RegisterStoreDialog({openDialog, handleCloseDialog, setStores, setAbsoluteStores, setLoading}){
 
     const [name, setName] = useState('');
     const [snackbar, setSnackbar] = useState(false)
@@ -24,19 +24,26 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
         setNameError(errorObject.name.error);
         setNameHelper(errorObject.name.helper);
     }else{
+        setLoading(true);
+        handleCloseDialog();
         registerStore({ name })
             .then(() => {
                 setSnackbar(true);
-                handleCloseDialog();
                 setName('');
                 getAllStores()
                     .then((resp) => {
                         setStores(resp.data)
                         setAbsoluteStores(resp.data.length)
+                        setLoading(false)
+                    })
+                    .catch(() => {
+                      setLoading(false);
+                      alert('algo deu errado')
                     })
             })
             .catch(() => {
                 alert('algo deu errado')
+                setLoading(false);
             })
         
     }       
@@ -55,6 +62,7 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
             margin="dense"
             id="name"
             label="Nome da loja"
+            autoComplete='off'
             type="text"
             required={true}
             helperText={nameHelper}
