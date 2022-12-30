@@ -1,5 +1,5 @@
 {
-  "name": "pilocchio_app",
+  "name": "piottoarq",
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",
@@ -8,7 +8,7 @@
     "name": "adriano gotardo",
     "email": "adrianogotardo.12@gmail.com"
   },
-  "description": "a dashboard for a construction company",
+  "description": "Gerencie o seu negócio",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -43,7 +43,7 @@
   },
   "build": {
     "appId": "com.example.electron",
-    "productName": "Pilocchio",
+    "productName": "PiottoArq",
     "win": {
       "icon": "./public/assets/icon.png"
     },
