@@ -9,7 +9,7 @@ import { getAllClients, registerClient } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
-export default function RegisterClientDialog({openDialog, handleCloseDialog, setClients, setAbsoluteClients}){
+export default function RegisterClientDialog({openDialog, handleCloseDialog, setClients, setAbsoluteClients, setLoading}){
 
     const [name, setName] = useState('');
     const [snackbar, setSnackbar] = useState(false)
@@ -18,6 +18,7 @@ export default function RegisterClientDialog({openDialog, handleCloseDialog, set
 
    function handleSubmit(e){
     e.preventDefault();
+    setLoading(true)
     const errorObject = storeNClientValidation({ name });
 
     if(errorObject){
@@ -33,10 +34,12 @@ export default function RegisterClientDialog({openDialog, handleCloseDialog, set
                     .then((resp) => {
                         setClients(resp.data)
                         setAbsoluteClients(resp.data.length)
+                        setLoading(false)
                     })
             })
             .catch(() => {
                 alert('algo deu errado')
+                setLoading(false)
             })
         
     }       
@@ -54,6 +57,7 @@ export default function RegisterClientDialog({openDialog, handleCloseDialog, set
             autoFocus
             margin="dense"
             id="name"
+            autoComplete='off'
             label="Nome da Obra"
             type="text"
             required={true}

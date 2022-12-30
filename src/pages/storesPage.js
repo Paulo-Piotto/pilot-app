@@ -8,17 +8,25 @@ import { TableContainer, TableHeader } from "../styles/tableStyles";
 import TableItem from "../components/generics/tableItem";
 import { Container } from "../components/generics/inProgress";
 import { Clear } from "../styles/generalStyles";
+import { Loading } from "../styles/generalStyles";
+import GenericSnackbar from "../components/generics/genericSnackbar";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function StoresPage(){    
     const [stores, setStores] = useState([]);
     const [absoluteStores, setAbsoluteStores] = useState(0)
     const [openRegister, setOpenRegister] = useState(false);
     const [openSearch, setOpenSearch] = useState(false);
+    const [loading, setLoading] = useState(true)
+    const [snackbar, setSnackbar] = useState(false);
+    const [snackbarType, setSnackbarType] = useState('success');
+    const [snackbarMessage, setSnackbarMessage] = useState('')
 
     useEffect(() => {
         getAllStores().then((resp) =>{
             setStores(resp.data);
             setAbsoluteStores(resp.data.length);
+            setLoading(false);
         })
     }, [])
 
@@ -28,9 +36,11 @@ export default function StoresPage(){
     }
 
     function clearFilters(){
+        setLoading(true)
         getAllStores()
         .then((resp) => {
             setStores(resp.data)
+            setLoading(false);
         })
     }
 
@@ -42,25 +52,31 @@ export default function StoresPage(){
             <Card contrast={false} subtitle='Buscar' title='Loja' iconName='search-outline' action={() => setOpenSearch(true)} />
             <Card contrast={true} subtitle='Lojas cadastradas' number={absoluteStores} />
         </CardsContainer>
-        <RegisterStoreDialog openDialog={openRegister} handleCloseDialog={handleCloseDialog} setStores={setStores} setAbsoluteStores={setAbsoluteStores} />
-        <SearchStoreDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setStores={setStores} />
-        {stores[0] ? (
+        <RegisterStoreDialog openDialog={openRegister} handleCloseDialog={handleCloseDialog} setStores={setStores} setAbsoluteStores={setAbsoluteStores} setLoading={setLoading} />
+        <SearchStoreDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setStores={setStores} setLoading={setLoading} />
+        <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
+        {loading ? <Loading> <CircularProgress /> </Loading> :
+        (
             <>
-            <TableHeader>
-                <p>Nome</p>
-            </TableHeader>
-            <TableContainer>
-            {stores.map((employee) => 
-                <TableItem rowData={employee} type='store' setItems={setStores} setAbsolute={setAbsoluteStores}/>
-            )}
-            </TableContainer>
+            {stores[0] ? (
+                <>
+                <TableHeader>
+                    <p>Nome</p>
+                </TableHeader>
+                <TableContainer>
+                {stores.map((employee) => 
+                    <TableItem rowData={employee} type='store' setItems={setStores} setAbsolute={setAbsoluteStores} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+                )}
+                </TableContainer>
+                </>
+            ): 
+            <Container>
+                Nenhum item encontrado...
+            </Container>
+            }
             </>
-        ): 
-        <Container>
-            Nenhum item encontrado...
-        </Container>
-        }
-        
+        )
+        }        
         </>
     );
 }

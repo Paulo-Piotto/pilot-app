@@ -2,7 +2,7 @@ export default function intToMoney(intNumber){
     const stringNumber =  intNumber.toString();
     const arrayNumber = stringNumber.split('')
     if(arrayNumber.length < 3){
-        arrayNumber.unshift(0);
+        arrayNumber.unshift(0,0);
     }
     for(let i=arrayNumber.length-5; i>0; i-=3){
         arrayNumber.splice(i, 0, '.')
