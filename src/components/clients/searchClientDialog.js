@@ -6,24 +6,29 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { searchClientByName } from '../../services/api.services';
-import RegisterSnackbar from '../generics/registerSnackbar';
+import GenericSnackbar from '../generics/genericSnackbar';
 
-export default function SearchClientDialog({openDialog, handleCloseDialog, setClients}){
+export default function SearchClientDialog({openDialog, handleCloseDialog, setClients, setLoading}){
 
     const [name, setName] = useState('');
     const [snackbar, setSnackbar] = useState(false)
+    const snackbarType = 'error';
+    const snackbarMessage = 'Nenhum resultado encontrado'
 
    function handleSubmit(e){
     e.preventDefault();
+    setLoading(true);
+    handleCloseDialog();
     searchClientByName(name)
         .then((resp) => {
             setClients(resp.data);
-            handleCloseDialog();
             setName('');
+            setLoading(false);
         })
         .catch(() => {
             setSnackbar(true)
             setClients([])
+            setLoading(false);
             })
    }
 
@@ -38,6 +43,7 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
             autoFocus
             margin="dense"
             id="name"
+            autoComplete='off'
             label="Nome da obra"
             type="text"
             required={true}
@@ -52,7 +58,7 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
         </DialogActions>
         </form>
       </Dialog>
-      <RegisterSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={'error'}/>
+      <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
       </>
     );
 }

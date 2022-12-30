@@ -8,8 +8,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function GenericSnackbar({snackbar, setSnackbar, type, message}) {
-
-  const handleClose = (event, reason) => {
+    const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }

@@ -4,20 +4,17 @@ import dayjs from "dayjs";
 import DeleteDialog from "./deleteDialog";
 import { deleteStore, getAllStores, deleteClient, getAllClients, updateClient, updateStore } from "../../services/api.services";
 import { DeleteIcon, EditIcon } from "../../styles/generalStyles";
-import GenericSnackbar from "./genericSnackbar";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
 import UpdateDialog from "./updateDialog";
 
-export default function TableItem({rowData, type, setAbsolute, setItems}){
+export default function TableItem({rowData, type, setAbsolute, setItems, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     rowData.start_day = dayjs(rowData.start_day).format('DD/MM/YYYY');
 
     const [openDelete, setOpenDelete] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
-    const [snackbar, setSnackbar] = useState(false);
-    const [snackbarType, setSnackbarType] = useState('success');
-    const [snackbarMessage, setSnackbarMessage] = useState('Item deletado com sucesso')
 
     function handleDelete(){
+        setLoading(true);
         const deletePromise = type === 'store' ? deleteStore(rowData.id) : deleteClient(rowData.id);
         deletePromise.then(() => {
             const getPromise = type === 'store' ? getAllStores() : getAllClients();
@@ -28,22 +25,27 @@ export default function TableItem({rowData, type, setAbsolute, setItems}){
                         setSnackbarMessage('Item deletado com sucesso')
                         setSnackbar(true);
                         setOpenDelete(false)
+                        setLoading(false)
             }).catch(() => {
                         setSnackbarType('error');
                         setSnackbarMessage('Algo deu errado ao recuperar os itens')
                         setSnackbar(true);
                         setOpenDelete(false);
+                        setLoading(false)
             })
         }).catch(() => {
+                setSnackbar(true);
                 setSnackbarType('error');
                 setSnackbarMessage('Impossível deletar item')
-                setSnackbar(true);
                 setOpenDelete(false);
+                setLoading(false)
+                setSnackbar(true);
         })
     }
 
     function handleUpdate({e, name, setName, setNameError, setNameHelper}){
         e.preventDefault();
+        setLoading(true)
         const errorObject = storeNClientValidation({ name });
     
         if(errorObject){
@@ -61,16 +63,19 @@ export default function TableItem({rowData, type, setAbsolute, setItems}){
                     setSnackbarMessage('Item atualizado com sucesso')
                     setSnackbar(true);
                     setOpenUpdate(false)
+                    setLoading(false)
                 }).catch(() => {
                     setSnackbarType('error');
                     setSnackbarMessage('Algo deu errado ao recuperar os itens')
                     setSnackbar(true);
+                    setLoading(false)
                 })
             })
             .catch(() => {
                 setSnackbarType('error');
                 setSnackbarMessage('Algo deu errado ao atualizar o item')
                 setSnackbar(true);
+                setLoading(false)
             })
         }       
        }
@@ -88,7 +93,6 @@ export default function TableItem({rowData, type, setAbsolute, setItems}){
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleDelete}/>
             <UpdateDialog openDialog={openUpdate} handleCloseDialog={() => setOpenUpdate(false)} handleSubmit={handleUpdate}/>
-            <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
             </>
         );    
 }

@@ -19,7 +19,7 @@ import sumTotal from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
 import GenericSnackbar from '../generics/genericSnackbar';
 
-export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders, setTotal}){
+export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders, setTotal, setLoading}){
 
     const [name, setName] = useState('');
     const [client, setClient] = useState(0);
@@ -63,6 +63,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
 
    function handleSubmit(e){
      e.preventDefault();
+     setLoading(true)
      const validationData = ordersValidation({name, client, store, date, valueFinanced, valueNegotiated, paymentMethod, valueCash})
 
     let keys = Object.keys(validationData.errorObject);
@@ -99,14 +100,17 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
       }).then(() => {
         getAllOrders()
           .then((resp) => {
+            setLoading(false)
             setOrders(resp.data)
             setTotal(intToMoney(sumTotal(resp.data)))
           }).catch(() => {
+            setLoading(false)
             setSnackbarType('error');
             setSnackbarMessage('Algo deu errado ao recuperar os itens')
             setSnackbar(true);
           })
       }).catch(() => {
+        setLoading(false)
         setSnackbarType('error');
         setSnackbarMessage('Algo deu errado ao recuperar os itens')
         setSnackbar(true);
@@ -141,6 +145,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
             type="text"
             required={true}
             fullWidth
+            autoComplete='off'
             variant="standard"
             onChange={(e) => setName(e.target.value.toUpperCase())}
             inputProps={{style: {fontSize: 18}}}
@@ -192,6 +197,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
             id="input-financed"
             name="input-financed"
             warning={financedError}
+            autoComplete='off'
             placeholder="R$ 0,00"
             value={valueFinanced}
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
@@ -213,6 +219,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
             id="input-negotiated"
             name="input-negotiated"
             placeholder='R$ 0,00'
+            autoComplete='off'
             warning={negotiatedError}
             value={valueNegotiated}
             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
