@@ -22,7 +22,6 @@ function App() {
           <Route path="/stores" element={<StoresPage />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/development" element={<InProgress />} />
-          <Route path="/auth" element={<Auth />} />
         </Routes>
       </HashRouter>
   );
