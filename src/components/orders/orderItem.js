@@ -3,7 +3,7 @@ import { TableRow, RowCell } from "../../styles/tableStyles";
 import dayjs from "dayjs";
 import DeleteDialog from "../generics/deleteDialog";
 import { deleteOrder, getAllOrders } from "../../services/api.services";
-import sumTotal from "../../services/utils/sumTotal";
+import { sumTotal } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
 import { DeleteIcon } from "../../styles/generalStyles";
 
@@ -61,7 +61,9 @@ export default function OrderItem({rowData, setTotal, setOrders, setLoading, set
                 <RowCell >
                     {date}
                 </RowCell>
-                <DeleteIcon onClick={() => setOpenDelete(true)}/>
+                <RowCell icon={true}>
+                    <DeleteIcon onClick={() => setOpenDelete(true)}/>
+                </RowCell>
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleSubmitDelete}/>
             </>

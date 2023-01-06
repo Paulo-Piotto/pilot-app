@@ -5,6 +5,7 @@ import StoresPage from "./pages/storesPage";
 import ClientsPage from "./pages/clientsPage";
 import OrdersPage from "./pages/ordersPage";
 import InProgress from "./components/generics/inProgress";
+import ClientsBalancePage from "./pages/clientsBalancePage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/stores" element={<StoresPage />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/development" element={<InProgress />} />
+          <Route path="/balance" element={<ClientsBalancePage />} />
         </Routes>
       </HashRouter>
   );

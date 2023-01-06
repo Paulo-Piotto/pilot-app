@@ -4,7 +4,7 @@ import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import RegisterClientDialog from "../components/clients/registerClientDialog";
 import SearchClientDialog from "../components/clients/searchClientDialog";
-import { TableContainer, TableHeader } from "../styles/tableStyles";
+import { TableContainer, TableHeader, HeaderContainer } from "../styles/tableStyles";
 import TableItem from "../components/generics/tableItem";
 import { Container } from "../components/generics/inProgress";
 import { Clear, Loading } from "../styles/generalStyles";
@@ -59,9 +59,11 @@ export default function ClientsPage(){
         <>
         {clients[0] ? (
             <>
-            <TableHeader>
-                <p>Nome</p>
-            </TableHeader>
+            <HeaderContainer>
+                <TableHeader>
+                    <p>Nome</p>
+                </TableHeader>
+            </HeaderContainer>
             <TableContainer>
             {clients.map((employee) => 
                 <TableItem rowData={employee} type='client' setItems={setClients} setAbsolute={setAbsoluteClients} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />

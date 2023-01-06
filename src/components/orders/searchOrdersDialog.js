@@ -13,7 +13,7 @@ import RegisterSnackbar from '../generics/registerSnackbar';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { filterOrders, getAllStores, getAllClients } from '../../services/api.services';
-import sumTotal from '../../services/utils/sumTotal';
+import { sumTotal } from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
 import { floorDateHour, ceilDateHour } from '../../services/utils/dateServices';
 

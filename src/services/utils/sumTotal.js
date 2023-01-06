@@ -1,4 +1,4 @@
-export default function sumTotal(ordersArray){
+function sumTotal(ordersArray){
     let total = 0;
 
     ordersArray.forEach(order => {
@@ -6,4 +6,23 @@ export default function sumTotal(ordersArray){
     });
 
     return total;
+}
+
+function sumTotalBalance(clientsArray){
+    let balance = 0;
+    let ordersTotal = 0;
+    let incomesTotal = 0;
+
+    clientsArray.forEach(client => {
+        ordersTotal += sumTotal(client.orders);
+        incomesTotal += sumTotal(client.incomes);
+    });
+
+    balance = incomesTotal - ordersTotal;
+    return balance;
+}
+
+export {
+    sumTotal,
+    sumTotalBalance
 }
