@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 //const URL = 'http://3.82.151.240:80/';
-const URL = 'http://3.82.151.240:80'
-// const URL = 'http://localhost:5000'
+//const URL = 'http://3.82.151.240:80'
+const URL = 'http://localhost:5000'
 
 function getAllEmployees(){
     return axios.get(`${URL}/employees`);
@@ -76,6 +76,14 @@ function updateClient(updateData){
     return axios.put(`${URL}/clients`, updateData);
 }
 
+function getClientsBalance(searchSettings){
+    if(searchSettings.initialDate && searchSettings.endDate){
+        return axios.get(`${URL}/clients/balance?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}`)
+    }
+    return axios.get(`${URL}/clients/balance`)
+    
+}
+
 export {
     getAllEmployees,
     registerEmployee,
@@ -95,4 +103,5 @@ export {
     deleteEmployee,
     updateStore,
     updateClient,
+    getClientsBalance,
 }

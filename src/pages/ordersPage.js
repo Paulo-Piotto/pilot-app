@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import CircularProgress from '@mui/material/CircularProgress';
-import { TableContainer, TableHeader } from "../styles/tableStyles";
+import { TableContainer, TableHeader, HeaderContainer} from "../styles/tableStyles";
 import OrderItem from "../components/orders/orderItem";
 import { getAllOrders } from "../services/api.services";
-import sumTotal from "../services/utils/sumTotal";
+import { sumTotal } from "../services/utils/sumTotal";
 import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
 import AddOrderDialog from "../components/orders/addOrderDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
@@ -76,13 +76,16 @@ export default function OrdersPage(){
             <>
             {orders[0] ? (
             <>
-            <TableHeader>
-                <p>Pedido</p>
-                <p>Obra</p>
-                <p>Loja</p>
-                <p>Valor</p>
-                <p>Data</p>
-            </TableHeader>
+            <HeaderContainer>
+                <TableHeader>
+                    <p>Pedido</p>
+                    <p>Obra</p>
+                    <p>Loja</p>
+                    <p>Valor</p>
+                    <p>Data</p>
+                    <p></p>
+                </TableHeader>
+            </HeaderContainer>
                 <TableContainer>
                 {orders.map((order) => 
                     <OrderItem rowData={order} setTotal={setTotal} setOrders={setOrders} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
