@@ -29,7 +29,7 @@ export default function AddIncomeDialog({openDialog, handleCloseDialog, setClien
               setSnackbarMessage('Algo deu errado ao recuperar as obras da lista')
               setSnackbar(true);
             });
-    },[])
+    })
 
     return(
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth='sm' fullWidth={true} >

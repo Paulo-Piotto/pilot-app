@@ -17,7 +17,7 @@ export default function ClientsBalancePage(){
     const [clients, setClients] = useState([]);
     const [total, setTotal] = useState('0,00')
     const [openAdd, setOpenAdd] = useState(false);
-    const [openSearch, setOpenSearch] = useState(false);
+    // const [openSearch, setOpenSearch] = useState(false);
     const [snackbar, setSnackbar] = useState(false);
     const [snackbarType, setSnackbarType] = useState('');
     const [snackbarMessage, setSnackbarMessage] = useState('')
@@ -41,7 +41,7 @@ export default function ClientsBalancePage(){
     useEffect(clearFilters, [])
     
     function handleCloseDialog(){
-        setOpenSearch(false);
+        // setOpenSearch(false);
         setOpenAdd(false);
     }
 
