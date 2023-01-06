@@ -43,8 +43,8 @@ export default function EmployeesPage(){
         </TableHeader>
         {employees[0] ? (
             <TableContainer>
-            {employees.map((employee) => 
-                <TableItem rowData={employee} type='employee' />
+            {employees.map((employee, index) => 
+                <TableItem key={index} rowData={employee} type='employee' />
             )}
         </TableContainer>
         ):

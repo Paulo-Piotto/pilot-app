@@ -13,7 +13,7 @@ import { ordersValidation } from '../../services/validationServices/ordersValida
 import styled from 'styled-components';
 import { getAllClients, getAllStores, getAllOrders, addOrder } from '../../services/api.services';
 import dayjs from 'dayjs';
-import { MoneyInput } from '../../styles/moneyInputStyles';
+import { MoneyInput, MoneyLabel } from '../../styles/moneyInputStyles';
 import applyDiscount from '../../services/utils/applyDiscount';
 import { sumTotal } from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
@@ -281,10 +281,3 @@ const DateWrapper = styled.div`
 const SelectWrapper = styled.div`
     display: flex;
 ` 
-
-const MoneyLabel = styled.p`
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.7rem;
-    margin-top: 8px;
-    color: #6F6767;
-`

@@ -66,8 +66,8 @@ export default function StoresPage(){
                     </TableHeader>
                 </HeaderContainer>
                 <TableContainer>
-                {stores.map((employee) => 
-                    <TableItem rowData={employee} type='store' setItems={setStores} setAbsolute={setAbsoluteStores} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+                {stores.map((store, index) => 
+                    <TableItem key={index} rowData={store} type='store' setItems={setStores} setAbsolute={setAbsoluteStores} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
                 )}
                 </TableContainer>
                 </>
