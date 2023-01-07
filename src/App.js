@@ -5,9 +5,15 @@ import StoresPage from "./pages/storesPage";
 import ClientsPage from "./pages/clientsPage";
 import OrdersPage from "./pages/ordersPage";
 import InProgress from "./components/generics/inProgress";
+import Auth from "./components/auth";
+import AuthContext from "./components/context/AuthContext";
+import { useContext } from "react";
 import ClientsBalancePage from "./pages/clientsBalancePage";
 
 function App() {
+  const { userData } = useContext(AuthContext);
+
+  if(userData) return <Auth />
   return (
       <HashRouter>
         <Main />

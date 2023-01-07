@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getClientsBalance } from "../services/api.services";
+import { ClientsService } from "../services/api.services";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import { TableContainer, TableHeader, HeaderContainer } from "../styles/tableStyles";
@@ -21,7 +21,7 @@ export default function ClientsBalancePage(){
 
     function clearFilters(){
         setLoading(true)
-        getClientsBalance({initialDate: undefined, endDate: undefined})
+        ClientsService.getClientsBalance({initialDate: undefined, endDate: undefined})
         .then((resp) => {
             setClients(resp.data)
             setTotal(intToMoney(sumTotalBalance(resp.data)))

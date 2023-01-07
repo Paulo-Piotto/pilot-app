@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllEmployees } from "../services/api.services";
+import { EmployeesService } from "../services/api.services";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import RegisterEmployeeDialog from "../components/employees/registerEmployeeDialog";
@@ -15,7 +15,7 @@ export default function EmployeesPage(){
     const [openSearch, setOpenSearch] = useState(false);
 
     useEffect(() => {
-        getAllEmployees().then((resp) =>{
+        EmployeesService.getAllEmployees().then((resp) =>{
             setEmployees(resp.data);
             setAbsoluteEmployees(resp.data.length);
         })

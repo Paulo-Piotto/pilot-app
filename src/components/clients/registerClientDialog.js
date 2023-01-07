@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { getAllClients, registerClient } from '../../services/api.services';
+import { ClientsService } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
@@ -25,12 +25,12 @@ export default function RegisterClientDialog({openDialog, handleCloseDialog, set
         setNameError(errorObject.name.error);
         setNameHelper(errorObject.name.helper);
     }else{
-        registerClient({ name })
+        ClientsService.registerClient({ name })
             .then(() => {
                 setSnackbar(true);
                 handleCloseDialog();
                 setName('');
-                getAllClients()
+                ClientsService.getAllClients()
                     .then((resp) => {
                         setClients(resp.data)
                         setAbsoluteClients(resp.data.length)
