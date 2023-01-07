@@ -2,14 +2,15 @@ import { useState } from "react";
 import { TableRow, RowCell } from "../../styles/tableStyles";
 import dayjs from "dayjs";
 import DeleteDialog from "./deleteDialog";
-import { deleteStore, getAllStores, deleteClient, getAllClients, updateClient, updateStore } from "../../services/api.services";
+import { StoresService, ClientsService } from "../../services/api.services";
 import { DeleteIcon, EditIcon } from "../../styles/generalStyles";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
 import UpdateDialog from "./updateDialog";
 
 export default function TableItem({rowData, type, setAbsolute, setItems, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
+    const { deleteStore, getAllStores, updateStore } = StoresService;
+    const { deleteClient, getAllClients, updateClient } = ClientsService;
     rowData.start_day = dayjs(rowData.start_day).format('DD/MM/YYYY');
-
     const [openDelete, setOpenDelete] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllClients } from "../services/api.services";
+import { ClientsService } from "../services/api.services";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import RegisterClientDialog from "../components/clients/registerClientDialog";
@@ -22,7 +22,7 @@ export default function ClientsPage(){
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getAllClients().then((resp) =>{
+        ClientsService.getAllClients().then((resp) =>{
             setClients(resp.data);
             setAbsoluteClients(resp.data.length);
             setLoading(false)
@@ -36,7 +36,7 @@ export default function ClientsPage(){
 
     function clearFilters(){
         setLoading(true);
-        getAllClients()
+        ClientsService.getAllClients()
         .then((resp) => {
             setClients(resp.data)
             setLoading(false)

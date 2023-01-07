@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { searchClientByName } from '../../services/api.services';
+import { ClientsService } from '../../services/api.services';
 import GenericSnackbar from '../generics/genericSnackbar';
 
 export default function SearchClientDialog({openDialog, handleCloseDialog, setClients, setLoading}){
@@ -19,7 +19,7 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
     e.preventDefault();
     setLoading(true);
     handleCloseDialog();
-    searchClientByName(name)
+    ClientsService.searchClientByName(name)
         .then((resp) => {
             setClients(resp.data);
             setName('');

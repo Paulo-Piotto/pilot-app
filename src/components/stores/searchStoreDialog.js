@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { searchStoreByName } from '../../services/api.services';
+import { StoresService } from '../../services/api.services';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
 export default function SearchStoreDialog({openDialog, handleCloseDialog, setStores, setLoading}){
@@ -17,7 +17,7 @@ export default function SearchStoreDialog({openDialog, handleCloseDialog, setSto
     e.preventDefault();
     setLoading(true)
     handleCloseDialog();
-    searchStoreByName(name)
+    StoresService.searchStoreByName(name)
         .then((resp) => {
             setStores(resp.data);
             setName('');

@@ -11,8 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { employeeValidation } from '../../services/validationServices/employeesValidation';
 import styled from 'styled-components';
 import RegisterSnackbar from '../generics/registerSnackbar';
-import { registerEmployee } from '../../services/api.services';
-import { getAllEmployees } from '../../services/api.services';
+import { EmployeesService } from '../../services/api.services';
 import dayjs from 'dayjs';
 import { MoneyInput } from '../../styles/moneyInputStyles';
 
@@ -38,14 +37,14 @@ export default function RegisterEmployeeDialog({openDialog, handleCloseDialog, s
     }else{
         
         const wage = Number(wageValue.replace(',','.')*100)
-        registerEmployee({name, wage, startDate})
+        EmployeesService.registerEmployee({name, wage, startDate})
             .then(() => {
                 setSnackbar(true);
                 handleCloseDialog();
                 setName('');
                 setWageValue(Number(0).toFixed(2))
                 setStartDate('')
-                getAllEmployees()
+                EmployeesService.getAllEmployees()
                     .then((resp) => {
                         setEmployees(resp.data);
                         setAbsoluteEmployees(resp.data.length)

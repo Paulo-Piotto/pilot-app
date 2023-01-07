@@ -11,7 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ordersValidation } from '../../services/validationServices/ordersValidation';
 import styled from 'styled-components';
-import { getAllClients, getAllStores, getAllOrders, addOrder } from '../../services/api.services';
+import { ClientsService, StoresService, getAllOrders, addOrder } from '../../services/api.services';
 import dayjs from 'dayjs';
 import { MoneyInput } from '../../styles/moneyInputStyles';
 import applyDiscount from '../../services/utils/applyDiscount';
@@ -41,7 +41,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
     const [snackbarMessage, setSnackbarMessage] = useState('Item deletado com sucesso')
 
     useEffect(() => {
-        getAllClients()
+        ClientsService.getAllClients()
             .then((resp) => {
                 setClients(resp.data);
             })
@@ -50,7 +50,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
               setSnackbarMessage('Algo deu errado ao recuperar os itens')
               setSnackbar(true);
             });
-        getAllStores()
+        StoresService.getAllStores()
             .then((resp) => {
                 setStores(resp.data);
             })

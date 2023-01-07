@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { getAllStores, registerStore } from '../../services/api.services';
+import { StoresService } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
@@ -26,11 +26,11 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
     }else{
         setLoading(true);
         handleCloseDialog();
-        registerStore({ name })
+        StoresService.registerStore({ name })
             .then(() => {
                 setSnackbar(true);
                 setName('');
-                getAllStores()
+                StoresService.getAllStores()
                     .then((resp) => {
                         setStores(resp.data)
                         setAbsoluteStores(resp.data.length)
