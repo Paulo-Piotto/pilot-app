@@ -1,14 +1,10 @@
 import * as sc from "./styles";
-import { useLayoutEffect, useState } from "react";
 import { Logo } from "../../styles/generalStyles";
+import useWindowSize from "../../hooks/useWindowSize";
+
 
 export default function Slider({ igniteMotion, side }) {
-    const [ animationBoundarie, setAnimationBoundarie ] = useState(0);
-
-    useLayoutEffect(() => {
-        const trackContainerWidht = 0.8 * window.innerWidth;
-        setAnimationBoundarie(trackContainerWidht/2);
-    }, [ window.innerWidth ]) // this dependencie is crucial to animation adaptability through window resize
+    const animationBoundarie = (useWindowSize()*0.8)/2;
 
     const variants = {
         left: { x: 20 },
