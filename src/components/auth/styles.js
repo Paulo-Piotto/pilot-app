@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import * as gs from "../../styles/generalStyles";
 import { motion } from "framer-motion";
+import TextField from '@mui/material/TextField';
 
 export const Background = styled(gs.Background)`
     display: flex;
@@ -10,7 +11,7 @@ export const Background = styled(gs.Background)`
 `
 
 export const TrackContainer = styled.div`
-    background-color: #d6d6d6;
+    background-color: #D6D1C4;
     width: 80%;
     height: 80%;
     border-radius: 5px;
@@ -23,7 +24,7 @@ export const TrackContainer = styled.div`
 export const SliderContainer = styled(motion.div)`
     height: 105%;
     width: 50%;
-    background-color: #131E31;
+    background-color: #131E29;
     position: absolute;
     top: -2.5%;
     left: 0px;
@@ -33,6 +34,7 @@ export const SliderContainer = styled(motion.div)`
     flex-direction: column;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+    z-index: 10;
 
     img {
         width: 65%;
@@ -61,8 +63,33 @@ export const AuthContainer = styled.section`
         display: flex;
         flex-direction: column;
 
-        >label {
-            margin: 20px 0px 5px 0px;
+        >div {
+            margin-top: 20px;
+            outline-color: red;
+            border-color: red;
         }
     }
 `
+
+// https://stackoverflow.com/questions/67139471/how-can-i-change-the-focused-color-of-a-textfield
+export const CssTextField = styled(TextField, { shouldForwardProp: (props) => props !== "focusColor" })
+    ((p) => ({
+        // input label when focused
+        "& label.Mui-focused": {
+            color: p.focusColor
+        },
+        // focused color for input with variant='standard'
+        "& .MuiInput-underline:after": {
+            borderBottomColor: p.focusColor
+        },
+        // focused color for input with variant='filled'
+        "& .MuiFilledInput-underline:after": {
+            borderBottomColor: p.focusColor
+        },
+        // focused color for input with variant='outlined'
+        "& .MuiOutlinedInput-root": {
+            "&.Mui-focused fieldset": {
+                borderColor: p.focusColor
+            }
+        }
+}));

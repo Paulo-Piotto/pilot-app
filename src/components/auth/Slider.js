@@ -8,7 +8,7 @@ export default function Slider({ igniteMotion, side }) {
     useLayoutEffect(() => {
         const trackContainerWidht = 0.8 * window.innerWidth;
         setAnimationBoundarie(trackContainerWidht/2);
-    }, [ window.innerWidth ])
+    }, [ window.innerWidth ]) // this dependencie is crucial to animation adaptability through window resize
 
     const variants = {
         left: { x: 20 },

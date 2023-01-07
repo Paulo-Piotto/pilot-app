@@ -76,6 +76,11 @@ function updateClient(updateData){
     return axios.put(`${URL}/clients`, updateData);
 }
 
+const authService = {
+    register: (registrationData) => axios.post(`${URL}/users/register`, registrationData),
+    login: (loginData) => axios.post()
+}
+
 export {
     getAllEmployees,
     registerEmployee,

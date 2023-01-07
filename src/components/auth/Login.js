@@ -19,20 +19,24 @@ export default function Login() {
             <h2>Login</h2>
 
             <form>
-                <label>Email: </label>
-                <input 
+                <sc.CssTextField 
+                    label="Email:"
+                    variant="filled"
                     type="text"
                     name="Email"
                     value={newLogin.email}
                     onChange={ e => updateNewLoginData({ email: e.target.value }) }
+                    focusColor='#131E29'
                 />
 
-                <label>Senha: </label>
-                <input 
+                <sc.CssTextField 
+                    label="Senha"
+                    variant="filled"
                     type="text"
                     name="Password"
                     value={newLogin.password}
                     onChange={ e => updateNewLoginData({ password: e.target.value }) }
+                    focusColor='#131E29'
                 />
             </form>
         </sc.AuthContainer>
