@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TableRow, RowCell } from "../../styles/tableStyles";
 import dayjs from "dayjs";
 import DeleteDialog from "../generics/deleteDialog";
-import { deleteOrder, getAllOrders } from "../../services/api.services";
+import { OrdersService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
 import { DeleteIcon } from "../../styles/generalStyles";
@@ -14,9 +14,9 @@ export default function OrderItem({rowData, setTotal, setOrders, setLoading, set
 
     function handleSubmitDelete(){
         setLoading(true)
-        deleteOrder(rowData.id)
+        OrdersService.deleteOrder(rowData.id)
             .then(() => {
-                getAllOrders()
+                OrdersService.getAllOrders()
                     .then((resp) => {
                         setOrders(resp.data)
                         setTotal(intToMoney(sumTotal(resp.data)));
