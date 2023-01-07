@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { searchEmployeeByName, getAllEmployees } from '../../services/api.services';
+import { EmployeesService } from '../../services/api.services';
 import RegisterSnackbar from '../generics/registerSnackbar';
 
 export default function SearchEmployeeDialog({openDialog, handleCloseDialog, setEmployees}){
@@ -15,7 +15,7 @@ export default function SearchEmployeeDialog({openDialog, handleCloseDialog, set
 
    function handleSubmit(e){
     e.preventDefault();
-        searchEmployeeByName(name)
+    EmployeesService.searchEmployeeByName(name)
             .then((resp) => {
                 setEmployees(resp.data);
                 handleCloseDialog();
@@ -23,7 +23,7 @@ export default function SearchEmployeeDialog({openDialog, handleCloseDialog, set
             })
             .catch(() => {
                 setSnackbar(true)
-                getAllEmployees()
+                EmployeesService.getAllEmployees()
                     .then((resp) => {
                         setEmployees(resp.data)
                     })
