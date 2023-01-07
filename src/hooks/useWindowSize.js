@@ -4,15 +4,15 @@ function useWindowSize() {
     const [ windowSize, setWindowSize ] = useState(window.innerWidth);
 
     useEffect(() => {
-        function calculateNewAnimationBoundarie() {
+        function calculateNewScreenSize() {
             setWindowSize(window.innerWidth)
         }
 
-        calculateNewAnimationBoundarie();
+        calculateNewScreenSize();
 
-        window.addEventListener('resize', calculateNewAnimationBoundarie);
+        window.addEventListener('resize', calculateNewScreenSize);
 
-        return () => window.removeEventListener('resize', calculateNewAnimationBoundarie)
+        return () => window.removeEventListener('resize', calculateNewScreenSize)
     }, [])
 
     return windowSize;
