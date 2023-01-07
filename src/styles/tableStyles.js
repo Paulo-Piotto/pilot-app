@@ -1,27 +1,41 @@
 import styled from "styled-components";
 
-const TableHeader = styled.div`
-    width: 70.5vw;
+const HeaderContainer = styled.div`
+    width: 75vw;
     position: fixed;
-    left: calc(51.75vw - 35vw);
+    left: calc(51.75vw - 37.5vw);
     top: 25vh;
     font-family: 'Roboto', sans-serif;
-    display: flex;
-    font-size: 0.9rem;
+`
+
+const TableHeader = styled.div`
+    width: 70.5vw;
+    height: 7.8vh;
+    top: 25vh;
     padding: 0 20px;
+    display: flex;
+    margin-left: calc(50% - 35vw);
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4D5666;
+    border-radius: 4px 4px 0 0;
+    color: white;
 
     p{
-        width: 20%;
-        font-weight: bold;
+        width: 12%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 0.8rem;
     }
 `
 
 const TableContainer = styled.div`
     width: 75vw;
-    height: 68vh;
+    height: 65vh;
     position: fixed;
     left: calc(51.75vw - 37.5vw);
-    top: 30vh;
+    top: 32.8vh;
     overflow-y: auto;
     font-family: 'Roboto', sans-serif;
 
@@ -51,23 +65,28 @@ const TableRow = styled.div`
     width: 70.5vw;
     height: 12%;
     background-color: #eaeaea;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    /* border-radius: 8px; */
+    /* margin-bottom: 10px; */
     margin-left: calc(50% - 35vw);
     padding: 0 20px;
     display: flex;
-    justify-content: ${(props) => !props.single ? "flex-start" : "space-between"};
+    justify-content: space-between;
     align-items: center;
     
+    &:last-child{
+        border-radius: 0 0 4px 4px;
+    }
 `
 
 const RowCell = styled.p`
-    width: 20%;
-    margin-right: ${(props) => !props.icon ? "20px" : "0"};
+    width: 12%;
     display: flex;
-    justify-content: ${(props) => !props.icon ? "flex-start" : "center"};
+    justify-content: ${(props) => !props.icon ? "flex-start" : "flex-end"};
     align-items: center;
     font-size: ${(props) => !props.icon ? "0.8rem" : "1.2rem"};
+    color: ${(props) => !props.color ? "black" : props.color};
+    font-weight: ${(props) => !props.bold ? "400" : 'bold'};
 `
 
 export {
@@ -75,4 +94,5 @@ export {
     TableRow,
     RowCell,
     TableHeader,
+    HeaderContainer,
 }

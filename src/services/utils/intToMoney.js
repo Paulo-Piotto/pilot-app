@@ -5,7 +5,7 @@ export default function intToMoney(intNumber){
         arrayNumber.unshift(0,0);
     }
     for(let i=arrayNumber.length-5; i>0; i-=3){
-        arrayNumber.splice(i, 0, '.')
+        if(arrayNumber[i-1] !== '-') arrayNumber.splice(i, 0, '.')
     }
     arrayNumber.splice(arrayNumber.length-2, 0, ',');
     const result = arrayNumber.join('');

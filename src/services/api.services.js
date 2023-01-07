@@ -81,6 +81,14 @@ const authService = {
     login: (loginData) => axios.post()
 }
 
+function getClientsBalance(searchSettings){
+    if(searchSettings.initialDate && searchSettings.endDate){
+        return axios.get(`${URL}/clients/balance?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}`)
+    }
+    return axios.get(`${URL}/clients/balance`)
+    
+}
+
 export {
     getAllEmployees,
     registerEmployee,
@@ -100,4 +108,5 @@ export {
     deleteEmployee,
     updateStore,
     updateClient,
+    getClientsBalance,
 }

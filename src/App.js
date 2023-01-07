@@ -8,6 +8,7 @@ import InProgress from "./components/generics/inProgress";
 import Auth from "./components/auth";
 import AuthContext from "./components/context/AuthContext";
 import { useContext } from "react";
+import ClientsBalancePage from "./pages/clientsBalancePage";
 
 function App() {
   const { userData } = useContext(AuthContext);
@@ -22,6 +23,7 @@ function App() {
           <Route path="/stores" element={<StoresPage />} />
           <Route path="/clients" element={<ClientsPage />} />
           <Route path="/development" element={<InProgress />} />
+          <Route path="/balance" element={<ClientsBalancePage />} />
         </Routes>
       </HashRouter>
   );

@@ -15,7 +15,7 @@ import { getAllClients, getAllStores, getAllOrders, addOrder } from '../../servi
 import dayjs from 'dayjs';
 import { MoneyInput } from '../../styles/moneyInputStyles';
 import applyDiscount from '../../services/utils/applyDiscount';
-import sumTotal from '../../services/utils/sumTotal';
+import { sumTotal } from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
 import GenericSnackbar from '../generics/genericSnackbar';
 

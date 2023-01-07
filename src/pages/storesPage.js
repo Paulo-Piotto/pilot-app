@@ -4,7 +4,7 @@ import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import RegisterStoreDialog from "../components/stores/registerStoreDialog";
 import SearchStoreDialog from "../components/stores/searchStoreDialog";
-import { TableContainer, TableHeader } from "../styles/tableStyles";
+import { TableContainer, TableHeader, HeaderContainer } from "../styles/tableStyles";
 import TableItem from "../components/generics/tableItem";
 import { Container } from "../components/generics/inProgress";
 import { Clear } from "../styles/generalStyles";
@@ -60,9 +60,11 @@ export default function StoresPage(){
             <>
             {stores[0] ? (
                 <>
-                <TableHeader>
-                    <p>Nome</p>
-                </TableHeader>
+                <HeaderContainer>
+                    <TableHeader>
+                        <p>Nome</p>
+                    </TableHeader>
+                </HeaderContainer>
                 <TableContainer>
                 {stores.map((employee) => 
                     <TableItem rowData={employee} type='store' setItems={setStores} setAbsolute={setAbsoluteStores} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />

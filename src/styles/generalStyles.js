@@ -27,7 +27,7 @@ const SideMenu = styled.div`
 `
 
 const IconsContainer = styled.div`
-    height: 75%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
