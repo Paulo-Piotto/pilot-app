@@ -68,28 +68,37 @@ export const AuthContainer = styled.section`
             outline-color: red;
             border-color: red;
         }
+
+        #submit-button {
+            width: 40px !important;
+            border-radius: none;
+            
+            svg {
+                font-size: 20px;
+            }
+        }
     }
 `
 
 // https://stackoverflow.com/questions/67139471/how-can-i-change-the-focused-color-of-a-textfield
-export const CssTextField = styled(TextField, { shouldForwardProp: (props) => props !== "focusColor" })
+export const CssTextField = styled(TextField, { shouldForwardProp: (props) => props !== "focuscolor" })
     ((p) => ({
         // input label when focused
         "& label.Mui-focused": {
-            color: p.focusColor
+            color: p.focuscolor
         },
         // focused color for input with variant='standard'
         "& .MuiInput-underline:after": {
-            borderBottomColor: p.focusColor
+            borderBottomColor: p.focuscolor
         },
         // focused color for input with variant='filled'
         "& .MuiFilledInput-underline:after": {
-            borderBottomColor: p.focusColor
+            borderBottomColor: p.focuscolor
         },
         // focused color for input with variant='outlined'
         "& .MuiOutlinedInput-root": {
             "&.Mui-focused fieldset": {
-                borderColor: p.focusColor
+                borderColor: p.focuscolor
             }
         }
 }));

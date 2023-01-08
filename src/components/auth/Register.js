@@ -32,7 +32,7 @@ export default function Register() {
                     name="Name"
                     value={newUser.name}
                     onChange={ e => updateNewUserData({ name: e.target.value }) }
-                    focusColor='#131E29'
+                    focuscolor='#131E29'
                 />
 
                 <sc.CssTextField
@@ -42,27 +42,27 @@ export default function Register() {
                     name="Email"
                     value={newUser.email}
                     onChange={ e => updateNewUserData({ email: e.target.value }) }
-                    focusColor='#131E29'
+                    focuscolor='#131E29'
                 />
 
                 <sc.CssTextField
                     label="Senha"
                     variant="filled" 
-                    type="text"
+                    type="password"
                     name="Password"
                     value={newUser.password}
                     onChange={ e => updateNewUserData({ password: e.target.value }) }
-                    focusColor='#131E29'
+                    focuscolor='#131E29'
                 />
 
                 <sc.CssTextField
                     label="Confirme a senha"
                     variant="filled" 
-                    type="text"
+                    type="password"
                     name="Password Confirmation"
                     value={passwordConfirmation}
                     onChange={ e => setPasswordConfirmation(e.target.value) }
-                    focusColor='#131E29'
+                    focuscolor='#131E29'
                 />
             </form>
             

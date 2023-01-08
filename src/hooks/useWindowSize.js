@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 function useWindowSize() {
     const [ windowSize, setWindowSize ] = useState(window.innerWidth);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         function calculateNewScreenSize() {
             setWindowSize(window.innerWidth)
         }
