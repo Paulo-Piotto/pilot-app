@@ -10,7 +10,7 @@ export const SendButton = styled(motion.button)`
     background: none;
     outline: none;
     border: none;
-    border-radius: 50%;
+    border-radius: 20%;
     cursor: pointer;
 `
 
@@ -30,6 +30,11 @@ export const TrackContainer = styled.div`
     display: flex;
     justify-content: space-around;
     padding: 20px;
+    
+    h2 {
+        font-family: 'Arya', sans-serif;
+        color: #131E29;
+    }
 `
 
 export const SliderContainer = styled(motion.div)`
@@ -50,9 +55,22 @@ export const SliderContainer = styled(motion.div)`
     img {
         width: 65%;
     }
+
+    p {
+        color: #fff;
+        font-family: 'Arya', sans-serif;
+        border-bottom: 1px solid #FFF;
+        padding: 1px;
+        cursor: pointer;
+
+        :hover {
+            text-shadow: 1px 1px 2px #43505F;
+            transition: ease 0.5s;
+        }
+    }
 `
 
-export const SliderButton = styled.button`
+export const SliderButton = styled(motion.button)`
     background-color: white;
     width: 120px;
     height: 30px;

@@ -24,7 +24,10 @@ export default function Slider({ igniteMotion, side }) {
             }}
         >
             <Logo src={"./assets/piotto-logo.png"} />
-            <sc.SliderButton onClick={igniteMotion}>Deslizar</sc.SliderButton>
+            <p onClick={igniteMotion}>
+                {side === "right" ? "Já possui uma conta? Entre" : "Ainda não possui uma conta? Cadastre-se" }
+            </p>
+
         </sc.SliderContainer>
     )
 }

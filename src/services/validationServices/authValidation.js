@@ -1,6 +1,3 @@
-import Joi from "joi";
-import * as Auth from "../../schemas/authSchemas";
-
 function verifyConditions(conditions) {
     for(const condition of conditions) if(!condition.isValid) return condition;
     return {
@@ -8,7 +5,7 @@ function verifyConditions(conditions) {
     }
 }
 
-function validateLoginPassword(password) {
+function validatePassword(password) {
     const conditions = [
         { isValid: password.length, errorMessage: "Insira uma senha" },
         { isValid: password.length >= 4, errorMessage: "Insira ao menos 4 dígitos" }
@@ -16,7 +13,7 @@ function validateLoginPassword(password) {
     return verifyConditions(conditions);
 }
 
-function validateLoginEmail(email) {
+function validateEmail(email) {
     const conditions = [
         { isValid: email.length, errorMessage: "Insira um email" },
         { isValid: email.includes("@"), errorMessage: "Insira um email válido" }
@@ -24,7 +21,21 @@ function validateLoginEmail(email) {
     return verifyConditions(conditions);
 }
 
+function validateRegisterName(registerName) {
+    const conditions = [
+        { isValid: registerName.length, errorMessage: "Insira um nome" },
+    ]
+
+    return verifyConditions(conditions);
+}
+
 export const Login = {
-    password: validateLoginPassword,
-    email: validateLoginEmail
+    password: validatePassword,
+    email: validateEmail
+}
+
+export const Register = {
+    ...Login,
+    name: validateRegisterName,
+    roleId: (roleId) => ({ isValid: !!roleId, errorMessage: "Falha de user role_id" })
 }

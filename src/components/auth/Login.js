@@ -4,6 +4,7 @@ import { AuthService } from "../../services/api.services";
 import { Login as LoginValidate } from "../../services/validationServices/authValidation";
 import Alerter from "./Alerter";
 import LoginIcon from '@mui/icons-material/Login';
+import * as Utils from "./utils";
 
 export default function Login() {
     const [ newLogin, setNewLogin ] = useState({ email: "", password: "" })
@@ -20,36 +21,12 @@ export default function Login() {
         }))
     }
 
-    async function handleLogin() {
-        console.log("handleLogin()")
-        const validation = {
-            email: LoginValidate.email(newLogin.email),
-            password: LoginValidate.password(newLogin.password)
-        }
-        console.log("Validation: ")
-        console.log(validation)
-        setErrors(prevState => ({
-            ...prevState,
-            email: validation.email,
-            password: validation.password
-        }))
-
-        if(!validation.email.isValid || !validation.password.isValid) return;
-
-        try { 
-            const loginRequestResult = await AuthService.login(newLogin);
-            console.log("SUCESS")
-            console.log(loginRequestResult.data)
-        }
-        catch(error) { 
-            console.log("FAILURE")
-            console.error(error)
-            setErrors(prevState => ({
-                ...prevState,
-                api: { isValid: false, errorMessage: error.response.data }
-            }))
-        }
-    }
+    const handleLogin = () => Utils.handleSubmission({
+        submissionData: newLogin,
+        validator: LoginValidate,
+        errorSetter: setErrors,
+        service: AuthService.login
+    })
 
     return (
         <sc.AuthContainer>
@@ -61,10 +38,7 @@ export default function Login() {
             /> 
             <h2>Login</h2>
 
-            <form onSubmit={e => {
-                e.preventDefault()
-                handleLogin()
-            }}>
+            <form autoComplete="off" onSubmit={ e => e.preventDefault() }>
                 <sc.CssTextField 
                     label="Email:"
                     error={!errors.email.isValid}
@@ -94,7 +68,7 @@ export default function Login() {
                     whileHover={{
                         scale: 1.1,
                         boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 5px',
-                        borderRadius: '50%'
+                        borderRadius: '20%'
                     }}
                     whileTap={{
                         scale: 1.05,
