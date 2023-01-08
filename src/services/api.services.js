@@ -33,23 +33,14 @@ const ClientsService = {
     }
 }
 
-function getAllOrders(){
-    return axios.get(`${URL}/orders/all`);
+const OrdersService = {
+    getAllOrders: () => axios.get(`${URL}/orders/all`),
+    filterOrders: (searchSettings) => axios.get(`${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&store=${searchSettings.store}&client=${searchSettings.client}`),
+    addOrder: (orderData) => axios.post(`${URL}/orders`, orderData),
+    deleteOrder: (id) => axios.delete(`${URL}/orders?id=${id}`)
 }
 
-function filterOrders(searchSettings){
-    return axios.get(`${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&store=${searchSettings.store}&client=${searchSettings.client}`)
-}
-
-function addOrder(orderData){
-    return axios.post(`${URL}/orders`, orderData);
-}
-
-function deleteOrder(id){
-    return axios.delete(`${URL}/orders?id=${id}`)
-}
-
-const authService = {
+const AuthService = {
     register: (registrationData) => axios.post(`${URL}/users/register`, registrationData),
     login: (loginData) => axios.post(`${URL}/users/login`, loginData)
 }
@@ -58,8 +49,6 @@ export {
     EmployeesService,
     StoresService,
     ClientsService,
-    getAllOrders,
-    filterOrders,
-    addOrder,
-    deleteOrder,
+    OrdersService,
+    AuthService
 }

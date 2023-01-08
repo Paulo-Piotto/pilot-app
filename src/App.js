@@ -13,7 +13,7 @@ import ClientsBalancePage from "./pages/clientsBalancePage";
 function App() {
   const { userData } = useContext(AuthContext);
 
-  if(userData) return <Auth />
+  if(!userData) return <Auth />
   return (
       <HashRouter>
         <Main />
