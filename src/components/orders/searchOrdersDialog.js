@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import RegisterSnackbar from '../generics/registerSnackbar';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { filterOrders, getAllStores, getAllClients } from '../../services/api.services';
+import { OrdersService, StoresService, ClientsService } from '../../services/api.services';
 import { sumTotal } from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
 import { floorDateHour, ceilDateHour } from '../../services/utils/dateServices';
@@ -29,11 +29,11 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
     const [selectedClient, setSelectedClient] = useState(0);
 
     useEffect(() => {
-      getAllStores()
+        StoresService.getAllStores()
         .then((resp) => {
           setStores(resp.data)
         });
-        getAllClients()
+        ClientsService.getAllClients()
         .then((resp) => {
           setClients(resp.data)
         })
@@ -53,7 +53,7 @@ export default function SearchOrdersDialog({openDialog, handleCloseDialog, setOr
     }
     
 
-    filterOrders(searchSettings)
+    OrdersService.filterOrders(searchSettings)
       .then((resp) => {
         setLoading(false)
         setOrders(resp.data);

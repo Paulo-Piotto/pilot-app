@@ -21,6 +21,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
     "dayjs": "^1.11.7",
+    "framer-motion": "^8.1.8",
     "joi": "^17.7.0",
     "react": "^18.2.0",
     "react-currency-input-field": "^3.6.9",

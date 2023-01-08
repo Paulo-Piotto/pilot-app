@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllStores } from "../services/api.services";
+import { StoresService } from "../services/api.services";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import RegisterStoreDialog from "../components/stores/registerStoreDialog";
@@ -23,7 +23,7 @@ export default function StoresPage(){
     const [snackbarMessage, setSnackbarMessage] = useState('')
 
     useEffect(() => {
-        getAllStores().then((resp) =>{
+        StoresService.getAllStores().then((resp) =>{
             setStores(resp.data);
             setAbsoluteStores(resp.data.length);
             setLoading(false);
@@ -37,7 +37,7 @@ export default function StoresPage(){
 
     function clearFilters(){
         setLoading(true)
-        getAllStores()
+        StoresService.getAllStores()
         .then((resp) => {
             setStores(resp.data)
             setLoading(false);

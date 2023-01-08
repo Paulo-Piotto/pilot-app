@@ -4,7 +4,7 @@ import Card from "../components/generics/card";
 import CircularProgress from '@mui/material/CircularProgress';
 import { TableContainer, TableHeader, HeaderContainer} from "../styles/tableStyles";
 import OrderItem from "../components/orders/orderItem";
-import { getAllOrders } from "../services/api.services";
+import { OrdersService } from "../services/api.services";
 import { sumTotal } from "../services/utils/sumTotal";
 import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
 import AddOrderDialog from "../components/orders/addOrderDialog";
@@ -24,7 +24,7 @@ export default function OrdersPage(){
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getAllOrders()
+        OrdersService.getAllOrders()
             .then((resp) => {
                 setOrders(resp.data)
                 setTotal(intToMoney(sumTotal(resp.data)));
@@ -45,7 +45,7 @@ export default function OrdersPage(){
 
     function clearFilters(){
         setLoading(true);
-        getAllOrders()
+        OrdersService.getAllOrders()
         .then((resp) => {
             setOrders(resp.data)
             setTotal(intToMoney(sumTotal(resp.data)));
