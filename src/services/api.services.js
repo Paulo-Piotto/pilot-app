@@ -41,7 +41,7 @@ function searchClientByName(clientName){
 }
 
 function getAllOrders(){
-    return axios.get(`${URL}/orders/all`);
+    return axios.get(`${URL}/orders`);
 }
 
 function filterOrders(searchSettings){
