@@ -11,7 +11,7 @@ function verifyConditions(conditions) {
 function validateLoginPassword(password) {
     const conditions = [
         { isValid: password.length, errorMessage: "Insira uma senha" },
-        { isValid: password.length >= 4, errorMessage: "Insida ao menos 4 dígitos" }
+        { isValid: password.length >= 4, errorMessage: "Insira ao menos 4 dígitos" }
     ]
     return verifyConditions(conditions);
 }
@@ -19,8 +19,7 @@ function validateLoginPassword(password) {
 function validateLoginEmail(email) {
     const conditions = [
         { isValid: email.length, errorMessage: "Insira um email" },
-        { isValid: email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-            , errorMessage: "Insira um email válido" }
+        { isValid: email.includes("@"), errorMessage: "Insira um email válido" }
     ]
     return verifyConditions(conditions);
 }

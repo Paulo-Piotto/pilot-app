@@ -3,6 +3,17 @@ import * as gs from "../../styles/generalStyles";
 import { motion } from "framer-motion";
 import TextField from '@mui/material/TextField';
 
+export const SendButton = styled(motion.button)`
+    align-self: center;
+    margin-top: 30px;
+    align-items: center;
+    background: none;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+`
+
 export const Background = styled(gs.Background)`
     display: flex;
     flex: 1;
@@ -53,6 +64,11 @@ export const AuthContainer = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    #alert   {
+        position: absolute;
+        top: 20px
+    }
 
     h2 {
         font-size: 30px;
