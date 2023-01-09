@@ -6,7 +6,7 @@ import Alerter from "./Alerter";
 import * as Utils from "./utils";
 import { AuthService } from "../../services/api.services";
 
-export default function Register() {
+export default function Register({ side: animationSide }) {
     const [ passwordConfirmation, setPasswordConfirmation ] = useState("");
     const [ errors, setErrors ] = useState({
         name: { isValid: true, errorMessage: "" },
@@ -38,15 +38,25 @@ export default function Register() {
         })
     }
 
+    const animationVariants = {
+        right: { x: 0, opacity: 1 },
+        left: { x: -60, opacity: 0 }
+    }
     return (
-        <sc.AuthContainer>
-            <Alerter severity="error"
+        <sc.AuthContainer
+            variants={animationVariants}
+            initial={animationSide}
+            animate={animationSide === "left" ? "left" : "right"}
+            transition={Utils.animationTransitionConfiguration}
+        >
+            <Alerter 
+                severity="error"
                 isOpen={!errors.api.isValid }
                 errorMessage={errors.api.errorMessage} 
                 alertTitle="Erro" 
                 getOffScreen={() => setErrors(prev => ({ ...prev, api: { isValid: true, errorMessage: "" } }))}
             /> 
-            <h2>Cadastro</h2>
+            <h2>˹Cadastro</h2>
             <form autoComplete="off" onSubmit={ e => e.preventDefault() }>
                 <sc.CssTextField
                     label="Nome"
@@ -118,3 +128,4 @@ export default function Register() {
         </sc.AuthContainer>
     )
 }
+    // ×

@@ -21,7 +21,7 @@ export const Background = styled(gs.Background)`
     justify-content: center;
 `
 
-export const TrackContainer = styled.div`
+export const TrackContainer = styled(motion.div)`
     background-color: #D6D1C4;
     width: 80%;
     height: 80%;
@@ -30,11 +30,6 @@ export const TrackContainer = styled.div`
     display: flex;
     justify-content: space-around;
     padding: 20px;
-    
-    h2 {
-        font-family: 'Arya', sans-serif;
-        color: #131E29;
-    }
 `
 
 export const SliderContainer = styled(motion.div)`
@@ -70,14 +65,7 @@ export const SliderContainer = styled(motion.div)`
     }
 `
 
-export const SliderButton = styled(motion.button)`
-    background-color: white;
-    width: 120px;
-    height: 30px;
-    outline: none;
-`
-
-export const AuthContainer = styled.section`
+export const AuthContainer = styled(motion.section)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,6 +79,9 @@ export const AuthContainer = styled.section`
     h2 {
         font-size: 30px;
         margin-bottom: 30px;
+        font-family: 'Arya', sans-serif;
+        color: #131E29;
+        font-weight: bold;
     }
 
     >form {

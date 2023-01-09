@@ -15,8 +15,8 @@ export default function Auth() {
         <sc.Background>
             <sc.TrackContainer>
                 <Slider igniteMotion={igniteMotion} side={side} />
-                <Register />
-                <Login />
+                <Register side={side} />
+                <Login side={side} />
             </sc.TrackContainer>
         </sc.Background>
     )

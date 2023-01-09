@@ -27,3 +27,10 @@ export async function handleSubmission({
         }))
     }
 }
+
+export const animationTransitionConfiguration = {
+    type: "spring",
+    stiffness: 250,
+    damping: 30,
+    duration: .1
+}

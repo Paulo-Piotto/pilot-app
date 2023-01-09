@@ -6,7 +6,7 @@ import Alerter from "./Alerter";
 import LoginIcon from '@mui/icons-material/Login';
 import * as Utils from "./utils";
 
-export default function Login() {
+export default function Login({side: animationSide}) {
     const [ newLogin, setNewLogin ] = useState({ email: "", password: "" })
     const [ errors, setErrors ] = useState({
         email: { isValid: true, errorMessage: "" },
@@ -28,15 +28,25 @@ export default function Login() {
         service: AuthService.login
     })
 
+    const animationVariants = {
+        left: { x: 0, opacity: 1 },
+        right: { x: 60, opacity: 0 }
+    }
+
     return (
-        <sc.AuthContainer>
+        <sc.AuthContainer
+            variants={animationVariants}
+            initial={animationSide}
+            animate={animationSide === "left" ? "left" : "right"}
+            transition={Utils.animationTransitionConfiguration}
+        >
             <Alerter severity="error"
                 isOpen={!errors.api.isValid }
                 errorMessage={errors.api.errorMessage} 
                 alertTitle="Erro" 
                 getOffScreen={() => setErrors(prev => ({ ...prev, api: { isValid: true, errorMessage: "" } }))}
             /> 
-            <h2>Login</h2>
+            <h2>Login˼</h2>
 
             <form autoComplete="off" onSubmit={ e => e.preventDefault() }>
                 <sc.CssTextField 
