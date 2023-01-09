@@ -7,10 +7,13 @@ import LoginIcon from '@mui/icons-material/Login';
 import * as Utils from "./utils";
 import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
+import Loader  from "../generics/Loader";
+import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
 
 export default function Login({side: animationSide}) {
+    const [ isLoading, setIsLoading ] = useState(false);
     const { setUserData } = useContext(AuthContext);
-    const [ newLogin, setNewLogin ] = useState(Utils.loginDataFormat)
+    const [ newLogin, setNewLogin ] = useState(Utils.loginDataFormat);
     const [ errors, setErrors ] = useState(Utils.loginErrorFormat);
 
     function updateNewLoginData(newLoginData) {
@@ -20,13 +23,19 @@ export default function Login({side: animationSide}) {
         }))
     }
 
-    const handleLogin = () => Utils.handleSubmission({
-        submissionData: newLogin,
-        validator: LoginValidate,
-        errorSetter: setErrors,
-        service: AuthService.login,
-        callbackFunction: setUserData
-    })
+    const handleLogin = () => {
+        setIsLoading(true)
+        Utils.handleSubmission({
+            submissionData: newLogin,
+            validator: LoginValidate,
+            errorSetter: setErrors,
+            service: AuthService.login,
+            callbackFunction: (userData) => {
+                setUserData(userData);
+                setIsLoading(false);
+            }
+        }).then(() => setIsLoading(false))
+    }
 
     const animationVariants = {
         left: { x: 0, opacity: 1 },
@@ -72,9 +81,9 @@ export default function Login({side: animationSide}) {
                     onChange={ e => updateNewLoginData({ password: e.target.value }) }
                     focuscolor='#131E29'
                 />
-
                 <sc.SendButton 
                     onClick={handleLogin}
+                    disabled={isLoading}
                     whileHover={{
                         scale: 1.1,
                         boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 5px',
@@ -85,10 +94,11 @@ export default function Login({side: animationSide}) {
                         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 2px',
                     }}
                 >
-                    <LoginIcon sx={{
-                        fontSize: 50,
-                        color: "#131E29"
-                    }}/>
+                    {
+                        isLoading
+                            ? <Loader image={pilotLoaderLogo} width="50px" height="50px" />
+                            : <LoginIcon sx={{ fontSize: 50, color: "#131E29" }}/>
+                    }
                 </sc.SendButton>
             </form>
         </sc.AuthContainer>

@@ -5,8 +5,11 @@ import Alerter from "./Alerter";
 import * as Utils from "./utils";
 import { AuthService } from "../../services/api.services";
 import { Register as RegisterValidate } from "../../services/validationServices/authValidation";
+import Loader from "../generics/Loader";
+import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
 
 export default function Register({ side: animationSide, callLoginScreen }) {
+    const [ isLoading, setIsLoading ] = useState(false);
     const [ passwordConfirmation, setPasswordConfirmation ] = useState("");
     const [ errors, setErrors ] = useState(Utils.registerErrorFormat)
     const [ newUser, setNewUser ] = useState(Utils.newUserFormat)
@@ -24,16 +27,19 @@ export default function Register({ side: animationSide, callLoginScreen }) {
         setErrors(Utils.registerErrorFormat)
     }
 
-    const handleRegistration = () => Utils.handleSubmission({
-        submissionData: newUser,
-        validator: RegisterValidate,
-        errorSetter: setErrors,
-        service: AuthService.register,
-        callbackFunction: () => {
-            resetComponentData();
-            callLoginScreen();
-        }
-    })
+    const handleRegistration = () => {
+        setIsLoading(true)
+        Utils.handleSubmission({
+            submissionData: newUser,
+            validator: RegisterValidate,
+            errorSetter: setErrors,
+            service: AuthService.register,
+            callbackFunction: () => {
+                resetComponentData();
+                callLoginScreen();
+            }
+        }).then(() => setIsLoading(false))
+    }
 
     const animationVariants = {
         right: { x: 0, opacity: 1 },
@@ -106,6 +112,7 @@ export default function Register({ side: animationSide, callLoginScreen }) {
 
                 <sc.SendButton 
                     onClick={handleRegistration}
+                    disabled={isLoading}
                     whileHover={{
                         scale: 1.1,
                         boxShadow: 'rgba(0, 0, 0, 0.15) 0px 5px 5px',
@@ -113,13 +120,14 @@ export default function Register({ side: animationSide, callLoginScreen }) {
                     }}
                     whileTap={{
                         scale: 1.05,
-                        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 2px',
+                        boxShadow: 'rgba(0, 0, 0, 0.    1) 0px 1px 2px',
                     }}
                 >
-                    <FileUploadIcon sx={{
-                        fontSize: 50,
-                        color: "#131E29"
-                    }}/>
+                    {
+                        isLoading
+                            ? <Loader image={pilotLoaderLogo} width="50px" height="50px" />
+                            : <FileUploadIcon sx={{ fontSize: 50, color: "#131E29" }} />
+                    }
                 </sc.SendButton>
             </form>
         </sc.AuthContainer>

@@ -37,6 +37,12 @@ export const animationTransitionConfiguration = {
     duration: .1
 }
 
+export const loadingAnimationSegments = {
+    loading: [0, 326],
+    sucess: [326, 418],
+    failure: [700, 841]
+}
+
 export const registerErrorFormat = {
     name: { isValid: true, errorMessage: "" },
     email: { isValid: true, errorMessage: "" },

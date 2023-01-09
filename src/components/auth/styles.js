@@ -47,7 +47,7 @@ export const SliderContainer = styled(motion.div)`
     box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     z-index: 10;
 
-    img {
+    >img {
         width: 65%;
     }
 
