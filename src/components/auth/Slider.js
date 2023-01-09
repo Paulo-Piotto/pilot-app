@@ -1,6 +1,6 @@
 import * as sc from "./styles";
 import { Logo } from "../../styles/generalStyles";
-import useWindowSize from "../../hooks/useWindowSize";
+import { useWindowSize } from "../../hooks/generalHooks";
 
 
 export default function Slider({ igniteMotion, side }) {

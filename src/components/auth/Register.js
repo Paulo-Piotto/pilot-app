@@ -1,25 +1,15 @@
-import * as sc from "./styles";
 import { useState } from "react";
+import * as sc from "./styles";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import { Register as RegisterValidate } from "../../services/validationServices/authValidation";
 import Alerter from "./Alerter";
 import * as Utils from "./utils";
 import { AuthService } from "../../services/api.services";
+import { Register as RegisterValidate } from "../../services/validationServices/authValidation";
 
-export default function Register({ side: animationSide }) {
+export default function Register({ side: animationSide, callLoginScreen }) {
     const [ passwordConfirmation, setPasswordConfirmation ] = useState("");
-    const [ errors, setErrors ] = useState({
-        name: { isValid: true, errorMessage: "" },
-        email: { isValid: true, errorMessage: "" },
-        password: { isValid: true, errorMessage: "" },
-        api: { isValid: true, errorMessage: ""}
-    })
-    const [ newUser, setNewUser ] = useState({
-        name: "",
-        roleId: 3,
-        email: "",
-        password: ""
-    })
+    const [ errors, setErrors ] = useState(Utils.registerErrorFormat)
+    const [ newUser, setNewUser ] = useState(Utils.newUserFormat)
 
     function updateNewUserData(newUserData) {
         setNewUser(prevState => ({
@@ -28,20 +18,28 @@ export default function Register({ side: animationSide }) {
         }))
     }
 
-    const handleRegistration = () => {
-        console.log("Entering registration flow")
-        Utils.handleSubmission({
-            submissionData: newUser,
-            validator: RegisterValidate,
-            errorSetter: setErrors,
-            service: AuthService.register
-        })
+    function resetComponentData() {
+        setNewUser(Utils.newUserFormat)
+        setPasswordConfirmation("")
+        setErrors(Utils.registerErrorFormat)
     }
+
+    const handleRegistration = () => Utils.handleSubmission({
+        submissionData: newUser,
+        validator: RegisterValidate,
+        errorSetter: setErrors,
+        service: AuthService.register,
+        callbackFunction: () => {
+            resetComponentData();
+            callLoginScreen();
+        }
+    })
 
     const animationVariants = {
         right: { x: 0, opacity: 1 },
         left: { x: -60, opacity: 0 }
     }
+
     return (
         <sc.AuthContainer
             variants={animationVariants}

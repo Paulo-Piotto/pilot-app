@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from "react";
 
-function useWindowSize() {
+export function useWindowSize() {
     const [ windowSize, setWindowSize ] = useState(window.innerWidth);
 
     useLayoutEffect(() => {
@@ -18,4 +18,13 @@ function useWindowSize() {
     return windowSize;
 }
 
-export default useWindowSize;
+export function useLocalStorage() {
+    const [ localStorageData, setLocalStorageData ] = useState(localStorage.getItem("userData"))
+
+    function manageLocalStorageSetter(data) {
+        localStorage.setItem("userData", data)
+        setLocalStorageData(data)
+    }
+
+    return [ localStorageData, manageLocalStorageSetter ];
+}

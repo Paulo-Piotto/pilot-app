@@ -5,14 +5,13 @@ import { Login as LoginValidate } from "../../services/validationServices/authVa
 import Alerter from "./Alerter";
 import LoginIcon from '@mui/icons-material/Login';
 import * as Utils from "./utils";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
 
 export default function Login({side: animationSide}) {
-    const [ newLogin, setNewLogin ] = useState({ email: "", password: "" })
-    const [ errors, setErrors ] = useState({
-        email: { isValid: true, errorMessage: "" },
-        password: { isValid: true, errorMessage: "" },
-        api: { isValid: true, errorMessage: "" }
-    });
+    const { setUserData } = useContext(AuthContext);
+    const [ newLogin, setNewLogin ] = useState(Utils.loginDataFormat)
+    const [ errors, setErrors ] = useState(Utils.loginErrorFormat);
 
     function updateNewLoginData(newLoginData) {
         setNewLogin(prevState => ({
@@ -25,7 +24,8 @@ export default function Login({side: animationSide}) {
         submissionData: newLogin,
         validator: LoginValidate,
         errorSetter: setErrors,
-        service: AuthService.login
+        service: AuthService.login,
+        callbackFunction: setUserData
     })
 
     const animationVariants = {
