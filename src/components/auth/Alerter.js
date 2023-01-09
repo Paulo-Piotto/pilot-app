@@ -4,7 +4,6 @@ import AlertTitle from '@mui/material/AlertTitle';
 import {IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-
 export default function Alerter(props) {
     const { severity, errorMessage, alertTitle, getOffScreen, isOpen } = props;
 

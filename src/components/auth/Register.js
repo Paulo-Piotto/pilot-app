@@ -122,7 +122,6 @@ export default function Register({ side: animationSide, callLoginScreen }) {
                     }}/>
                 </sc.SendButton>
             </form>
-            
         </sc.AuthContainer>
     )
 }

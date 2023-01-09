@@ -4,10 +4,7 @@ export function useWindowSize() {
     const [ windowSize, setWindowSize ] = useState(window.innerWidth);
 
     useLayoutEffect(() => {
-        function calculateNewScreenSize() {
-            setWindowSize(window.innerWidth)
-        }
-
+        function calculateNewScreenSize() { setWindowSize(window.innerWidth) }
         calculateNewScreenSize();
 
         window.addEventListener('resize', calculateNewScreenSize);
