@@ -17,7 +17,14 @@ const MoneyInput = styled(CurrencyInput)`
     border-bottom: 2px solid #1976d2
 }
 `
+const MoneyLabel = styled.p`
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.7rem;
+    margin-top: 8px;
+    color: #6F6767;
+`
 
 export {
     MoneyInput,
+    MoneyLabel,
 }

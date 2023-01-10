@@ -65,8 +65,8 @@ export default function ClientsPage(){
                 </TableHeader>
             </HeaderContainer>
             <TableContainer>
-            {clients.map((employee) => 
-                <TableItem rowData={employee} type='client' setItems={setClients} setAbsolute={setAbsoluteClients} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+            {clients.map((client, index) => 
+                <TableItem key={index}  rowData={client} type='client' setItems={setClients} setAbsolute={setAbsoluteClients} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
             )}
             </TableContainer>
             </>
