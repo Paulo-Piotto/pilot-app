@@ -1,5 +1,5 @@
 import { Background, Header, Logo, SideMenu, IconsContainer, IconBox } from "../styles/generalStyles";
-import { IoHomeOutline, IoPeopleOutline, IoTimeOutline, IoBriefcaseOutline, IoStorefrontOutline } from "react-icons/io5";
+import { IoHomeOutline, IoPeopleOutline, IoTimeOutline, IoBriefcaseOutline, IoStorefrontOutline, IoCashOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -33,6 +33,9 @@ export default function Main(){
                     </IconBox>
                     <IconBox isSelected={selectedIcon==="stores" ? true : false} onClick={() => {selectPage('stores', '/stores')}}>
                         <IoStorefrontOutline />
+                    </IconBox>
+                    <IconBox isSelected={selectedIcon==="incomes" ? true : false} onClick={() => {selectPage('incomes', '/incomes')}}>
+                        <IoCashOutline />
                     </IconBox>
                 </IconsContainer>
             </SideMenu>

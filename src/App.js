@@ -8,6 +8,7 @@ import Auth from "./components/auth";
 import AuthContext from "./components/context/AuthContext";
 import { useContext } from "react";
 import ClientsBalancePage from "./pages/clientsBalancePage";
+import IncomesPage from "./pages/incomesPage";
 
 function App() {
   const { userData } = useContext(AuthContext);
@@ -21,6 +22,7 @@ function App() {
           <Route path="/employees" element={<EmployeesPage />} />
           <Route path="/stores" element={<StoresPage />} />
           <Route path="/clients" element={<ClientsBalancePage />} />
+          <Route path="/incomes" element={<IncomesPage />} />
           <Route path="/development" element={<InProgress />} />
         </Routes>
       </HashRouter>

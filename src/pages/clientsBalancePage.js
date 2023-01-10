@@ -3,7 +3,7 @@ import { ClientsService } from "../services/api.services";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import { TableContainer, TableHeader, HeaderContainer } from "../styles/tableStyles";
-import BalanceItem from "../components/balance/balanceItem";
+import BalanceItem from "../components/clients/balanceItem";
 import { Container } from "../components/generics/inProgress";
 import { Clear, Loading } from "../styles/generalStyles";
 import CircularProgress from '@mui/material/CircularProgress';
