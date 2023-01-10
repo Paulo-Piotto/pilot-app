@@ -1,6 +1,6 @@
 {
   "name": "piottoarq",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
@@ -13,6 +13,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@material-ui/core": "^4.12.4",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.10.17",
     "@mui/styled-engine-sc": "^5.10.16",
     "@mui/x-date-pickers": "^5.0.10",
