@@ -35,9 +35,6 @@ export default function Main(){
                     <IconBox isSelected={selectedIcon==="stores" ? true : false} onClick={() => {selectPage('stores', '/stores')}}>
                         <IoStorefrontOutline />
                     </IconBox>
-                    <IconBox isSelected={selectedIcon==="balance" ? true : false} onClick={() => {selectPage('balance', '/balance')}}>
-                        <TbReportMoney />
-                    </IconBox>
                 </IconsContainer>
             </SideMenu>
         </Background>

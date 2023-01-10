@@ -11,7 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { MoneyInput, MoneyLabel } from '../../styles/moneyInputStyles';
 import dayjs from 'dayjs';
-import { getAllClients } from '../../services/api.services';
+import { ClientsService } from "../../services/api.services";
 
 export default function AddIncomeDialog({openDialog, handleCloseDialog, setClients, setTotal, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const [clientsList, setClientsList] = useState([]);
@@ -20,7 +20,7 @@ export default function AddIncomeDialog({openDialog, handleCloseDialog, setClien
     const [date, setDate] = useState(dayjs(Date.now()));
 
     useEffect(() => {
-        getAllClients()
+        ClientsService.getAllClients()
             .then((resp) => {
                 setClientsList(resp.data);
             })
