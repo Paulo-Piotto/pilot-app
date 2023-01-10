@@ -29,7 +29,6 @@ const ClientsService = {
             return axios.get(`${URL}/clients/balance?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}`)
         }
         return axios.get(`${URL}/clients/balance`)
-        
     }
 }
 

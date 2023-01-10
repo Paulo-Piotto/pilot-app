@@ -1,11 +1,9 @@
 import * as sc from "./styles";
 import { Logo } from "../../styles/generalStyles";
-import useWindowSize from "../../hooks/useWindowSize";
-
+import { useWindowSize } from "../../hooks/generalHooks";
 
 export default function Slider({ igniteMotion, side }) {
     const animationBoundarie = (useWindowSize()*0.8)/2;
-
     const variants = {
         left: { x: 20 },
         right: { x: animationBoundarie-20 }
@@ -24,7 +22,9 @@ export default function Slider({ igniteMotion, side }) {
             }}
         >
             <Logo src={"./assets/piotto-logo.png"} />
-            <sc.SliderButton onClick={igniteMotion}>Deslizar</sc.SliderButton>
+            <p onClick={igniteMotion}>
+                {side === "right" ? "« Já possui uma conta? Entre" : "Ainda não possui uma conta? Cadastre-se »" }
+            </p>
         </sc.SliderContainer>
     )
 }
