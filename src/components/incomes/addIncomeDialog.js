@@ -54,14 +54,20 @@ export default function AddIncomeDialog({openDialog, handleCloseDialog, setIncom
      }).then(() => {
       IncomesService.getAllIncomes()
         .then((resp) => {
+          handleCloseDialog();
           setIncomes(resp.data)
           setTotal(intToMoney(sumTotal(resp.data)))
           setSnackbarType('success');
           setSnackbarMessage('Entrada registrada com sucesso')
           setSnackbar(true);
           setLoading(false)
+          setName('');
+          setValue('');
+          setClient(0);
+          setDate(dayjs(Date.now()));
         })
         .catch(() => {
+          handleCloseDialog();
           setSnackbarType('error');
           setSnackbarMessage('Algo deu errado ao recuperar os itens')
           setSnackbar(true);
@@ -69,12 +75,12 @@ export default function AddIncomeDialog({openDialog, handleCloseDialog, setIncom
         })
      })
      .catch(() => {
+        handleCloseDialog();
         setSnackbarType('error');
         setSnackbarMessage('Algo deu errado ao tentar registrar a entrada')
         setSnackbar(true);
         setLoading(false)
      })
-    //  setLoading(false);
     }
 
     return(

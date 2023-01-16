@@ -6,8 +6,8 @@ import { TableContainer, TableHeader, HeaderContainer} from "../styles/tableStyl
 import IncomeItem from "../components/incomes/incomeItem";
 import { IncomesService } from "../services/api.services";
 import { sumTotal } from "../services/utils/sumTotal";
-import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
 import AddIncomeDialog from "../components/incomes/addIncomeDialog"
+import SearchIncomesDialog from "../components/incomes/searchIncomesDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
 import intToMoney from "../services/utils/intToMoney";
 import { Container } from "../components/generics/inProgress";
@@ -66,11 +66,11 @@ export default function IncomesPage(){
         <Clear onClick={clearFilters} >Limpar filtros</Clear>
         <CardsContainer>
             <Card contrast={false} subtitle='Nova' title='Entrada' iconName='add-circle-outline' action={() => setOpenAdd(true)} />
-            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' />
+            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)} />
             <Card contrast={true} subtitle='Total' number={total} money={true}/>
         </CardsContainer>
         <AddIncomeDialog openDialog={openAdd} handleCloseDialog={handleCloseDialog} setIncomes={setIncomes} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
-        <SearchOrdersDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setIncomes={setIncomes} setTotal={setTotal} setLoading={setLoading} />
+        <SearchIncomesDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setIncomes={setIncomes} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
         <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
         {loading ? <Loading> <CircularProgress /> </Loading> :
         (
