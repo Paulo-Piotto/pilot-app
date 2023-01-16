@@ -3,18 +3,18 @@ import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import CircularProgress from '@mui/material/CircularProgress';
 import { TableContainer, TableHeader, HeaderContainer} from "../styles/tableStyles";
-import OrderItem from "../components/orders/orderItem";
-import { OrdersService } from "../services/api.services";
+import IncomeItem from "../components/incomes/incomeItem";
+import { IncomesService } from "../services/api.services";
 import { sumTotal } from "../services/utils/sumTotal";
-import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
-import AddOrderDialog from "../components/orders/addOrderDialog";
+import AddIncomeDialog from "../components/incomes/addIncomeDialog"
+import SearchIncomesDialog from "../components/incomes/searchIncomesDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
 import intToMoney from "../services/utils/intToMoney";
 import { Container } from "../components/generics/inProgress";
 import { Clear, Loading } from "../styles/generalStyles";
 
-export default function OrdersPage(){    
-    const [orders, setOrders] = useState([]);
+export default function IncomesPage(){    
+    const [incomes, setIncomes] = useState([]);
     const [total, setTotal] = useState('0,00')
     const [openSearch, setOpenSearch] = useState(false);
     const [openAdd, setOpenAdd] = useState(false);
@@ -24,9 +24,10 @@ export default function OrdersPage(){
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        OrdersService.getAllOrders()
+        setLoading(true)
+        IncomesService.getAllIncomes()
             .then((resp) => {
-                setOrders(resp.data)
+                setIncomes(resp.data)
                 setTotal(intToMoney(sumTotal(resp.data)));
                 setLoading(false)
             })
@@ -45,9 +46,9 @@ export default function OrdersPage(){
 
     function clearFilters(){
         setLoading(true);
-        OrdersService.getAllOrders()
+        IncomesService.getAllIncomes()
         .then((resp) => {
-            setOrders(resp.data)
+            setIncomes(resp.data)
             setTotal(intToMoney(sumTotal(resp.data)));
             setLoading(false)
         })
@@ -64,31 +65,30 @@ export default function OrdersPage(){
         <>
         <Clear onClick={clearFilters} >Limpar filtros</Clear>
         <CardsContainer>
-            <Card contrast={false} subtitle='Novo' title='Pedido' iconName='add-circle-outline' action={() => setOpenAdd(true)} />
-            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)}/>
+            <Card contrast={false} subtitle='Nova' title='Entrada' iconName='add-circle-outline' action={() => setOpenAdd(true)} />
+            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)} />
             <Card contrast={true} subtitle='Total' number={total} money={true}/>
         </CardsContainer>
-        <AddOrderDialog openDialog={openAdd} handleCloseDialog={handleCloseDialog} setOrders={setOrders} setTotal={setTotal} setLoading={setLoading} />
-        <SearchOrdersDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setOrders={setOrders} setTotal={setTotal} setLoading={setLoading} />
+        <AddIncomeDialog openDialog={openAdd} handleCloseDialog={handleCloseDialog} setIncomes={setIncomes} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+        <SearchIncomesDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setIncomes={setIncomes} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
         <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
         {loading ? <Loading> <CircularProgress /> </Loading> :
         (
             <>
-            {orders[0] ? (
+            {incomes[0] ? (
             <>
             <HeaderContainer>
                 <TableHeader>
-                    <p>Pedido</p>
+                    <p>Nome</p>
                     <p>Obra</p>
-                    <p>Loja</p>
                     <p>Valor</p>
                     <p>Data</p>
                     <p></p>
                 </TableHeader>
             </HeaderContainer>
                 <TableContainer>
-                {orders.map((order, index) => 
-                    <OrderItem key={index} rowData={order} setTotal={setTotal} setOrders={setOrders} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+                {incomes.map((order, index) => 
+                    <IncomeItem key={index} rowData={order} setTotal={setTotal} setIncomes={setIncomes} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
                 )}
             </TableContainer>
             </>
