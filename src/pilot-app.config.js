@@ -5,7 +5,8 @@ const Config = {
         admin: 1,
         root: 2,
         basic: 3
-    }
+    },
+    appPrivateKey: "elespassaraoeupassarinho"
 }
 
 export default Config;
