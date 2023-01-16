@@ -7,12 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ClientsService } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
-import RegisterSnackbar from '../generics/registerSnackbar';
+import intToMoney from '../../services/utils/intToMoney';
+import { sumTotalBalance } from '../../services/utils/sumTotal';
 
-export default function RegisterClientDialog({openDialog, handleCloseDialog, setClients, setAbsoluteClients, setLoading}){
+export default function RegisterClientDialog({openDialog, handleCloseDialog, setClients, setTotal, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
 
     const [name, setName] = useState('');
-    const [snackbar, setSnackbar] = useState(false)
     const [nameHelper, setNameHelper] = useState('');
     const [nameError, setNameError] = useState(false);
 
@@ -28,17 +28,21 @@ export default function RegisterClientDialog({openDialog, handleCloseDialog, set
         ClientsService.registerClient({ name })
             .then(() => {
                 setSnackbar(true);
+                setSnackbarType('success')
+                setSnackbarMessage('Obra Cadastrada com sucesso!')
                 handleCloseDialog();
                 setName('');
-                ClientsService.getAllClients()
+                ClientsService.getClientsBalance({initialDate: false, endDate: false})
                     .then((resp) => {
                         setClients(resp.data)
-                        setAbsoluteClients(resp.data.length)
+                        setTotal(intToMoney(sumTotalBalance(resp.data)));
                         setLoading(false)
                     })
             })
             .catch(() => {
-                alert('algo deu errado')
+                setSnackbar(true);
+                setSnackbarType('error')
+                setSnackbarMessage('Algo deu errado ao cadastrar a obra')
                 setLoading(false)
             })
         
@@ -73,7 +77,6 @@ export default function RegisterClientDialog({openDialog, handleCloseDialog, set
         </DialogActions>
         </form>
       </Dialog>
-      <RegisterSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={'success'}/>
       </>
     );
 }

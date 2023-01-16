@@ -10,11 +10,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 import GenericSnackbar from "../components/generics/genericSnackbar";
 import { sumTotalBalance } from "../services/utils/sumTotal";
 import intToMoney from "../services/utils/intToMoney";
+import RegisterClientDialog from "../components/clients/registerClientDialog"
+import SearchClientDialog from "../components/clients/searchClientDialog";
 
 export default function ClientsBalancePage(){
     const [loading, setLoading] = useState(true);
     const [clients, setClients] = useState([]);
     const [total, setTotal] = useState('0,00')
+    const [openAdd, setOpenAdd] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
     const [snackbar, setSnackbar] = useState(false);
     const [snackbarType, setSnackbarType] = useState('');
     const [snackbarMessage, setSnackbarMessage] = useState('')
@@ -37,14 +41,20 @@ export default function ClientsBalancePage(){
 
     useEffect(clearFilters, [])
     
+    function handleCloseDialog(){
+        setOpenSearch(false);
+        setOpenAdd(false);
+    }
 
     return(
         <>
         <CardsContainer>
-            <Card contrast={false} subtitle='Nova' title='Entrada' iconName='add-circle-outline' />
-            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline'/>
+            <Card contrast={false} subtitle='Cadastrar' title='Obra' iconName='briefcase-outline' action={() => setOpenAdd(true)} />
+            <Card contrast={false} subtitle='Configurações de' title='Busca' iconName='search-outline' action={() => setOpenSearch(true)} />
             <Card contrast={true} subtitle='Total' number={total} money={true}/>
         </CardsContainer>
+        <RegisterClientDialog openDialog={openAdd} handleCloseDialog={handleCloseDialog} setClients={setClients} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+        <SearchClientDialog openDialog={openSearch} handleCloseDialog={handleCloseDialog} setClients={setClients} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
         <Clear onClick={clearFilters}>Limpar filtros</Clear>
         <GenericSnackbar setSnackbar={setSnackbar} snackbar={snackbar} type={snackbarType} message={snackbarMessage} />
         {loading ? <Loading> <CircularProgress /> </Loading> : 
@@ -58,11 +68,12 @@ export default function ClientsBalancePage(){
                     <p>Receitas</p>
                     <p>Despesas</p>
                     <p>Saldo</p>
+                    <p></p>
                 </TableHeader>
             </HeaderContainer>
             <TableContainer>
-            {clients.map((client) => 
-                <BalanceItem rowData={client} setClients={setClients} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+            {clients.map((client, index) => 
+                <BalanceItem key={index} rowData={client} setClients={setClients} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage}/>
             )}
             </TableContainer>
             </>

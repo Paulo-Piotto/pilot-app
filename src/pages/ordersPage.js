@@ -87,8 +87,8 @@ export default function OrdersPage(){
                 </TableHeader>
             </HeaderContainer>
                 <TableContainer>
-                {orders.map((order) => 
-                    <OrderItem rowData={order} setTotal={setTotal} setOrders={setOrders} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
+                {orders.map((order, index) => 
+                    <OrderItem key={index} rowData={order} setTotal={setTotal} setOrders={setOrders} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
                 )}
             </TableContainer>
             </>

@@ -22,7 +22,12 @@ const ClientsService = {
     getAllClients: () => axios.get(`${URL}/clients`),
     deleteClient: (id) => axios.delete(`${URL}/clients?id=${id}`),
     registerClient: (newClient) => axios.post(`${URL}/clients`, newClient),
-    searchClientByName: (clientName) => axios.get(`${URL}/clients?name=${clientName}`),
+    searchClient: (searchSettings) => {
+        if(searchSettings.initialDate && searchSettings.endDate){
+           return axios.get(`${URL}/clients?name=${searchSettings.name}&initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}`)
+        }
+        return axios.get(`${URL}/clients?name=${searchSettings.name}`)
+    },
     updateClient: (updateData) => axios.put(`${URL}/clients`, updateData),
     getClientsBalance: (searchSettings) => {
         if(searchSettings.initialDate && searchSettings.endDate){
@@ -33,7 +38,7 @@ const ClientsService = {
 }
 
 const OrdersService = {
-    getAllOrders: () => axios.get(`${URL}/orders/all`),
+    getAllOrders: () => axios.get(`${URL}/orders`),
     filterOrders: (searchSettings) => axios.get(`${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&store=${searchSettings.store}&client=${searchSettings.client}`),
     addOrder: (orderData) => axios.post(`${URL}/orders`, orderData),
     deleteOrder: (id) => axios.delete(`${URL}/orders?id=${id}`)

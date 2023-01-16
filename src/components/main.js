@@ -1,6 +1,5 @@
 import { Background, Header, Logo, SideMenu, IconsContainer, IconBox } from "../styles/generalStyles";
 import { IoHomeOutline, IoPeopleOutline, IoTimeOutline, IoBriefcaseOutline, IoStorefrontOutline } from "react-icons/io5";
-import { TbReportMoney } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -34,9 +33,6 @@ export default function Main(){
                     </IconBox>
                     <IconBox isSelected={selectedIcon==="stores" ? true : false} onClick={() => {selectPage('stores', '/stores')}}>
                         <IoStorefrontOutline />
-                    </IconBox>
-                    <IconBox isSelected={selectedIcon==="balance" ? true : false} onClick={() => {selectPage('balance', '/balance')}}>
-                        <TbReportMoney />
                     </IconBox>
                 </IconsContainer>
             </SideMenu>

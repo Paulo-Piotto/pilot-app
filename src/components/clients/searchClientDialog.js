@@ -6,28 +6,31 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ClientsService } from '../../services/api.services';
-import GenericSnackbar from '../generics/genericSnackbar';
+import intToMoney from '../../services/utils/intToMoney';
+import { sumTotalBalance } from '../../services/utils/sumTotal';
 
-export default function SearchClientDialog({openDialog, handleCloseDialog, setClients, setLoading}){
+export default function SearchClientDialog({openDialog, handleCloseDialog, setClients, setTotal, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
 
     const [name, setName] = useState('');
-    const [snackbar, setSnackbar] = useState(false)
-    const snackbarType = 'error';
-    const snackbarMessage = 'Nenhum resultado encontrado'
 
    function handleSubmit(e){
     e.preventDefault();
     setLoading(true);
     handleCloseDialog();
-    ClientsService.searchClientByName(name)
+    ClientsService.searchClient({name, initialDate: false, endDate: false})
         .then((resp) => {
             setClients(resp.data);
+            setTotal(intToMoney(sumTotalBalance(resp.data)));
             setName('');
             setLoading(false);
         })
-        .catch(() => {
+        .catch((err) => {
             setSnackbar(true)
+            setSnackbarMessage('Nenhum resultado para essa busca')
+            setSnackbarType('error')
+            console.log(err)
             setClients([])
+            setTotal('0,00');
             setLoading(false);
             })
    }
@@ -58,7 +61,6 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
         </DialogActions>
         </form>
       </Dialog>
-      <GenericSnackbar snackbar={snackbar} setSnackbar={setSnackbar} type={snackbarType} message={snackbarMessage} />
       </>
     );
 }
