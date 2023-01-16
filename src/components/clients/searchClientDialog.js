@@ -8,16 +8,30 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ClientsService } from '../../services/api.services';
 import intToMoney from '../../services/utils/intToMoney';
 import { sumTotalBalance } from '../../services/utils/sumTotal';
+import dayjs from 'dayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import styled from 'styled-components';
+import { ceilDateHour, floorDateHour } from '../../services/utils/dateServices';
 
 export default function SearchClientDialog({openDialog, handleCloseDialog, setClients, setTotal, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
-
-    const [name, setName] = useState('');
+  const todayMinus30 = Date.now() - 86400000*30
+  const [initialDate, setInitialDate] = useState(dayjs(todayMinus30));
+  const [endDate, setEndDate] = useState(dayjs(Date.now()));
+  const [name, setName] = useState('');
 
    function handleSubmit(e){
     e.preventDefault();
     setLoading(true);
     handleCloseDialog();
-    ClientsService.searchClient({name, initialDate: false, endDate: false})
+
+    const searchSettings = {
+      initialDate: floorDateHour(initialDate),
+      endDate: ceilDateHour(endDate),
+      name
+    }
+    ClientsService.searchClient(searchSettings)
         .then((resp) => {
             setClients(resp.data);
             setTotal(intToMoney(sumTotalBalance(resp.data)));
@@ -40,7 +54,37 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth='sm' fullWidth={true} >
         <DialogTitle>Buscar Obra</DialogTitle>
         <form onSubmit={handleSubmit} noValidate>
-        <DialogContent>           
+        <DialogContent>  
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateContainer>
+          <DesktopDatePicker
+            value={initialDate}
+            autoFocus
+            margin="dense"
+            label='De:'
+            id="date"
+            inputFormat='DD/MM/YYYY'
+            type="date"
+            required={true}
+            variant="standard"
+            onChange={(e) => setInitialDate(e)}
+            renderInput={(params) => <TextField {...params}  margin='dense' />}
+          />
+          <DesktopDatePicker
+            value={endDate}
+            autoFocus
+            margin="dense"
+            label='Até:'
+            id="date"
+            inputFormat='DD/MM/YYYY'
+            type="date"
+            required={true}
+            variant="standard"
+            onChange={(e) => setEndDate(e)}
+            renderInput={(params) => <TextField {...params} sx={{ ml: 1}} margin='dense' />}
+          />
+          </DateContainer>
+          </LocalizationProvider>         
           <TextField
             value={name}
             autoFocus
@@ -64,3 +108,8 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
       </>
     );
 }
+
+const DateContainer = styled.div`
+  width: 100%;
+  display: flex;
+`
