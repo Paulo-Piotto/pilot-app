@@ -49,10 +49,18 @@ const AuthService = {
     login: (loginData) => axios.post(`${URL}/users/login`, loginData)
 }
 
+const IncomesService = {
+    getAllIncomes: () => axios.get(`${URL}/incomes`),
+    filterIncomes: (searchSettings) => axios.get(`${URL}/incomes?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&client=${searchSettings.client}`),
+    addIncome: (incomeData) => axios.post(`${URL}/incomes`, incomeData),
+    deleteIncome: (id) => axios.delete(`${URL}/incomes?id=${id}`)
+}
+
 export {
     EmployeesService,
     StoresService,
     ClientsService,
     OrdersService,
-    AuthService
+    AuthService,
+    IncomesService,
 }
