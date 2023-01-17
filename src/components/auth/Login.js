@@ -59,7 +59,7 @@ export default function Login({side: animationSide}) {
 
             <form autoComplete="off" onSubmit={ e => e.preventDefault() }>
                 <sc.CssTextField 
-                    label="Email:"
+                    label="Email"
                     error={!errors.email.isValid}
                     helperText={errors.email.errorMessage}
                     variant="filled"

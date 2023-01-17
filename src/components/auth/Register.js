@@ -27,7 +27,7 @@ export default function Register({ side: animationSide, callLoginScreen }) {
         setErrors(Utils.registerErrorFormat)
     }
 
-    const handleRegistration = () => {
+    function handleRegistration() {
         setIsLoading(true)
         Utils.handleSubmission({
             submissionData: newUser,

@@ -16,10 +16,11 @@ export function useWindowSize() {
 }
 
 export function useLocalStorage() {
-    const [ localStorageData, setLocalStorageData ] = useState(localStorage.getItem("userData"))
+    const [ localStorageData, setLocalStorageData ] = useState(JSON.parse(localStorage.getItem("userData")))
+    console.log(localStorageData)
 
     function manageLocalStorageSetter(data) {
-        localStorage.setItem("userData", data)
+        localStorage.setItem("userData", JSON.stringify(data))
         setLocalStorageData(data)
     }
 

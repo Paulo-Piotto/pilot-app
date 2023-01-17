@@ -18,7 +18,7 @@ export async function handleSubmission({
     try {
         const requestResult = await service(submissionData);
         console.log("REQUEST SUCCEEDED")
-        console.log(requestResult.data)
+        console.log(requestResult)
         callbackFunction(requestResult.data);
     } catch(error) {
         console.error("REQUEST FAILED")
