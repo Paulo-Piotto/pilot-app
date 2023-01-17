@@ -9,6 +9,7 @@ import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import Loader  from "../generics/Loader";
 import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
+import { TokenAdapter } from "../../services/utils/adapters";
 
 export default function Login({side: animationSide}) {
     const [ isLoading, setIsLoading ] = useState(false);
@@ -30,8 +31,9 @@ export default function Login({side: animationSide}) {
             validator: LoginValidate,
             errorSetter: setErrors,
             service: AuthService.login,
-            callbackFunction: (userData) => {
-                setUserData(userData);
+            callbackFunction: async (userData) => {
+                const decodedData = await TokenAdapter().decode(userData.data.token)
+                setUserData(decodedData);
                 setIsLoading(false);
             }
         }).then(() => setIsLoading(false))
