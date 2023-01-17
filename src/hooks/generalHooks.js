@@ -20,6 +20,7 @@ export function useLocalStorage() {
     console.log(localStorageData)
 
     function manageLocalStorageSetter(data) {
+        console.log("Storaging: ", data)
         localStorage.setItem("userData", JSON.stringify(data))
         setLocalStorageData(data)
     }
