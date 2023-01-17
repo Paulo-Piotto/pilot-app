@@ -5,7 +5,7 @@ import DeleteDialog from "../generics/deleteDialog";
 import { OrdersService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
-import { DeleteIcon } from "../../styles/generalStyles";
+import DropMenu from "../generics/dropMenu";
 
 export default function OrderItem({rowData, setTotal, setOrders, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const date = dayjs(rowData.date).format('DD/MM/YYYY');
@@ -62,7 +62,7 @@ export default function OrderItem({rowData, setTotal, setOrders, setLoading, set
                     {date}
                 </RowCell>
                 <RowCell icon={true}>
-                    <DeleteIcon onClick={() => setOpenDelete(true)}/>
+                    <DropMenu setOpenDelete={setOpenDelete} details={false} edit={false} deletion={true} />
                 </RowCell>
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleSubmitDelete}/>

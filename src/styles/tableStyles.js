@@ -66,9 +66,6 @@ const TableRow = styled.div`
     height: 7.8vh;
     background-color: #eaeaea;
     border-bottom: 1px solid lightgray;
-    /* border-radius: 8px; */
-    /* margin-bottom: 10px; */
-    //margin-left: calc(50% - 35vw);
     padding: 0 20px;
     display: flex;
     justify-content: space-between;

@@ -3,7 +3,7 @@ import { TableRow, RowCell } from "../../styles/tableStyles";
 import dayjs from "dayjs";
 import DeleteDialog from "./deleteDialog";
 import { StoresService, ClientsService } from "../../services/api.services";
-import { DeleteIcon, EditIcon } from "../../styles/generalStyles";
+import DropMenu from "./dropMenu";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
 import UpdateDialog from "./updateDialog";
 
@@ -88,8 +88,7 @@ export default function TableItem({rowData, type, setAbsolute, setItems, setLoad
                     {rowData.name}
                 </RowCell>
                 <RowCell icon={true} >
-                    <EditIcon onClick={() => setOpenUpdate(true)} />
-                    <DeleteIcon onClick={() => setOpenDelete(true)} />
+                    <DropMenu setOpenUpdate={setOpenUpdate} setOpenDelete={setOpenDelete} details={false} edit={true} deletion={true} />
                 </RowCell>
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleDelete}/>
