@@ -27,7 +27,7 @@ export default function Register({ side: animationSide, callLoginScreen }) {
         setErrors(Utils.registerErrorFormat)
     }
 
-    const handleRegistration = () => {
+    function handleRegistration() {
         setIsLoading(true)
         Utils.handleSubmission({
             submissionData: newUser,
@@ -38,7 +38,7 @@ export default function Register({ side: animationSide, callLoginScreen }) {
                 resetComponentData();
                 callLoginScreen();
             }
-        }).catch(() => setIsLoading(false))
+        }).then(() => setIsLoading(false))
     }
 
     const animationVariants = {

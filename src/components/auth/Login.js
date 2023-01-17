@@ -34,7 +34,7 @@ export default function Login({side: animationSide}) {
                 setUserData(userData);
                 setIsLoading(false);
             }
-        }).catch(() => setIsLoading(false))
+        }).then(() => setIsLoading(false))
     }
 
     const animationVariants = {
