@@ -4,6 +4,7 @@ import intToMoney from "../../services/utils/intToMoney";
 import { sumTotal, sumTotalBalance } from "../../services/utils/sumTotal";
 import DeleteDialog from "../generics/deleteDialog";
 import UpdateDialog from "../generics/updateDialog";
+import DetailsDialog from "./detailsDialog";
 import { ClientsService } from "../../services/api.services";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
 import DropMenu from "../generics/dropMenu";
@@ -11,6 +12,7 @@ import DropMenu from "../generics/dropMenu";
 export default function BalanceItem({rowData, setTotal, setClients, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const [openDelete, setOpenDelete] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
+    const [openDetails, setOpenDetails] = useState(false);
     const ordersValue = intToMoney(sumTotal(rowData.orders));
     const incomesValue = intToMoney(sumTotal(rowData.incomes))
     const balance = intToMoney(sumTotal(rowData.incomes) - sumTotal(rowData.orders))
@@ -99,11 +101,12 @@ export default function BalanceItem({rowData, setTotal, setClients, setLoading, 
                 {balance}
             </RowCell>
             <RowCell icon={true} >
-                <DropMenu setOpenUpdate={setOpenUpdate} setOpenDelete={setOpenDelete} details={false} edit={true} deletion={true} />
+                <DropMenu setOpenUpdate={setOpenUpdate} setOpenDelete={setOpenDelete} setOpenDetails={setOpenDetails} details={true} edit={true} deletion={true} />
             </RowCell>
         </TableRow>
         <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleDelete}/>
         <UpdateDialog openDialog={openUpdate} handleCloseDialog={() => setOpenUpdate(false)} handleSubmit={handleUpdate}/>
+        <DetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
         </>
     );
 }
