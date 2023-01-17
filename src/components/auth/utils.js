@@ -17,11 +17,9 @@ export async function handleSubmission({
 
     try {
         const requestResult = await service(submissionData);
-        console.log("REQUEST SUCCEEDED")
-        console.log(requestResult)
-        callbackFunction(requestResult.data);
+        callbackFunction(requestResult);
     } catch(error) {
-        console.error("REQUEST FAILED")
+        console.error("AUTH REQUEST FAILED")
         console.error(error)
         errorSetter(prevState => ({
             ...prevState,
