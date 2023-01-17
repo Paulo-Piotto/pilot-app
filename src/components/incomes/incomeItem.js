@@ -5,7 +5,7 @@ import DeleteDialog from "../generics/deleteDialog";
 import { IncomesService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
-import { DeleteIcon } from "../../styles/generalStyles";
+import DropMenu from "../generics/dropMenu";
 
 export default function IncomeItem({rowData, setTotal, setIncomes, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const date = dayjs(rowData.date).format('DD/MM/YYYY');
@@ -59,7 +59,7 @@ export default function IncomeItem({rowData, setTotal, setIncomes, setLoading, s
                     {date}
                 </RowCell>
                 <RowCell icon={true}>
-                    <DeleteIcon onClick={() => setOpenDelete(true)}/>
+                    <DropMenu setOpenDelete={setOpenDelete} details={false} edit={false} deletion={true} />
                 </RowCell>
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleSubmitDelete}/>
