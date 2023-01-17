@@ -1,5 +1,3 @@
-import { TokenAdapter } from "../../services/utils/adapters";
-
 export async function handleSubmission({
     submissionData,
     validator,
@@ -19,14 +17,9 @@ export async function handleSubmission({
 
     try {
         const requestResult = await service(submissionData);
-        const decodedData = await TokenAdapter().decode(requestResult.data.token)
-
-        console.log("REQUEST SUCCEEDED")
-        console.log(decodedData)
-
-        callbackFunction(decodedData);
+        callbackFunction(requestResult);
     } catch(error) {
-        console.error("REQUEST FAILED")
+        console.error("AUTH REQUEST FAILED")
         console.error(error)
         errorSetter(prevState => ({
             ...prevState,
