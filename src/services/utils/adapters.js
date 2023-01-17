@@ -1,5 +1,4 @@
-import jwt from "jsonwebtoken";
-import Config from "../../pilot-app.config";
+/* import Config from "../../pilot-app.config";
 
 export function decodeComunicationToken(token) {
     try {
@@ -13,4 +12,4 @@ export function decodeComunicationToken(token) {
         console.error(error)
         return {}
     }
-}
+} */

@@ -38,7 +38,7 @@ export default function Register({ side: animationSide, callLoginScreen }) {
                 resetComponentData();
                 callLoginScreen();
             }
-        }).then(() => setIsLoading(false))
+        }).catch(() => setIsLoading(false))
     }
 
     const animationVariants = {
