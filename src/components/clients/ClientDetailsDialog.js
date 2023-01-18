@@ -3,7 +3,7 @@ import { DialogContentText, Switch, TextField, DialogTitle, DialogContent, Dialo
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import styled from 'styled-components';
 
-export default function DetailsDialog({rowData, openDialog, handleCloseDialog}){
+export default function ClientDetailsDialog({rowData, openDialog, handleCloseDialog}){
     const [checked, setChecked] = useState(false);
     
     return(
@@ -60,7 +60,7 @@ export default function DetailsDialog({rowData, openDialog, handleCloseDialog}){
                   }}
             />
             <TextField
-                value='N/A'
+                value={rowData.author || 'Desconhecido'}
                 margin="dense"
                 id="lastEditedBy"
                 label="Última edição por:"
@@ -69,9 +69,12 @@ export default function DetailsDialog({rowData, openDialog, handleCloseDialog}){
                 fullWidth
                 InputProps={{
                     readOnly: true,
+                    sx: {
+                        fontSize: 16
+                    }
                   }}
             />
-            <DialogContentText sx={{color: 'text.primary', fontSize: 18, mt: 3}}>
+            <DialogContentText sx={{ fontSize: 18, mt: 3}}>
                 <ArchiveContainer>
                     <Inventory2OutlinedIcon fontSize='small' sx={{mr: 1}}/>
                     <p>Arquivar: </p>

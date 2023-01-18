@@ -6,11 +6,13 @@ import { OrdersService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
 import DropMenu from "../generics/dropMenu";
+import OrderDetailsDialog from "./OrderDetailsDialog";
 
 export default function OrderItem({rowData, setTotal, setOrders, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const date = dayjs(rowData.date).format('DD/MM/YYYY');
 
     const [openDelete, setOpenDelete] = useState(false);
+    const [openDetails, setOpenDetails] = useState(false);
 
     function handleSubmitDelete(){
         setLoading(true)
@@ -62,10 +64,11 @@ export default function OrderItem({rowData, setTotal, setOrders, setLoading, set
                     {date}
                 </RowCell>
                 <RowCell icon={true}>
-                    <DropMenu setOpenDelete={setOpenDelete} details={false} edit={false} deletion={true} />
+                    <DropMenu setOpenDelete={setOpenDelete} setOpenDetails={setOpenDetails} details={true} edit={false} deletion={true} />
                 </RowCell>
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleSubmitDelete}/>
+            <OrderDetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
             </>
         );    
 }

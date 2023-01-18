@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { TableRow, RowCell } from "../../styles/tableStyles";
 import dayjs from "dayjs";
 import DeleteDialog from "./deleteDialog";
@@ -6,6 +6,8 @@ import { StoresService, ClientsService } from "../../services/api.services";
 import DropMenu from "./dropMenu";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
 import UpdateDialog from "./updateDialog";
+import AuthContext from '../context/AuthContext';
+import StoreDetailsDialog from "../stores/storeDetailsDialog";
 
 export default function TableItem({rowData, type, setAbsolute, setItems, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const { deleteStore, getAllStores, updateStore } = StoresService;
@@ -13,6 +15,8 @@ export default function TableItem({rowData, type, setAbsolute, setItems, setLoad
     rowData.start_day = dayjs(rowData.start_day).format('DD/MM/YYYY');
     const [openDelete, setOpenDelete] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
+    const [openDetails, setOpenDetails] = useState(false);
+    const { userData } = useContext(AuthContext);
 
     function handleDelete(){
         setLoading(true);
@@ -53,7 +57,7 @@ export default function TableItem({rowData, type, setAbsolute, setItems, setLoad
             setNameError(errorObject.name.error);
             setNameHelper(errorObject.name.helper);
         }else{
-            const updatePromise = type === 'store' ? updateStore({name, id: rowData.id}) : updateClient({name, id: rowData.id});
+            const updatePromise = type === 'store' ? updateStore({name, id: rowData.id, author: userData.name}) : updateClient({name, id: rowData.id, author: userData.name});
             updatePromise.then(() => {
                 setOpenUpdate(false);
                 setName('');
@@ -88,11 +92,12 @@ export default function TableItem({rowData, type, setAbsolute, setItems, setLoad
                     {rowData.name}
                 </RowCell>
                 <RowCell icon={true} >
-                    <DropMenu setOpenUpdate={setOpenUpdate} setOpenDelete={setOpenDelete} details={false} edit={true} deletion={true} />
+                    <DropMenu setOpenDetails={setOpenDetails} setOpenUpdate={setOpenUpdate} setOpenDelete={setOpenDelete} details={true} edit={true} deletion={true} />
                 </RowCell>
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleDelete}/>
             <UpdateDialog openDialog={openUpdate} handleCloseDialog={() => setOpenUpdate(false)} handleSubmit={handleUpdate}/>
+            <StoreDetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
             </>
         );    
 }

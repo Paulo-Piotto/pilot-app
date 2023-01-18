@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,6 +18,7 @@ import applyDiscount from '../../services/utils/applyDiscount';
 import { sumTotal } from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
 import GenericSnackbar from '../generics/genericSnackbar';
+import AuthContext from '../context/AuthContext';
 
 export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders, setTotal, setLoading}){
 
@@ -39,6 +40,7 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
     const [snackbar, setSnackbar] = useState(false);
     const [snackbarType, setSnackbarType] = useState('success');
     const [snackbarMessage, setSnackbarMessage] = useState('Item deletado com sucesso')
+    const { userData } = useContext(AuthContext);
 
     useEffect(() => {
         ClientsService.getAllClients()
@@ -96,7 +98,8 @@ export default function AddOrderDialog({openDialog, handleCloseDialog, setOrders
         financed: parseInt(Number(valueFinanced.replace(',','.'))*100),
         cash: parseInt(Number(valueCash.replace(',','.'))*100),
         negotiated: negotiatedValue,
-        date
+        date,
+        author: userData.name
       }).then(() => {
         OrdersService.getAllOrders()
           .then((resp) => {
