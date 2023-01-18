@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TableRow, RowCell } from "../../styles/tableStyles";
 import dayjs from "dayjs";
 import DeleteDialog from "../generics/deleteDialog";
+import IncomeDetailsDialog from "./incomeDetailsDialog";
 import { IncomesService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
@@ -11,6 +12,7 @@ export default function IncomeItem({rowData, setTotal, setIncomes, setLoading, s
     const date = dayjs(rowData.date).format('DD/MM/YYYY');
 
     const [openDelete, setOpenDelete] = useState(false);
+    const [openDetails, setOpenDetails] = useState(false);
 
     function handleSubmitDelete(){
         setLoading(true)
@@ -59,10 +61,11 @@ export default function IncomeItem({rowData, setTotal, setIncomes, setLoading, s
                     {date}
                 </RowCell>
                 <RowCell icon={true}>
-                    <DropMenu setOpenDelete={setOpenDelete} details={false} edit={false} deletion={true} />
+                    <DropMenu setOpenDelete={setOpenDelete} setOpenDetails={setOpenDetails} details={true} edit={false} deletion={true} />
                 </RowCell>
             </TableRow>
             <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleSubmitDelete}/>
+            <IncomeDetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
             </>
         );    
 }

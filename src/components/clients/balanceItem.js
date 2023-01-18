@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { TableRow, RowCell } from "../../styles/tableStyles";
 import intToMoney from "../../services/utils/intToMoney";
 import { sumTotal, sumTotalBalance } from "../../services/utils/sumTotal";
 import DeleteDialog from "../generics/deleteDialog";
 import UpdateDialog from "../generics/updateDialog";
-import DetailsDialog from "./detailsDialog";
+import ClientDetailsDialog from "./ClientDetailsDialog";
 import { ClientsService } from "../../services/api.services";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
 import DropMenu from "../generics/dropMenu";
+import AuthContext from '../context/AuthContext';
 
 export default function BalanceItem({rowData, setTotal, setClients, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const [openDelete, setOpenDelete] = useState(false);
@@ -17,6 +18,7 @@ export default function BalanceItem({rowData, setTotal, setClients, setLoading, 
     const incomesValue = intToMoney(sumTotal(rowData.incomes))
     const balance = intToMoney(sumTotal(rowData.incomes) - sumTotal(rowData.orders))
     const balanceColor = balance[0] === '-'? '#db0000' : '#047a0a'
+    const { userData } = useContext(AuthContext);
 
     function handleDelete(){
         setLoading(true);
@@ -57,7 +59,7 @@ export default function BalanceItem({rowData, setTotal, setClients, setLoading, 
             setNameError(errorObject.name.error);
             setNameHelper(errorObject.name.helper);
         }else{
-            const updatePromise =  ClientsService.updateClient({name, id: rowData.id});
+            const updatePromise =  ClientsService.updateClient({name, id: rowData.id, author: userData.name});
             updatePromise.then(() => {
                 setOpenUpdate(false);
                 setName('');
@@ -106,7 +108,7 @@ export default function BalanceItem({rowData, setTotal, setClients, setLoading, 
         </TableRow>
         <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleDelete}/>
         <UpdateDialog openDialog={openUpdate} handleCloseDialog={() => setOpenUpdate(false)} handleSubmit={handleUpdate}/>
-        <DetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
+        <ClientDetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
         </>
     );
 }

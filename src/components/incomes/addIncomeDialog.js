@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -15,6 +15,7 @@ import { ClientsService, IncomesService } from "../../services/api.services";
 import { incomesValidation } from '../../services/validationServices/incomesValidation';
 import { sumTotal } from '../../services/utils/sumTotal';
 import intToMoney from '../../services/utils/intToMoney';
+import AuthContext from '../context/AuthContext';
 
 export default function AddIncomeDialog({openDialog, handleCloseDialog, setIncomes, setTotal, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
     const [clientsList, setClientsList] = useState([]);
@@ -25,6 +26,7 @@ export default function AddIncomeDialog({openDialog, handleCloseDialog, setIncom
     const [client, setClient] = useState(0);
     const [clientError, setClientError] = useState(false);
     const [date, setDate] = useState(dayjs(Date.now()));
+    const { userData } = useContext(AuthContext);
 
     useEffect(() => {
         ClientsService.getAllClients()
@@ -51,6 +53,7 @@ export default function AddIncomeDialog({openDialog, handleCloseDialog, setIncom
       value: parseInt(Number(value.replace(',','.'))*100),
       client,
       date,
+      author: userData.name,
      }).then(() => {
       IncomesService.getAllIncomes()
         .then((resp) => {
