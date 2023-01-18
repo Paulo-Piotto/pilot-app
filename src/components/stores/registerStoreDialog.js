@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { StoresService } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
 import RegisterSnackbar from '../generics/registerSnackbar';
+import AuthContext from '../context/AuthContext';
 
 export default function RegisterStoreDialog({openDialog, handleCloseDialog, setStores, setAbsoluteStores, setLoading}){
 
@@ -15,6 +16,7 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
     const [snackbar, setSnackbar] = useState(false)
     const [nameHelper, setNameHelper] = useState('');
     const [nameError, setNameError] = useState(false);
+    const { userData } = useContext(AuthContext);
 
    function handleSubmit(e){
     e.preventDefault();
@@ -26,7 +28,7 @@ export default function RegisterStoreDialog({openDialog, handleCloseDialog, setS
     }else{
         setLoading(true);
         handleCloseDialog();
-        StoresService.registerStore({ name })
+        StoresService.registerStore({ name, author: userData.name })
             .then(() => {
                 setSnackbar(true);
                 setName('');

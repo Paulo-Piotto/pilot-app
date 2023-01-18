@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -9,12 +9,14 @@ import { ClientsService } from '../../services/api.services';
 import { storeNClientValidation } from '../../services/validationServices/storesNClientsValidation';
 import intToMoney from '../../services/utils/intToMoney';
 import { sumTotalBalance } from '../../services/utils/sumTotal';
+import AuthContext from '../context/AuthContext';
 
 export default function RegisterClientDialog({openDialog, handleCloseDialog, setClients, setTotal, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
 
     const [name, setName] = useState('');
     const [nameHelper, setNameHelper] = useState('');
     const [nameError, setNameError] = useState(false);
+    const { userData } = useContext(AuthContext);
 
    function handleSubmit(e){
     e.preventDefault();
@@ -25,7 +27,7 @@ export default function RegisterClientDialog({openDialog, handleCloseDialog, set
         setNameError(errorObject.name.error);
         setNameHelper(errorObject.name.helper);
     }else{
-        ClientsService.registerClient({ name })
+        ClientsService.registerClient({ name, author: userData.name })
             .then(() => {
                 setSnackbar(true);
                 setSnackbarType('success')
