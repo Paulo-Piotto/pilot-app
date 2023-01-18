@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 export default function DetailsDialog({rowData, openDialog, handleCloseDialog}){
     const [checked, setChecked] = useState(false);
-
+    
     return(
         <>
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth='sm' fullWidth={true} >

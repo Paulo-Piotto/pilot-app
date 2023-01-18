@@ -13,7 +13,7 @@ import IncomesPage from "./pages/incomesPage";
 function App() {
   const { userData } = useContext(AuthContext);
 
-  if(userData) return <Auth />
+  if(!userData) return <Auth />
   return (
       <HashRouter>
         <Main />
