@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { MoreHorizOutlined, DeleteOutline, VisibilityOutlined, EditOutlined } from '@mui/icons-material';
 
-export default function DropMenu({setOpenUpdate, setOpenDelete, details, edit, deletion}) {
+export default function DropMenu({setOpenUpdate, setOpenDelete, setOpenDetails, details, edit, deletion}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -36,7 +36,7 @@ export default function DropMenu({setOpenUpdate, setOpenDelete, details, edit, d
         }}
         
       >
-        <MenuItem disabled={!details} sx={{fontSize: 15}} onClick={handleClose}>
+        <MenuItem disabled={!details} sx={{fontSize: 15}} onClick={() => handleClose(setOpenDetails)}>
             <VisibilityOutlined fontSize='small' sx={{mr: 1}}/>
             Mostrar detalhes
             </MenuItem>
