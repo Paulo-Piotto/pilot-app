@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Checkbox, DialogContentText } from '@mui/material/';
 import { ClientsService } from '../../services/api.services';
 import intToMoney from '../../services/utils/intToMoney';
 import { sumTotalBalance } from '../../services/utils/sumTotal';
@@ -20,6 +15,7 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
   const [initialDate, setInitialDate] = useState(dayjs(todayMinus30));
   const [endDate, setEndDate] = useState(dayjs(Date.now()));
   const [name, setName] = useState('');
+  const [includeArchived, setIncludeArchived] = useState(false);
 
    function handleSubmit(e){
     e.preventDefault();
@@ -29,7 +25,8 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
     const searchSettings = {
       initialDate: floorDateHour(initialDate),
       endDate: ceilDateHour(endDate),
-      name
+      name,
+      includeArchived,
     }
     ClientsService.searchClient(searchSettings)
         .then((resp) => {
@@ -37,6 +34,7 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
             setTotal(intToMoney(sumTotalBalance(resp.data)));
             setName('');
             setLoading(false);
+            setIncludeArchived(false);
         })
         .catch((err) => {
             setSnackbar(true)
@@ -97,7 +95,17 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
             fullWidth
             variant="standard"
             onChange={(e) => setName(e.target.value)}
-          />          
+          />
+          <DialogContentText sx={{ fontSize: 18, mt: 3}}>
+            <ArchiveContainer>
+              <Checkbox
+                checked={includeArchived}
+                onChange={(e) =>  setIncludeArchived(e.target.checked)}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+              <p>Incluir Arquivados </p>
+            </ArchiveContainer>
+          </DialogContentText>       
         </DialogContent>
         <DialogActions>
           <Button  onClick={handleCloseDialog}>Cancelar</Button>
@@ -112,4 +120,9 @@ export default function SearchClientDialog({openDialog, handleCloseDialog, setCl
 const DateContainer = styled.div`
   width: 100%;
   display: flex;
+`
+
+const ArchiveContainer = styled.div`
+    display: flex;
+    align-items: center;
 `
