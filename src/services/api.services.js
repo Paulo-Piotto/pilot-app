@@ -19,7 +19,7 @@ const StoresService = {
 }
 
 const ClientsService = {
-    getAllClients: () => axios.get(`${URL}/clients`),
+    getAllClients: () => axios.get(`${URL}/clients?includeArchived=false`),
     deleteClient: (id) => axios.delete(`${URL}/clients?id=${id}`),
     registerClient: (newClient) => axios.post(`${URL}/clients`, newClient),
     searchClient: (searchSettings) => {
