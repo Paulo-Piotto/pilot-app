@@ -27,9 +27,11 @@ export function useLocalStorage() {
     const [ localStorageData, setLocalStorageData ] = useState(JSON.parse(localStorage.getItem("userData")))
 
     function manageLocalStorageSetter(data) {
-        console.log("Storaging: ", data)
-        localStorage.setItem("userData", JSON.stringify(data))
-        setLocalStorageData(data)
+        if(data) {
+            localStorage.setItem("userData", JSON.stringify(data))
+            setLocalStorageData(data)
+        }
+        else localStorage.removeItem("userData")
     }
 
     return [ localStorageData, manageLocalStorageSetter ];

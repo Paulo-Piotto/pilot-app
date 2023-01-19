@@ -1,10 +1,13 @@
 import { Background, Header, Logo, SideMenu, IconsContainer, IconBox } from "../styles/generalStyles";
 import { IoHomeOutline, IoPeopleOutline, IoTimeOutline, IoBriefcaseOutline, IoStorefrontOutline, IoCashOutline } from "react-icons/io5";
+import { RiLogoutBoxLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ControlPanel from "./controlPanel";
+import AuthContext from "./context/AuthContext";
 
 export default function Main(){
+    const { logout } = useContext(AuthContext);
     const navigate = useNavigate();
     const [selectedIcon, setSelectedIcon] = useState('home');
 
@@ -37,6 +40,9 @@ export default function Main(){
                     </IconBox>
                     <IconBox isSelected={selectedIcon==="incomes" ? true : false} onClick={() => {selectPage('incomes', '/incomes')}}>
                         <IoCashOutline />
+                    </IconBox>
+                    <IconBox onClick={logout}>
+                        <RiLogoutBoxLine />
                     </IconBox>
                 </IconsContainer>
             </SideMenu>

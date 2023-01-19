@@ -9,9 +9,11 @@ export default function ControlPanel() {
     const motionVariants = {
         closed: {
             height: 0,
+            borderRadius: 0
         },
         open: {
             height: (windowSize.height)*0.7,
+            borderRadius: 20
         }
     }
     

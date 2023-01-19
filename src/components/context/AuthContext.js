@@ -6,9 +6,15 @@ const AuthContext = createContext({});
 export function AuthContextProvider({ children }) {
     const [ userData, setUserData ] = useLocalStorage();
 
+    function logout() {
+        setUserData()
+        window.location.href = "/"
+    }
+
     return <AuthContext.Provider value={{
         userData,
-        setUserData
+        setUserData,
+        logout
     }}>
         { children }
     </AuthContext.Provider>
