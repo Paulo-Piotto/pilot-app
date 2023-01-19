@@ -3,6 +3,14 @@
    License: none (public domain)
 */
 
+:root {
+    --primary-color: #131E29;
+    --secondary-color: #D6D1C4;
+    --tertiary-blue: #43505F;
+    --tertiary-grey: #A2A9AD;
+    --tertiary-white: #FFFFFF;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,

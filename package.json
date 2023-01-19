@@ -1,6 +1,6 @@
 {
   "name": "piottoarq",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
