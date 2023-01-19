@@ -10,6 +10,7 @@ export const ControlPanelSliderContainer = styled(motion.section)`
     color: #FFF;
     z-index: 10;
     box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    
 `
 
 export const FloaterMenuContainer = styled.div`
