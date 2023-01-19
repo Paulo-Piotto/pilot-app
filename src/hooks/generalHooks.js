@@ -1,10 +1,18 @@
 import { useState, useLayoutEffect } from "react";
 
 export function useWindowSize() {
-    const [ windowSize, setWindowSize ] = useState(window.innerWidth);
+    const [ windowSize, setWindowSize ] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
 
     useLayoutEffect(() => {
-        function calculateNewScreenSize() { setWindowSize(window.innerWidth) }
+        function calculateNewScreenSize() {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            })
+        }
         calculateNewScreenSize();
 
         window.addEventListener('resize', calculateNewScreenSize);

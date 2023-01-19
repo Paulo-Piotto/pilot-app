@@ -2,6 +2,7 @@ import { Background, Header, Logo, SideMenu, IconsContainer, IconBox } from "../
 import { IoHomeOutline, IoPeopleOutline, IoTimeOutline, IoBriefcaseOutline, IoStorefrontOutline, IoCashOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ControlPanel from "./controlPanel";
 
 export default function Main(){
     const navigate = useNavigate();
@@ -39,6 +40,7 @@ export default function Main(){
                     </IconBox>
                 </IconsContainer>
             </SideMenu>
+            <ControlPanel />
         </Background>
     );
 };
