@@ -11,7 +11,7 @@ export default function Censorship() {
     const userPermission = userData.role
 
     return routesConfig.map(routeConfig => 
-        Config.roleIds[userPermission] >= Config.roleIds[routeConfig.minimumAcessLevel]
+        Config.rolesLevel[userPermission] >= Config.rolesLevel[routeConfig.minimumAcessLevel]
             ? <Route path={routeConfig.path} element={<routeConfig.component />} key={routeConfig.path} />
             : <Route path={routeConfig.path} element={routeConfig.unauthorizedComponent ?? <CensoredScreen />} key={routeConfig.path} />
         )

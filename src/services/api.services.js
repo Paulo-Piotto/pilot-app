@@ -56,6 +56,11 @@ const IncomesService = {
     deleteIncome: (id) => axios.delete(`${URL}/incomes?id=${id}`)
 }
 
+const UsersService = {
+    getAllUsersData: (token) => axios.get(`${URL}/users`, {headers: { Authorization: `Bearer ${token}` }}),
+    updateUser: (userData, token) => axios.put(`${URL}/users`, userData, {headers: { Authorization: `Bearer ${token}` }})
+}
+
 export {
     EmployeesService,
     StoresService,
@@ -63,4 +68,5 @@ export {
     OrdersService,
     AuthService,
     IncomesService,
+    UsersService
 }
