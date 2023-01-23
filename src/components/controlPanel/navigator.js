@@ -3,7 +3,7 @@ import dayjs from "dayjs"
 import AuthContext from "../context/AuthContext"
 import { useContext } from "react"
 
-export default function Navigator() {
+export default function Navigator({ children }) {
     const { userData } = useContext(AuthContext)
 
     return (
@@ -14,8 +14,7 @@ export default function Navigator() {
             </header>
             <nav>
                 <ul>
-                    <li>oie </li>
-                    <li>oie 2</li>
+                    {children}
                 </ul>
             </nav>
         </NavigatorContainer>
