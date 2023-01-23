@@ -10,6 +10,7 @@ export default function UsersManager() {
     const { editorToken } = useContext(ControlPanelContext)
 
     useEffect(() => {
+        console.log(editorToken)
         async function refreshUserData() {
             const refreshedUsersData = await UsersService.getAllUsersData(editorToken);
             setUsersData(refreshedUsersData.data);

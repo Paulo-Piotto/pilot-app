@@ -3,7 +3,7 @@ import { useLocalStorage } from "../../hooks/generalHooks";
 
 const ControlPanelContext = createContext({});
 
-export function ControlPanelContextProvider({children }) {
+export function ControlPanelContextProvider({ children }) {
     const [ userData, setUserData ] = useLocalStorage();
     const [ alerterObserver, setAlerterObserver ] = useState(0)
 
