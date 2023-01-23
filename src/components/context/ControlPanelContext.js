@@ -5,7 +5,8 @@ const ControlPanelContext = createContext({});
 
 export function ControlPanelContextProvider({ children }) {
     const [ userData, setUserData ] = useLocalStorage();
-    const [ alerterObserver, setAlerterObserver ] = useState(0)
+    const [ alerterObserver, setAlerterObserver ] = useState(0);
+    const [ isControlPanelActive, setIsControlPanelActive ] = useState(false);
 
     function fireAlerter(alerterProps) {
         setAlerterObserver(alerterProps)
@@ -14,7 +15,9 @@ export function ControlPanelContextProvider({ children }) {
     return (
         <ControlPanelContext.Provider value={{
             editorToken: userData.token,
-            fireAlerter
+            fireAlerter,
+            isControlPanelActive,
+            setIsControlPanelActive
         }}>
             { children }
         </ControlPanelContext.Provider>

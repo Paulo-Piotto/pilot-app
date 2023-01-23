@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;800&display=swap');
 
 :root {
     --primary-color: #131E29;
@@ -9,6 +10,8 @@
     --tertiary-blue: #43505F;
     --tertiary-grey: #A2A9AD;
     --tertiary-white: #FFFFFF;
+
+    --base-font: 'Open Sans', sans-serif;
 }
 
 html, body, div, span, applet, object, iframe,

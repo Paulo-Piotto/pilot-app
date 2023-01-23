@@ -33,9 +33,17 @@ export const AccordionContainer = styled(motion.div)`
             }
         }
 
+        >label {
+            margin-right: 5px;
+            color: var(--tertiary-grey);
+            border-left: 2px solid var(--tertiary-grey);
+            padding-left: 3px;
+            border-radius: 2px;
+        }
+
         >input {
             background: none;
-            color: var(--secondary-color);
+            color: #fff;
             outline: none;
             border: none;
             padding: 2px;

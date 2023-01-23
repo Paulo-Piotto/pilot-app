@@ -1,13 +1,13 @@
 import { ControlPanelSliderContainer } from "./styles"
 import FloaterMenu from "./floaterMenu"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useWindowSize } from "../../hooks/generalHooks";
 import Navigator from "./navigator";
-import { ControlPanelContextProvider } from "../context/ControlPanelContext";
 import controls from "./controls";
+import ControlPanelContext from "../context/ControlPanelContext.js";
 
 export default function ControlPanel() {
-    const [ isActive, setIsActive ] = useState(false);
+    const { isControlPanelActive, setIsControlPanelActive } = useContext(ControlPanelContext);
     const [ currentControlComponent, setCurrentControlComponent ] = useState(controls[0].component)
     const windowSize = useWindowSize();
     const motionVariants = {
@@ -19,23 +19,23 @@ export default function ControlPanel() {
         }
     }
     
-    function toggle() { setIsActive(prevState => !prevState) }
+    function toggle() { setIsControlPanelActive(prevState => !prevState) }
 
     return (
-        <ControlPanelContextProvider>
+        <>
             <ControlPanelSliderContainer
                 variants={motionVariants}
                 initial="closed"
-                animate={ isActive ? "open" : "closed" }
+                animate={ isControlPanelActive ? "open" : "closed" }
             >
                 <Navigator>
                     {controls.map(control => (
                         <li key={control.displayName} onClick={() => { setCurrentControlComponent(control.component) }}>{control.displayName}</li>
                     ))}
                 </Navigator>
-                {currentControlComponent ? currentControlComponent : <p>oi</p>}
+                {currentControlComponent}
             </ControlPanelSliderContainer>
-            <FloaterMenu motionDirection={isActive ? 1 : 0} toggle={toggle} />
-        </ControlPanelContextProvider>
+            <FloaterMenu motionDirection={isControlPanelActive ? 1 : 0} toggle={toggle} />
+        </>
     )
 }

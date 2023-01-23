@@ -14,6 +14,8 @@ export const ControlPanelSliderContainer = styled(motion.section)`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: var(--base-font);
+    font-weight: 500;
 `
 
 export const FloaterMenuContainer = styled.div`
@@ -40,6 +42,7 @@ export const NavigatorContainer = styled.aside`
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    border-radius: 0px 10px 0px 0px;
     
     >header {
         margin: 20px;
@@ -61,13 +64,13 @@ export const NavigatorContainer = styled.aside`
 
         >ul {
             >li {
-                background-image: linear-gradient(90deg, #D6D1C4, #43505F);
+                background-image: linear-gradient(0deg, #43505F, #43505F);
                 background-size: 0% 3px;
                 background-repeat: no-repeat;
                 background-position: left bottom;
                 transition: background-size 300ms ease;
                 margin-bottom: 10px;
-                padding-bottom: 2px;
+                padding-bottom: 5px;
 
                 :hover {
                     background-size: 100% 3px;

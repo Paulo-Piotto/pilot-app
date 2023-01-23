@@ -7,7 +7,7 @@ import ControlPanelContext from "../../../context/ControlPanelContext";
 export default function UsersManager() {
     const [ refresh, setRefresh ] = useState(0)
     const [ usersData, setUsersData ] = useState([])
-    const { editorToken } = useContext(ControlPanelContext)
+    const { editorToken, isControlPanelActive } = useContext(ControlPanelContext)
 
     useEffect(() => {
         async function refreshUserData() {
@@ -18,7 +18,7 @@ export default function UsersManager() {
     }, [refresh, editorToken])
 
     return (
-        <ToolContainer>
+        <ToolContainer isPanelActive={isControlPanelActive}>
             {
                 usersData.map(userData => <UserEditor key={userData.id} userData={userData}/>)
             }
