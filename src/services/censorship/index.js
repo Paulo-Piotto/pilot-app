@@ -1,13 +1,10 @@
-import { useContext } from "react";
 import { Route } from "react-router-dom";
-import AuthContext from "../../components/context/AuthContext";
 import Config from "../../pilot-app.config";
 import CensoredScreen from "./CensoredScreen";
 import routesConfig from "./routesConfig";
 
 
-export default function Censorship() {
-    const { userData } = useContext(AuthContext)
+export default function Censorship(userData) {
     const userPermission = userData.role
 
     return routesConfig.map(routeConfig => 

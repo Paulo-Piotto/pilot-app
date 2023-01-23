@@ -12,7 +12,7 @@ function App() {
   return (
       <HashRouter>
         <Main />
-        <Routes>{ Censorship() }</Routes>
+        <Routes>{ Censorship(userData) }</Routes>
       </HashRouter>
   );
 }
