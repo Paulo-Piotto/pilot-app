@@ -13,9 +13,11 @@ export default function ControlPanel() {
     const motionVariants = {
         closed: {
             height: 0,
+            opacity: 0
         },
         open: {
             height: (windowSize.height)*0.7,
+            opacity: .92
         }
     }
     
@@ -27,12 +29,13 @@ export default function ControlPanel() {
                 variants={motionVariants}
                 initial="closed"
                 animate={ isControlPanelActive ? "open" : "closed" }
+                whileHover={isControlPanelActive ? { opacity: 1 } : null}
             >
-                <Navigator>
-                    {controls.map(control => (
+                <Navigator>{
+                    controls.map(control => (
                         <li key={control.displayName} onClick={() => { setCurrentControlComponent(control.component) }}>{control.displayName}</li>
-                    ))}
-                </Navigator>
+                    ))
+                }</Navigator>
                 {currentControlComponent}
             </ControlPanelSliderContainer>
             <FloaterMenu motionDirection={isControlPanelActive ? 1 : 0} toggle={toggle} />
