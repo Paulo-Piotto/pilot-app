@@ -67,7 +67,7 @@ export const registerErrorFormat = {
 
 export const newUserFormat = {
     name: "",
-    roleName: getLowestRole(Config.roleIds),
+    roleName: getLowestRole(Config.rolesLevel),
     email: "",
     password: ""
 }

@@ -7,12 +7,15 @@ import { AuthService } from "../../services/api.services";
 import { Register as RegisterValidate } from "../../services/validationServices/authValidation";
 import Loader from "../generics/Loader";
 import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
+import { useEffect } from "react";
 
 export default function Register({ side: animationSide, callLoginScreen }) {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ passwordConfirmation, setPasswordConfirmation ] = useState("");
     const [ errors, setErrors ] = useState(Utils.registerErrorFormat)
     const [ newUser, setNewUser ] = useState(Utils.newUserFormat)
+
+    useEffect(() => {console.log(newUser)},[newUser])
 
     function updateNewUserData(newUserData) {
         setNewUser(prevState => ({
