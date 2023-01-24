@@ -15,8 +15,6 @@ export default function Register({ side: animationSide, callLoginScreen }) {
     const [ errors, setErrors ] = useState(Utils.registerErrorFormat)
     const [ newUser, setNewUser ] = useState(Utils.newUserFormat)
 
-    useEffect(() => {console.log(newUser)},[newUser])
-
     function updateNewUserData(newUserData) {
         setNewUser(prevState => ({
             ...prevState,
