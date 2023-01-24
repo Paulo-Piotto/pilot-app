@@ -7,11 +7,9 @@ import { AuthService } from "../../services/api.services";
 import { Register as RegisterValidate } from "../../services/validationServices/authValidation";
 import Loader from "../generics/Loader";
 import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
-import { useEffect } from "react";
 
 export default function Register({ side: animationSide, callLoginScreen }) {
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ passwordConfirmation, setPasswordConfirmation ] = useState("");
     const [ errors, setErrors ] = useState(Utils.registerErrorFormat)
     const [ newUser, setNewUser ] = useState(Utils.newUserFormat)
 
@@ -24,15 +22,17 @@ export default function Register({ side: animationSide, callLoginScreen }) {
 
     function resetComponentData() {
         setNewUser(Utils.newUserFormat)
-        setPasswordConfirmation("")
         setErrors(Utils.registerErrorFormat)
     }
 
     function handleRegistration() {
         setIsLoading(true)
+        const configuredRegisterValidate = { ...RegisterValidate }
+        configuredRegisterValidate.passwordConfirmation = configuredRegisterValidate.passwordConfirmation(newUser.password)
+
         Utils.handleSubmission({
             submissionData: newUser,
-            validator: RegisterValidate,
+            validator: configuredRegisterValidate,
             errorSetter: setErrors,
             service: AuthService.register,
             callbackFunction: () => {
@@ -101,13 +101,13 @@ export default function Register({ side: animationSide, callLoginScreen }) {
 
                 <sc.CssTextField
                     label="Confirme a senha"
-                    error={newUser.password !== passwordConfirmation}
-                    helperText={newUser.password !== passwordConfirmation ? "A senha não corresponde" : ""}
+                    error={newUser.password !== newUser.passwordConfirmation}
+                    helperText={newUser.password !== newUser.passwordConfirmation ? "A senha não corresponde" : ""}
                     variant="filled" 
                     type="password"
                     name="Password Confirmation"
-                    value={passwordConfirmation}
-                    onChange={ e => setPasswordConfirmation(e.target.value) }
+                    value={newUser.passwordConfirmation}
+                    onChange={ e => updateNewUserData({ passwordConfirmation: e.target.value }) }
                     focuscolor='#131E29'
                 />
 

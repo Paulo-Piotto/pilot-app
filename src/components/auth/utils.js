@@ -69,7 +69,8 @@ export const newUserFormat = {
     name: "",
     roleName: getLowestRole(Config.rolesLevel),
     email: "",
-    password: ""
+    password: "",
+    passwordConfirmation: ""
 }
 
 export const loginErrorFormat = {
