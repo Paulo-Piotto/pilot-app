@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { ClientsService } from "../services/api.services";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
@@ -12,6 +12,7 @@ import { sumTotalBalance } from "../services/utils/sumTotal";
 import intToMoney from "../services/utils/intToMoney";
 import RegisterClientDialog from "../components/clients/registerClientDialog"
 import SearchClientDialog from "../components/clients/searchClientDialog";
+import AuthContext from "../components/context/AuthContext";
 
 export default function ClientsBalancePage(){
     const [loading, setLoading] = useState(true);
@@ -22,6 +23,8 @@ export default function ClientsBalancePage(){
     const [snackbar, setSnackbar] = useState(false);
     const [snackbarType, setSnackbarType] = useState('');
     const [snackbarMessage, setSnackbarMessage] = useState('')
+
+    const { userData } = useContext(AuthContext);
 
     function clearFilters(){
         setLoading(true)
@@ -65,10 +68,17 @@ export default function ClientsBalancePage(){
             <HeaderContainer>
                 <TableHeader>
                     <p>Obra</p>
+                    {userData.role === 'root' ? 
+                    <>
                     <p>Receitas</p>
                     <p>Despesas</p>
                     <p>Saldo</p>
                     <p></p>
+                    </>
+                    :
+                    null
+                    }
+                    
                 </TableHeader>
             </HeaderContainer>
             <TableContainer>

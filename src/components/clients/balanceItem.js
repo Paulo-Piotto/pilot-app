@@ -93,15 +93,21 @@ export default function BalanceItem({rowData, setTotal, setClients, setLoading, 
             <RowCell>
                 {rowData.name}
             </RowCell>
-            <RowCell>
-                {incomesValue}
-            </RowCell>
-            <RowCell>
-                {ordersValue}
-            </RowCell>
-            <RowCell color={balanceColor} bold={true} >
-                {balance}
-            </RowCell>
+            {userData.role === 'root' ? 
+                <>
+                <RowCell>
+                    {incomesValue}
+                </RowCell>
+                <RowCell>
+                    {ordersValue}
+                </RowCell>
+                <RowCell color={balanceColor} bold={true} >
+                    {balance}
+                </RowCell>
+                </>
+                :
+                null
+            }
             <RowCell icon={true} >
                 <DropMenu setOpenUpdate={setOpenUpdate} setOpenDelete={setOpenDelete} setOpenDetails={setOpenDetails} details={true} edit={true} deletion={true} />
             </RowCell>

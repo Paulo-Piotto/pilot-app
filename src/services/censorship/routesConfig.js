@@ -27,7 +27,7 @@ const routesConfig = [
     {
         component: ClientsBalancePage, //complicated
         path: "/clients",
-        minimumAcessLevel: "root",
+        minimumAcessLevel: "basic",
         unauthorizedComponent: null
     },
     {
@@ -39,7 +39,7 @@ const routesConfig = [
     {
         component: InProgress, //?
         path: "/development",
-        minimumAcessLevel: "basic",
+        minimumAcessLevel: "admin",
         unauthorizedComponent: null
     },
 ]
