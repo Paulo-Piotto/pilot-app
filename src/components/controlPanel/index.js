@@ -1,14 +1,12 @@
 import { ControlPanelSliderContainer } from "./styles"
 import FloaterMenu from "./floaterMenu"
-import { useState, useContext } from "react"
+import { useContext } from "react"
 import { useWindowSize } from "../../hooks/generalHooks";
 import Navigator from "./navigator";
-import controls from "./controls";
 import ControlPanelContext from "../context/ControlPanelContext.js";
 
 export default function ControlPanel() {
-    const { isControlPanelActive, setIsControlPanelActive } = useContext(ControlPanelContext);
-    const [ currentControlComponent, setCurrentControlComponent ] = useState(controls[0].component)
+    const { isControlPanelActive, setIsControlPanelActive, currentControl } = useContext(ControlPanelContext);
     const windowSize = useWindowSize();
     const motionVariants = {
         closed: {
@@ -31,12 +29,8 @@ export default function ControlPanel() {
                 animate={ isControlPanelActive ? "open" : "closed" }
                 whileHover={isControlPanelActive ? { opacity: 1 } : null}
             >
-                <Navigator>{
-                    controls.map(control => (
-                        <li key={control.displayName} onClick={() => { setCurrentControlComponent(control.component) }}>{control.displayName}</li>
-                    ))
-                }</Navigator>
-                {currentControlComponent}
+                <Navigator />
+                {currentControl.component}
             </ControlPanelSliderContainer>
             <FloaterMenu motionDirection={isControlPanelActive ? 1 : 0} toggle={toggle} />
         </>

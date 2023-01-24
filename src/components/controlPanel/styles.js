@@ -61,22 +61,19 @@ export const NavigatorContainer = styled.aside`
     >nav {
         width: 100%;
         text-align: center;
-
-        >ul {
-            >li {
-                background-image: linear-gradient(0deg, #43505F, #43505F);
-                background-size: 0% 3px;
-                background-repeat: no-repeat;
-                background-position: left bottom;
-                transition: background-size 300ms ease;
-                margin-bottom: 10px;
-                padding-bottom: 5px;
-
-                :hover {
-                    background-size: 100% 3px;
-                    cursor: pointer;
-                }
-            }
-        }
     }
+`
+
+const liSelectedOrHoveredCssString = "background-size: 100% 3px; cursor: pointer;"
+export const ControlOption = styled.li`
+    background-image: linear-gradient(0deg, #43505F, #43505F);
+    background-size: 0% 3px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 300ms ease;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-weight: ${props => props.isSelected ? "700" : "500"};
+
+    ${props => props.isSelected ? liSelectedOrHoveredCssString : `:hover{${liSelectedOrHoveredCssString}}`}
 `

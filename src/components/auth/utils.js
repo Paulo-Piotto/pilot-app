@@ -25,7 +25,7 @@ export async function handleSubmission({
         console.error(error)
         errorSetter(prevState => ({
             ...prevState,
-            api: { isValid: false, errorMessage: error.response.data }
+            api: { isValid: false, errorMessage: error.response?.data ?? "Failed to comunicate to server"}
         }))
     }
 }
@@ -67,9 +67,10 @@ export const registerErrorFormat = {
 
 export const newUserFormat = {
     name: "",
-    roleName: getLowestRole(Config.roleIds),
+    roleName: getLowestRole(Config.rolesLevel),
     email: "",
-    password: ""
+    password: "",
+    passwordConfirmation: ""
 }
 
 export const loginErrorFormat = {

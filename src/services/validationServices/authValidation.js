@@ -37,5 +37,6 @@ export const Login = {
 export const Register = {
     ...Login,
     name: validateRegisterName,
-    roleName: (roleName) => ({ isValid: !!roleName, errorMessage: "Falha de user role name" })
+    roleName: (roleName) => ({ isValid: !!roleName, errorMessage: "Falha de user role name" }),
+    passwordConfirmation: password => passwordConfirmation => ({ isValid: password === passwordConfirmation, errorMessage: "A confirmação de senha falhou" })
 }
