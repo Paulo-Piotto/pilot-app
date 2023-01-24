@@ -1,10 +1,12 @@
-import { NavigatorContainer } from "./styles"
+import { NavigatorContainer, ControlOption } from "./styles"
 import dayjs from "dayjs"
 import AuthContext from "../context/AuthContext"
+import ControlPanelContext from "../context/ControlPanelContext"
 import { useContext } from "react"
 
-export default function Navigator({ children }) {
+export default function Navigator() {
     const { userData } = useContext(AuthContext)
+    const { controls, currentControl, setCurrentControl } = useContext(ControlPanelContext)
 
     return (
         <NavigatorContainer>
@@ -13,9 +15,13 @@ export default function Navigator({ children }) {
                 <p>{`${dayjs().format("DD/MM/YYYY")}`}</p>
             </header>
             <nav>
-                <ul>
-                    {children}
-                </ul>
+                <ul>{
+                    controls.map(thisControl => (
+                        <ControlOption key={thisControl.displayName} onClick={() => { setCurrentControl(thisControl) }} isSelected={currentControl.displayName === thisControl.displayName}>
+                            {`${currentControl.displayName === thisControl.displayName ? "»" : ""} ${thisControl.displayName}`}
+                        </ControlOption>
+                    ))    
+                }</ul>
             </nav>
         </NavigatorContainer>
     )

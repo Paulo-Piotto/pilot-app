@@ -7,33 +7,33 @@ import InProgress from "../../components/generics/inProgress";
 
 const routesConfig = [
     {
-        component: OrdersPage,
+        component: OrdersPage, //done
         path: "/",
         minimumAcessLevel: "basic",
         unauthorizedComponent: null
     },
     {
-        component: EmployeesPage,
+        component: EmployeesPage, //done
         path: "/employees",
         minimumAcessLevel: "admin",
         unauthorizedComponent: null
     },
     {
-        component: StoresPage,
+        component: StoresPage, //done
         path: "/stores",
         minimumAcessLevel: "basic",
         unauthorizedComponent: null
     },
     {
-        component: ClientsBalancePage,
+        component: ClientsBalancePage, //complicated
         path: "/clients",
         minimumAcessLevel: "root",
         unauthorizedComponent: null
     },
     {
-        component: IncomesPage,
+        component: IncomesPage, //done
         path: "/incomes",
-        minimumAcessLevel: "basic",
+        minimumAcessLevel: "root",
         unauthorizedComponent: null
     },
     {
