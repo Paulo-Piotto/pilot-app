@@ -18,7 +18,7 @@ export default function FloaterMenu({ motionDirection, toggle }) {
         if(wasClicked) {
             lottieRef.current.playSegments(segment)
         }
-    })
+    }, [wasClicked, motionDirection])
 
     return (
         <FloaterMenuContainer onClick={updateClickState}>

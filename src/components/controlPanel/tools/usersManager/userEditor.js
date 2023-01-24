@@ -6,14 +6,18 @@ import LoadingSpinner from "../generics/loadingSpinner";
 import { UsersService } from "../../../../services/api.services";
 import ControlPanelContext from "../../../context/ControlPanelContext";
 import { objectHasBeenChanged } from "../../../../services/utils";
+import GenericSnackbar from "../../../generics/genericSnackbar";
 
 export default function UserEditor({ userData }) {
     const iconStyle = { scale: "1.5" }
     const { name, email } = userData
     const { editorToken } = useContext(ControlPanelContext)
-    const [ isCLicked, setIsClicked ] = useState(false);
-    const [ isLoading, setIsLoading ] = useState(false);
     const [ updatedUserData, setUpdatedUserData ] = useState({...userData})
+    const [ componentState, setComponentState ] = useState({
+        isLoading: false,
+        isClicked: false,
+        error: null
+    })
 
     function updateUpdatedUserData(key, value) {
         setUpdatedUserData(prev => ({
@@ -21,9 +25,15 @@ export default function UserEditor({ userData }) {
             [key]: value
         }))
     }
-    function toggle() { setIsClicked(prev => !prev) }
+    function updateComponentState(key, value) {
+        setComponentState(prev => ({
+            ...prev,
+            [key]: value
+        }))
+    }
+    function toggle() { setComponentState(prev => ({...prev, isClicked: !prev.isClicked})) }
     async function submitUpdatedData() {
-        setIsLoading(true)
+        updateComponentState("isLoading", true)
         try {
             if(objectHasBeenChanged(userData, updatedUserData)) {
                 const updatedData = await UsersService.updateUser({ ...updatedUserData, id: userData.id }, editorToken)
@@ -31,8 +41,10 @@ export default function UserEditor({ userData }) {
             }
         } catch(error) {
             console.error(error)
+            updateComponentState("error", error.response?.data ?? "Falha ao se comunicar com servidor")
+            setUpdatedUserData({ ...userData }) // return to initial values
         }
-        setIsLoading(false)
+        updateComponentState("isLoading", false)
     }
     
     function resetUpdatedUserData() { setUpdatedUserData({ ...userData }) }
@@ -42,21 +54,21 @@ export default function UserEditor({ userData }) {
             <main>
                 <label>Nome: </label>
                 <input placeholder={name}
-                       disabled={!isCLicked}
+                       disabled={!componentState.isClicked}
                        onChange={e => updateUpdatedUserData("name", e.target.value)}
                        value={updatedUserData.name}
                 />
 
                 <label>Email: </label>
                 <input placeholder={email}
-                       disabled={!isCLicked}
+                       disabled={!componentState.isClicked}
                        onChange={e => updateUpdatedUserData("email", e.target.value)}
                        value={updatedUserData.email}
                 />
 
                 <label>Cargo: </label>
                 <select name="roles"
-                        disabled={!isCLicked}
+                        disabled={!componentState.isClicked}
                         onChange={e => updateUpdatedUserData("role", e.target.value)}
                         value={updatedUserData.role}
                 >
@@ -67,12 +79,18 @@ export default function UserEditor({ userData }) {
             </main>
             
             <div>{
-                isCLicked
+                componentState.isClicked
                     ? <><AiFillCloseCircle onClick={() => {resetUpdatedUserData();toggle()}} style={iconStyle} color="#e72a2a"/><MdOutlineDownloadDone style={iconStyle} color="#06bb03" onClick={() => {submitUpdatedData(); toggle()}}/></>
-                    : isLoading
+                    : componentState.isLoading
                         ? <LoadingSpinner />
                         : <AiTwotoneEdit style={iconStyle} onClick={toggle}/>
             }</div>
+            <GenericSnackbar 
+                snackbar={!!componentState.error}
+                setSnackbar={value => { updateComponentState("error", value) }}
+                type="error"
+                message={componentState.error}
+            />
         </AccordionContainer>
     )
 }
