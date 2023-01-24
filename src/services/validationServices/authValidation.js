@@ -37,5 +37,5 @@ export const Login = {
 export const Register = {
     ...Login,
     name: validateRegisterName,
-    roleName: roleName => ({ isValid: !!roleName, errorMessage: "Falha de user role_id" })
+    roleName: (roleName) => ({ isValid: !!roleName, errorMessage: "Falha de user role name" })
 }

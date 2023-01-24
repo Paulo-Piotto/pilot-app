@@ -1,3 +1,5 @@
+import Config from "../../pilot-app.config";
+
 export async function handleSubmission({
     submissionData,
     validator,
@@ -28,6 +30,21 @@ export async function handleSubmission({
     }
 }
 
+function getLowestRole(rolesHierarchy) {
+    const lowest = {
+        value: Infinity,
+        name: ""
+    }
+
+    for(const role in rolesHierarchy) {
+        if(rolesHierarchy[role] < lowest.value) {
+            lowest.value = rolesHierarchy[role]
+            lowest.name = role
+        }
+    }
+    return lowest.name
+}
+
 export const animationTransitionConfiguration = {
     type: "spring",
     stiffness: 250,
@@ -50,7 +67,7 @@ export const registerErrorFormat = {
 
 export const newUserFormat = {
     name: "",
-    roleName: "new",
+    roleName: getLowestRole(Config.roleIds),
     email: "",
     password: ""
 }
@@ -60,5 +77,7 @@ export const loginErrorFormat = {
     password: { isValid: true, errorMessage: "" },
     api: { isValid: true, errorMessage: "" }
 }
+
+
 
 export const loginDataFormat = { email: "", password: "" }

@@ -108,7 +108,7 @@ export default function BalanceItem({rowData, setTotal, setClients, setLoading, 
         </TableRow>
         <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleDelete}/>
         <UpdateDialog openDialog={openUpdate} handleCloseDialog={() => setOpenUpdate(false)} handleSubmit={handleUpdate}/>
-        <ClientDetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
+        <ClientDetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} setClients={setClients} setTotal={setTotal} setLoading={setLoading} setSnackbar={setSnackbar} setSnackbarType={setSnackbarType} setSnackbarMessage={setSnackbarMessage} />
         </>
     );
 }
