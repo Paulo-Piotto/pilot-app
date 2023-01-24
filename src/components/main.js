@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import ControlPanel from "./controlPanel";
 import AuthContext from "./context/AuthContext";
+import { ControlPanelContextProvider } from "./context/ControlPanelContext";
 
 export default function Main(){
     const { logout } = useContext(AuthContext);
@@ -46,7 +47,7 @@ export default function Main(){
                     </IconBox>
                 </IconsContainer>
             </SideMenu>
-            <ControlPanel />
+            <ControlPanelContextProvider><ControlPanel /></ControlPanelContextProvider>
         </Background>
     );
 };

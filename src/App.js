@@ -6,13 +6,13 @@ import { useContext } from "react";
 import Censorship from "./services/censorship";
 
 function App() {
-  const { userData } = useContext(AuthContext);
+  const { userData } = useContext(AuthContext)
 
   if(!userData) return <Auth />
   return (
       <HashRouter>
         <Main />
-        <Routes>{ Censorship() }</Routes>
+        <Routes>{ Censorship(userData) }</Routes>
       </HashRouter>
   );
 }
