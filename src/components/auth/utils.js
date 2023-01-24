@@ -50,7 +50,7 @@ export const registerErrorFormat = {
 
 export const newUserFormat = {
     name: "",
-    roleId: 3,
+    roleName: "new",
     email: "",
     password: ""
 }

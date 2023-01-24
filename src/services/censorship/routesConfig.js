@@ -37,7 +37,7 @@ const routesConfig = [
         unauthorizedComponent: null
     },
     {
-        component: InProgress,
+        component: InProgress, //?
         path: "/development",
         minimumAcessLevel: "basic",
         unauthorizedComponent: null
