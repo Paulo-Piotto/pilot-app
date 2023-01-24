@@ -42,7 +42,6 @@ export const NavigatorContainer = styled.aside`
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    border-radius: 0px 10px 0px 0px;
     
     >header {
         margin: 20px;
