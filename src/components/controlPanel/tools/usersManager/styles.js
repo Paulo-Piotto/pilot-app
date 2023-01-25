@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export const AccordionContainer = styled(motion.div)`
+export const AccordionContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-bottom: 40px;
     border-bottom: 2px solid var(--secondary-color);
-    height: 120px;
+    gap: 0px 20px;
+    flex-wrap: wrap-reverse;
 
     >main {
         display: flex;
         align-items: center;
         justify-content: space-around;
+        gap: 0 5px;
+        flex-wrap: wrap;
 
         select {
             background: none;
@@ -34,7 +35,6 @@ export const AccordionContainer = styled(motion.div)`
         }
 
         >label {
-            margin-right: 5px;
             color: var(--tertiary-grey);
             border-left: 2px solid var(--tertiary-grey);
             padding-left: 3px;
@@ -52,11 +52,10 @@ export const AccordionContainer = styled(motion.div)`
     }
 
     >div {
-        width: 60px;
         display: flex;
         align-items: center;
         justify-content: space-around;
-        margin: 2px;
+        gap: 10px;
 
         >svg {
             
