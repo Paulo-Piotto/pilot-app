@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
 
 export const AccordionContainer = styled.div`
     display: flex;
@@ -7,6 +6,7 @@ export const AccordionContainer = styled.div`
     align-items: center;
     border-bottom: 2px solid var(--secondary-color);
     gap: 0px 20px;
+    width: 100%;
     flex-wrap: wrap-reverse;
 
     >main {
@@ -47,7 +47,6 @@ export const AccordionContainer = styled.div`
             outline: none;
             border: none;
             padding: 2px;
-            font-size: 1.1rem;
         }
     }
 
