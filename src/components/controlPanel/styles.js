@@ -15,6 +15,7 @@ export const ControlPanelSliderContainer = styled(motion.section)`
     align-items: center;
     justify-content: space-between;
     font-family: var(--base-font);
+    font-size: 0.9rem;
     font-weight: 500;
 `
 
@@ -48,12 +49,12 @@ export const NavigatorContainer = styled.aside`
         font-family: 'Roboto', sans-serif;
 
         >h1 {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             margin-bottom: 5px;
         }
 
         >p {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
     }
 
