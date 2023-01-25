@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import ControlPanel from "./controlPanel";
 import AuthContext from "./context/AuthContext";
+import LogoutDialog from "./generics/logoutDialog";
 import { ControlPanelContextProvider } from "./context/ControlPanelContext";
 
 export default function Main(){
     const { logout } = useContext(AuthContext);
     const navigate = useNavigate();
     const [selectedIcon, setSelectedIcon] = useState('home');
+    const [openLogout, setOpenLogout] = useState(false);
 
     function selectPage(icon, page){
         setSelectedIcon(icon)
@@ -42,11 +44,12 @@ export default function Main(){
                     <IconBox isSelected={selectedIcon==="incomes" ? true : false} onClick={() => {selectPage('incomes', '/incomes')}}>
                         <IoCashOutline />
                     </IconBox>
-                    <IconBox onClick={logout}>
+                    <IconBox onClick={() => setOpenLogout(true)}>
                         <RiLogoutBoxLine />
                     </IconBox>
                 </IconsContainer>
             </SideMenu>
+            <LogoutDialog openDialog={openLogout} handleCloseDialog={() => setOpenLogout(false)} handleSubmit={logout} />
             <ControlPanelContextProvider><ControlPanel /></ControlPanelContextProvider>
         </Background>
     );
