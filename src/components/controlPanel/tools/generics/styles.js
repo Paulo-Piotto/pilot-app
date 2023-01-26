@@ -8,6 +8,6 @@ export const ToolContainer = styled.div`
     gap: 35px;
     height: inherit;
     width: calc(100% - 220px);
-    padding: 40px 40px 40px 40px;
+    padding: 40px 40px 80px 40px;
     overflow-y: ${props => props.isPanelActive ? "scroll" : "hidden"};
 `
