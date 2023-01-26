@@ -11,6 +11,8 @@ function createWindow() {
     const win = new BrowserWindow({
         resizable: true,
         fullscreenable: true,
+        minWidth: 1100,
+        minHeight: 700
         //icon: `${path.join(__dirname, "./assets/icon.png")}`
     });
     win.setMenu(null);
