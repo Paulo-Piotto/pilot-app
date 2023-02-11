@@ -18,32 +18,46 @@ import {
   StoresService,
   OrdersService,
 } from "../../services/api.services";
-import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import applyDiscount from "../../services/utils/applyDiscount";
 import { sumTotal } from "../../services/utils/sumTotal";
+import intToTwoDecimals from "../../services/utils/intToTwoDecimals";
 import intToMoney from "../../services/utils/intToMoney";
 import GenericSnackbar from "../generics/genericSnackbar";
 import AuthContext from "../context/AuthContext";
+import findPaymentMethod from "../../services/utils/findPaymentMethod";
 
-export default function AddOrderDialog({
+export default function EditOrderDialog({
   openDialog,
   handleCloseDialog,
   setOrders,
   setTotal,
   setLoading,
+  rowData,
 }) {
-  const [name, setName] = useState("");
-  const [client, setClient] = useState(0);
-  const [store, setStore] = useState(0);
-  const [date, setDate] = useState(dayjs(Date.now()));
-  const [valueFinanced, setValueFinanced] = useState("");
-  const [valueCash, setValueCash] = useState("0,00");
-  const [valueNegotiated, setValueNegotiated] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState(1);
+  const name = rowData.invoice;
+  const [client, setClient] = useState(rowData.clients.id);
+  const [store, setStore] = useState(rowData.stores.id);
+  const [date, setDate] = useState(rowData.date);
+  const [valueFinanced, setValueFinanced] = useState(
+    intToTwoDecimals(rowData.value_financed)
+  );
+  const [valueCash, setValueCash] = useState(
+    intToTwoDecimals(rowData.value_cash)
+  );
+  const [valueNegotiated, setValueNegotiated] = useState(
+    rowData.value_negotiated ? intToTwoDecimals(rowData.value_negotiated) : ""
+  );
+  const [paymentMethod, setPaymentMethod] = useState(
+    findPaymentMethod({
+      value: rowData.value,
+      financed: rowData.value_financed,
+      cash: rowData.value_cash,
+      negotiated: rowData.value_negotiated,
+    })
+  );
   const [clients, setClients] = useState([]);
   const [stores, setStores] = useState([]);
-  const [nameError, setNameError] = useState(false);
   const [clientError, setClientError] = useState(false);
   const [storeError, setStoreError] = useState(false);
   const [financedError, setFinancedError] = useState(false);
@@ -99,7 +113,6 @@ export default function AddOrderDialog({
       }
     }
 
-    setNameError(validationData.errorObject.name);
     setClientError(validationData.errorObject.client);
     setStoreError(validationData.errorObject.store);
     setFinancedError(validationData.errorObject.valueFinanced);
@@ -112,7 +125,8 @@ export default function AddOrderDialog({
         negotiatedValue = Number(valueNegotiated.replace(",", ".")) * 100;
       }
 
-      OrdersService.addOrder({
+      OrdersService.updateOrder({
+        id: rowData.id,
         invoice: name,
         store,
         client,
@@ -145,37 +159,23 @@ export default function AddOrderDialog({
         });
 
       handleCloseDialog(true);
-
-      setName("");
-      setClient(0);
-      setStore(0);
-      setDate(dayjs(Date.now()));
-      setValueFinanced("");
-      setValueCash("0,00");
-      setValueNegotiated("");
-      setPaymentMethod(1);
     } else setLoading(false);
   }
 
   return (
     <>
       <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
-        <DialogTitle>Criar novo pedido</DialogTitle>
+        <DialogTitle>Editar pedido</DialogTitle>
         <DialogContent>
           <TextField
-            error={nameError}
             value={name}
-            autoFocus
             margin="dense"
             id="name"
             label="Pedido"
             type="text"
-            required={true}
-            fullWidth
-            autoComplete="off"
             variant="standard"
-            onChange={(e) => setName(e.target.value.toUpperCase())}
             inputProps={{ style: { fontSize: 18 } }}
+            disabled
           />
           <SelectWrapper>
             <TextField
@@ -302,7 +302,7 @@ export default function AddOrderDialog({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancelar</Button>
-          <Button onClick={handleSubmit}>Registrar</Button>
+          <Button onClick={handleSubmit}>Atualizar</Button>
         </DialogActions>
       </Dialog>
       <GenericSnackbar

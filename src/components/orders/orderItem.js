@@ -7,68 +7,91 @@ import { sumTotal } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
 import DropMenu from "../generics/dropMenu";
 import OrderDetailsDialog from "./OrderDetailsDialog";
+import EditOrderDialog from "./editOrderDialog";
 
-export default function OrderItem({rowData, setTotal, setOrders, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){
-    const date = dayjs(rowData.date).format('DD/MM/YYYY');
+export default function OrderItem({
+  rowData,
+  setTotal,
+  setOrders,
+  setLoading,
+  setSnackbar,
+  setSnackbarType,
+  setSnackbarMessage,
+}) {
+  const date = dayjs(rowData.date).format("DD/MM/YYYY");
 
-    const [openDelete, setOpenDelete] = useState(false);
-    const [openDetails, setOpenDetails] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
 
-    function handleSubmitDelete(){
-        setLoading(true)
-        OrdersService.deleteOrder(rowData.id)
-            .then(() => {
-                OrdersService.getAllOrders()
-                    .then((resp) => {
-                        setOrders(resp.data)
-                        setTotal(intToMoney(sumTotal(resp.data)));
-                        setSnackbarType('success');
-                        setSnackbarMessage('Item deletado com sucesso')
-                        setSnackbar(true);
-                        setOpenDelete(false)
-                        setLoading(false)
-                    })
-                    .catch(() => {
-                        setSnackbarType('error');
-                        setSnackbarMessage('Algo deu errado ao recuperar os pedidos')
-                        setSnackbar(true);
-                        setOpenDelete(false);
-                        setLoading(false)
-                    })
-            })
-            .catch(() => {
-                setSnackbarType('error');
-                setSnackbarMessage('Algo deu errado ao recuperar os pedidos')
-                setSnackbar(true);
-                setOpenDelete(false);
-                setLoading(false)
-            })
-    }
+  function handleSubmitDelete() {
+    setLoading(true);
+    OrdersService.deleteOrder(rowData.id)
+      .then(() => {
+        OrdersService.getAllOrders()
+          .then((resp) => {
+            setOrders(resp.data);
+            setTotal(intToMoney(sumTotal(resp.data)));
+            setSnackbarType("success");
+            setSnackbarMessage("Item deletado com sucesso");
+            setSnackbar(true);
+            setOpenDelete(false);
+            setLoading(false);
+          })
+          .catch(() => {
+            setSnackbarType("error");
+            setSnackbarMessage("Algo deu errado ao recuperar os pedidos");
+            setSnackbar(true);
+            setOpenDelete(false);
+            setLoading(false);
+          });
+      })
+      .catch(() => {
+        setSnackbarType("error");
+        setSnackbarMessage("Algo deu errado ao recuperar os pedidos");
+        setSnackbar(true);
+        setOpenDelete(false);
+        setLoading(false);
+      });
+  }
 
-        return(
-            <>
-            <TableRow>
-                <RowCell>
-                    {rowData.invoice}
-                </RowCell>
-                <RowCell>
-                    {rowData.clients.name}
-                </RowCell>
-                <RowCell>
-                {rowData.stores.name}
-                </RowCell>
-                <RowCell>
-                    R$ {intToMoney(rowData.value)}
-                </RowCell>
-                <RowCell >
-                    {date}
-                </RowCell>
-                <RowCell icon={true}>
-                    <DropMenu setOpenDelete={setOpenDelete} setOpenDetails={setOpenDetails} details={true} edit={false} deletion={true} />
-                </RowCell>
-            </TableRow>
-            <DeleteDialog openDialog={openDelete} handleCloseDialog={() => setOpenDelete(false)} handleSubmit={handleSubmitDelete}/>
-            <OrderDetailsDialog openDialog={openDetails} handleCloseDialog={() => setOpenDetails(false)} rowData={rowData} />
-            </>
-        );    
+  return (
+    <>
+      <TableRow>
+        <RowCell>{rowData.invoice}</RowCell>
+        <RowCell>{rowData.clients.name}</RowCell>
+        <RowCell>{rowData.stores.name}</RowCell>
+        <RowCell>R$ {intToMoney(rowData.value)}</RowCell>
+        <RowCell>{date}</RowCell>
+        <RowCell icon={true}>
+          <DropMenu
+            setOpenDelete={setOpenDelete}
+            setOpenDetails={setOpenDetails}
+            setOpenUpdate={setOpenUpdate}
+            details={true}
+            edit={true}
+            deletion={true}
+          />
+        </RowCell>
+      </TableRow>
+      <DeleteDialog
+        openDialog={openDelete}
+        handleCloseDialog={() => setOpenDelete(false)}
+        handleSubmit={handleSubmitDelete}
+      />
+      <OrderDetailsDialog
+        openDialog={openDetails}
+        handleCloseDialog={() => setOpenDetails(false)}
+        rowData={rowData}
+      />
+      <EditOrderDialog
+        openDialog={openUpdate}
+        handleCloseDialog={() => setOpenUpdate(false)}
+        rowData={rowData}
+        setTotal={setTotal}
+        setOrders={setOrders}
+        setLoading={setLoading}
+      />
+    </>
+  );
 }
