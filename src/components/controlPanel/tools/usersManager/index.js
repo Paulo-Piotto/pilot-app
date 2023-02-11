@@ -5,7 +5,7 @@ import UserEditor from "./userEditor";
 import ControlPanelContext from "../../../context/ControlPanelContext";
 
 export default function UsersManager() {
-    const [ refresh, setRefresh ] = useState(0)
+    const [ refresh, ] = useState(0)
     const [ usersData, setUsersData ] = useState([])
     const { editorToken, isControlPanelActive } = useContext(ControlPanelContext)
 

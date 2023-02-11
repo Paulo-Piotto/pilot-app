@@ -17,7 +17,7 @@ export default function ControlPanel() {
             opacity: 0
         },
         open: {
-            height: (windowSize.height)*0.7,
+            height: (windowSize.height)*0.5,
             opacity: .92
         }
     }

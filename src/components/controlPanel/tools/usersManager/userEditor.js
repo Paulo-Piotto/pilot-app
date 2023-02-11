@@ -10,9 +10,10 @@ import GenericSnackbar from "../../../generics/genericSnackbar";
 
 export default function UserEditor({ userData }) {
     const iconStyle = { scale: "1.5" }
-    const { name, email } = userData
     const { editorToken } = useContext(ControlPanelContext)
-    const [ updatedUserData, setUpdatedUserData ] = useState({...userData})
+    // the following state is only mutated by a successful update request, therefore always reflects the server storagedData:
+    const [ currentSavedUserData, setCurrentSavedUserData ] = useState({...userData})
+    const [ updatedUserData, setUpdatedUserData ] = useState({...userData}) // this state is mutated by inputs
     const [ componentState, setComponentState ] = useState({
         isLoading: false,
         isClicked: false,
@@ -38,29 +39,30 @@ export default function UserEditor({ userData }) {
             if(objectHasBeenChanged(userData, updatedUserData)) {
                 const updatedData = await UsersService.updateUser({ ...updatedUserData, id: userData.id }, editorToken)
                 setUpdatedUserData(updatedData.data)
+                setCurrentSavedUserData({...updatedData.data})
             }
         } catch(error) {
             console.error(error)
             updateComponentState("error", error.response?.data ?? "Falha ao se comunicar com servidor")
-            setUpdatedUserData({ ...userData }) // return to initial values
+            resetUpdatedUserData()
         }
         updateComponentState("isLoading", false)
     }
     
-    function resetUpdatedUserData() { setUpdatedUserData({ ...userData }) }
+    function resetUpdatedUserData() { setUpdatedUserData({...currentSavedUserData})}
 
     return (
         <AccordionContainer>
             <main>
                 <label>Nome: </label>
-                <input placeholder={name}
+                <input placeholder={userData.name}
                        disabled={!componentState.isClicked}
                        onChange={e => updateUpdatedUserData("name", e.target.value)}
                        value={updatedUserData.name}
                 />
 
                 <label>Email: </label>
-                <input placeholder={email}
+                <input placeholder={userData.email}
                        disabled={!componentState.isClicked}
                        onChange={e => updateUpdatedUserData("email", e.target.value)}
                        value={updatedUserData.email}
