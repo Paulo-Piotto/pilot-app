@@ -7,7 +7,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import * as Utils from "./utils";
 import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
-import Loader  from "../generics/Loader";
+import Loader  from "../generics/logoLoadingSpinner";
 import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
 import { TokenAdapter } from "../../services/utils/adapters";
 

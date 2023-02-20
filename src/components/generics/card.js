@@ -1,10 +1,10 @@
 import { CardStyle } from "../../styles/cardStyles";
 import { Grow } from "@material-ui/core";
 
-export default function Card({contrast, subtitle, title, iconName, number, action, money}){
+export default function Card({contrast, subtitle, title, iconName, number, action, money, width}){
     return(
         <Grow in={true} timeout={{ enter: 500, exit: 500 }} style={{ transitionDelay: '0s' }}>
-            <CardStyle contrast={contrast} onClick={action} >
+            <CardStyle contrast={contrast} onClick={action} width={width}>
                 {!contrast ? (
                     <>
                     <section>

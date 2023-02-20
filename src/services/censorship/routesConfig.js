@@ -4,6 +4,7 @@ import StoresPage from "../../pages/storesPage";
 import ClientsBalancePage from "../../pages/clientsBalancePage";
 import IncomesPage from "../../pages/incomesPage";
 import InProgress from "../../components/generics/inProgress";
+import PunchCardPage from "../../pages/punchCardPage";
 
 const routesConfig = [
     {
@@ -39,6 +40,12 @@ const routesConfig = [
     {
         component: InProgress, //?
         path: "/development",
+        minimumAcessLevel: "admin",
+        unauthorizedComponent: null
+    },
+    {
+        component: PunchCardPage, //?
+        path: "/frequency",
         minimumAcessLevel: "admin",
         unauthorizedComponent: null
     },

@@ -6,3 +6,17 @@ export function objectHasBeenChanged(before, after) {
     for(const key of beforeObjectKeys) if(before[key] !== after[key]) return true;
     return false;
 }
+
+export function parseObjectIntoQueryString(obj, first=true) {
+    let query = ""
+
+    for(const key in obj) {
+        if(typeof obj[key] === "object") query += parseObjectIntoQueryString(obj[key], false)
+        else if(!obj[key]) continue
+        else query += `${key}=${obj[key]}&`
+    }
+
+    if(first) return "?" + query.slice(0, query.length-1);
+    return query
+}
+

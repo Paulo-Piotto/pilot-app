@@ -29,7 +29,7 @@ export default function Main(){
                     <IconBox isSelected={selectedIcon==="home" ? true : false} onClick={() => {selectPage('home', '/')}}>
                         <IoHomeOutline />
                     </IconBox>
-                    <IconBox isSelected={selectedIcon==="time" ? true : false} onClick={() => {selectPage('time', '/development')}}>
+                    <IconBox isSelected={selectedIcon==="time" ? true : false} onClick={() => {selectPage('time', '/frequency')}}>
                         <IoTimeOutline />
                     </IconBox>
                     <IconBox isSelected={selectedIcon==="employees" ? true : false} onClick={() => {selectPage('employees', '/development')}}>

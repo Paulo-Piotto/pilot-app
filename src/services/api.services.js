@@ -84,6 +84,18 @@ const UsersService = {
     }),
 };
 
+const PunchCardService = {
+    getAllPunchCardsData: (filterString, token) => axios.get(`${URL}/frequency${filterString ?? ""}`, {headers: {
+        Authorization: `Bearer ${token}`
+    }}),
+    getPunchCardsByClients: (filterString, token) => axios.get(`${URL}/frequency/clients${filterString ?? ""}`, {headers: {
+        Authorization: `Bearer ${token}`
+    }}),
+    getPunchCardsByEmployees: (filterString, token) => axios.get(`${URL}/frequency/employees${filterString ?? ""}`, {headers: {
+        Authorization: `Bearer ${token}`
+    }}),
+}
+
 export {
   EmployeesService,
   StoresService,
@@ -92,4 +104,5 @@ export {
   AuthService,
   IncomesService,
   UsersService,
+  PunchCardService
 };
