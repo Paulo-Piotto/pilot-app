@@ -26,7 +26,9 @@ export default function UpperSection() {
                             type="date"
                             required={true}
                             variant="standard"
-                            onChange={e => updateSearchFilters("date", {from: e})}
+                            onChange={e => {
+                                if(e.toString() !== "Invalid Date") updateSearchFilters("date", {from: e.toString()})
+                            }}
                             renderInput={(params) => <TextField {...params}  margin='dense' />}
                         />
                         <DesktopDatePicker
@@ -38,7 +40,9 @@ export default function UpperSection() {
                             type="date"
                             required={true}
                             variant="standard"
-                            onChange={e => updateSearchFilters("date", {to: e})}
+                            onChange={e => {
+                                if(e.toString() !== "Invalid Date") updateSearchFilters("date", {from: e.toString()})
+                            }}
                             renderInput={(params) => <TextField {...params} sx={{ ml: 1}} margin='dense' />}
                         />
                         </LocalizationProvider>

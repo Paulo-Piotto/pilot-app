@@ -2,15 +2,12 @@ import { ExpanderMenuContainer } from "./styles"
 import Expander from "./Expander"
 import { useEffect, useRef, useState, useContext } from "react"
 import PunchCardContext from "../context/PunchCardContext";
-import { PunchCardService } from "../../services/api.services";
-import AuthContext from "../context/AuthContext";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeRecord from "./EmployeeRecord";
 
 export default function ExpanderMenu() {
     const expanderMenuRef = useRef();
-    const { punchCardData, setPunchCardData, getQueryStringFilter } = useContext(PunchCardContext)
-    const { userData } = useContext(AuthContext)
+    const { punchCardData } = useContext(PunchCardContext)
     const [ animationData, setAnimationData ] = useState({
         containerSize: {
             width: null,
@@ -35,20 +32,6 @@ export default function ExpanderMenu() {
 
         return () => { window.removeEventListener("resize", calculateComponentSize) }
     }, [expanderMenuRef])
-
-    useEffect(() => {
-        async function fetchPunchCardByEmployeeData() {
-            const response = await PunchCardService.getPunchCardsByEmployees(
-                getQueryStringFilter(),
-                userData.token
-            )
-            setPunchCardData(prev => ({
-                ...prev,
-                byEmployees: response.data
-            }))
-        }
-        fetchPunchCardByEmployeeData()
-    }, [])
 
     function handleExpanderSelection(expanderId) {
         if(expanderId !== animationData.currentSelectedId) setAnimationData(prev => ({

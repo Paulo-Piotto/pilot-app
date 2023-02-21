@@ -1,11 +1,14 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import dayjs from "dayjs";
 import { parseObjectIntoQueryString } from "../../services/utils";
+import { PunchCardService } from "../../services/api.services";
+import AuthContext from "./AuthContext";
 
 const PunchCardContext = createContext({});
 
 export function PunchCardContextProvider({ children }) {
     const todayMinus30 = Date.now() - 86400000*30
+    const { userData } = useContext(AuthContext)
     const [ punchCardData, setPunchCardData ] = useState({ byClients: [], byEmployees: [], selectedEmployee: null })
     const [ searchFilters, setSearchFilters ] = useState({
         client: null,
@@ -15,22 +18,31 @@ export function PunchCardContextProvider({ children }) {
         }
     })
 
-    function updateSearchFilters(key, value) {
-        if(key === "date") setSearchFilters(prev => ({
-            ...prev,
-            date: {
-                ...prev.date,
-                ...value
-            }
-        }))
+    useEffect(() => {
+        async function updatePunchCardDataOnFilterChange() {
+            const [ byClients, byEmployees ] = await Promise.all([
+                PunchCardService.getPunchCardsByClients(parseObjectIntoQueryString(searchFilters), userData.token),
+                PunchCardService.getPunchCardsByEmployees(parseObjectIntoQueryString(searchFilters), userData.token)
+            ])
+            setPunchCardData(prev => ({ ...prev, byClients: byClients.data, byEmployees: byEmployees.data }))
+        }
+        updatePunchCardDataOnFilterChange()
+    }, [searchFilters, userData.token])
+
+    async function updateSearchFilters(key, value) {
+        if(key === "date") {
+            setSearchFilters(prev => ({
+                ...prev,
+                date: {
+                    ...prev.date,
+                    ...value
+                }
+            }))
+        }
         else setSearchFilters(prev => ({
             ...prev,
             [key]: value
         }))
-    }
-
-    function getQueryStringFilter() {
-        return parseObjectIntoQueryString(searchFilters)
     }
     
     return (
@@ -39,7 +51,6 @@ export function PunchCardContextProvider({ children }) {
             updateSearchFilters,
             punchCardData,
             setPunchCardData,
-            getQueryStringFilter
         }}>
             {children}
         </PunchCardContext.Provider>

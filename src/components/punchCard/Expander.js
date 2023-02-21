@@ -18,9 +18,9 @@ export default function Expander({ animationData, thisId, children, handleExpand
             animate={ animationData.currentSelectedId === thisId ? "active" : "unactive" }
             transition={{
                 type: "spring",
-                stiffness: 250,
+                stiffness: 300,
                 damping: 30,
-                duration: .1
+                duration: 100
             }}
             onClick={() => {
                 console.log(thisId)
