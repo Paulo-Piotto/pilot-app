@@ -40,7 +40,6 @@ export const MainContentContainer = styled(TableContainer)`
     max-width: 1920px;
 
     #client_section {
-        border-right: 2px solid red;
         width: 30%;
     }
 
@@ -67,5 +66,46 @@ export const WorkDayContainer = styled.div`
     height: 10px;
     border-radius: 5px;
     background-color: ${props => props.color ?? "#ffffff"};
-    border: 1px solid var(--primary-color)
+    border: 1px solid var(--primary-color);
+`
+
+export const ClientsFilterContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: #43505F;
+    color: #fff;
+    height: 100%;
+    padding: 10px;
+
+    h1 {
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+`
+
+export const ClientCardContainer = styled.div`
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: ${props => props.isClicked ? "#A2A9AD" : "inherit" };
+    border: 2px solid #A2A9AD;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+
+    .client_name {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .client_detail {
+        font-size: .9rem;
+    }
 `
