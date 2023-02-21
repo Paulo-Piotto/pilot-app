@@ -61,3 +61,11 @@ export const ExpanderContainer = styled(motion.div)`
     background-color: ${props => props.backgroundColor ?? "inherit"};
     height: 100%;
 `
+
+export const WorkDayContainer = styled.div`
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: ${props => props.color ?? "#ffffff"};
+    border: 1px solid var(--primary-color)
+`

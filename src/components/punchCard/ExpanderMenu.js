@@ -4,6 +4,8 @@ import { useEffect, useRef, useState, useContext } from "react"
 import PunchCardContext from "../context/PunchCardContext";
 import { PunchCardService } from "../../services/api.services";
 import AuthContext from "../context/AuthContext";
+import EmployeeCard from "./EmployeeCard";
+import EmployeeRecord from "./EmployeeRecord";
 
 export default function ExpanderMenu() {
     const expanderMenuRef = useRef();
@@ -18,13 +20,20 @@ export default function ExpanderMenu() {
     })
 
     useEffect(() => {
-        if(expanderMenuRef.current) setAnimationData(prev => ({
-            ...prev,
-            containerSize: {
-                width: expanderMenuRef.current.offsetWidth,
-                height: expanderMenuRef.current.offsetHeight
-            }
-        }))
+        function calculateComponentSize() {
+            if(expanderMenuRef.current) setAnimationData(prev => ({
+                ...prev,
+                containerSize: {
+                    width: expanderMenuRef.current.offsetWidth,
+                    height: expanderMenuRef.current.offsetHeight
+                }
+            }))
+        }
+        calculateComponentSize()
+
+        window.addEventListener("resize", calculateComponentSize)
+
+        return () => { window.removeEventListener("resize", calculateComponentSize) }
     }, [expanderMenuRef])
 
     useEffect(() => {
@@ -54,17 +63,20 @@ export default function ExpanderMenu() {
                 animationData={animationData}
                 thisId={0}
                 handleExpanderSelection={handleExpanderSelection}
-            >
-                {
-
-                }
-            </Expander>
+            >{
+                punchCardData.byEmployees.map(byEmployee => <EmployeeCard 
+                                                                key={byEmployee.id}
+                                                                employeeData={byEmployee}
+                                                                toggleExpander={() => setAnimationData(prev => ({ ...prev, currentSelectedId: 1 }))}/>)
+            }</Expander>
 
             <Expander 
                 animationData={animationData}
                 thisId={1}
                 handleExpanderSelection={handleExpanderSelection}
-            >1</Expander>
+            >
+                <EmployeeRecord />
+            </Expander>
         </ExpanderMenuContainer>
     )
 }

@@ -6,7 +6,7 @@ const PunchCardContext = createContext({});
 
 export function PunchCardContextProvider({ children }) {
     const todayMinus30 = Date.now() - 86400000*30
-    const [ punchCardData, setPunchCardData ] = useState({ byClients: [], byEmployees: [] })
+    const [ punchCardData, setPunchCardData ] = useState({ byClients: [], byEmployees: [], selectedEmployee: null })
     const [ searchFilters, setSearchFilters ] = useState({
         client: null,
         date: {

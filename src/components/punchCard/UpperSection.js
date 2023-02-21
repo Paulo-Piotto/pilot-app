@@ -1,10 +1,9 @@
-import { CardsContainer } from "../../styles/cardStyles"
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Grow } from "@material-ui/core";
 import { TextField } from '@mui/material/';
-import { DatePickerCardStyle, SearchBarCardStyle, AdaptedCardsContainer} from "./styles";
+import { DatePickerCardStyle, AdaptedCardsContainer} from "./styles";
 import PunchCardContext from "../context/PunchCardContext";
 import { useContext } from "react";
 import SearchCard from "./SearchCard";
