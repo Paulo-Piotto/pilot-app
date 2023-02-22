@@ -8,7 +8,7 @@ export default function ClientCard({ clientData }) {
 
     useEffect(() => {
         setIsClicked(searchFilters.client === clientData.name)
-    }, [searchFilters])
+    }, [searchFilters, clientData.name])
 
     function handleClick() {
         if(searchFilters.client !== clientData.name) updateSearchFilters("client", clientData.name)

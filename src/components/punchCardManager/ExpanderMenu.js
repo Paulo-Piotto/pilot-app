@@ -42,10 +42,12 @@ export default function ExpanderMenu() {
 
     return (
         <ExpanderMenuContainer ref={expanderMenuRef} layout>
-            <Expander 
+            <Expander
                 animationData={animationData}
                 thisId={0}
                 handleExpanderSelection={handleExpanderSelection}
+                backgroundColor="#A2A9AD"
+                title="Funcionários"
             >{
                 punchCardData.byEmployees.map(byEmployee => <EmployeeCard 
                                                                 key={byEmployee.id}
@@ -57,6 +59,8 @@ export default function ExpanderMenu() {
                 animationData={animationData}
                 thisId={1}
                 handleExpanderSelection={handleExpanderSelection}
+                backgroundColor="#FFFFFF"
+                title="Ficha Pessoal"
             >
                 <EmployeeRecord />
             </Expander>

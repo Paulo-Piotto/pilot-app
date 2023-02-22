@@ -4,10 +4,6 @@ import Card from "../generics/card";
 import { TableContainer } from "../../styles/tableStyles";
 import { motion } from "framer-motion";
 
-export const PunchCardContainer = styled.section`
-    
-`
-
 export const AdaptedCardsContainer = styled(CardsContainer)`
     justify-content: space-evenly;
 `
@@ -51,22 +47,31 @@ export const MainContentContainer = styled(TableContainer)`
 export const ExpanderMenuContainer = styled(motion.section)`
     display: flex;
     align-items: flex-start;
-    justify-content: center;
-    background-color: aquamarine;
+    justify-content: flex-start;
     height: 100%;
 `
 
 export const ExpanderContainer = styled(motion.div)`
     background-color: ${props => props.backgroundColor ?? "inherit"};
     height: 100%;
+    padding: 10px;
+
+    h1 {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 100%;
+    }
 `
 
 export const WorkDayContainer = styled.div`
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
     background-color: ${props => props.color ?? "#ffffff"};
     border: 1px solid var(--primary-color);
+    cursor: pointer;
 `
 
 export const ClientsFilterContainer = styled.section`
@@ -108,4 +113,52 @@ export const ClientCardContainer = styled.div`
     .client_detail {
         font-size: .9rem;
     }
+`
+
+export const EmployeeCardContainer = styled.div`
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 10px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+    .employee_name {
+        font-size: 1.1rem;
+    }
+
+    .employee_detail {
+        font-size: 1rem;
+    }
+
+    @media screen and (max-width: 900px) {
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        .employee_name {
+            margin-bottom: 5px;
+        }
+    }
+
+`
+
+export const EmployeeRecordContainer = styled.div`
+    .employee_record_cell {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 270px;
+    }
+`
+
+export const PunchCardContainer = styled.section`
+    display: grid;
+    grid-template-rows: repeat(7, 15px);
+    grid-template-columns: repeat(53, 15px);
 `

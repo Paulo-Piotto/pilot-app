@@ -1,10 +1,10 @@
 import { PunchCardContextProvider } from "../components/context/PunchCardContext";
-import PunchCard from "../components/punchCard";
+import PunchCardManager from "../components/punchCardManager";
 
 export default function PunchCardPage() {
     return (
         <PunchCardContextProvider>
-            <PunchCard />
+            <PunchCardManager />
         </PunchCardContextProvider>
     )
 }

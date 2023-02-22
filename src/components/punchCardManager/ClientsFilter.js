@@ -14,7 +14,7 @@ export default function ClientsFilter() {
 
             {
                 punchCardData.byClients.length
-                    ? punchCardData.byClients.map(byClientData => <ClientCard clientData={byClientData}/>)
+                    ? punchCardData.byClients.map(byClientData => <ClientCard key={byClientData.id} clientData={byClientData}/>)
                     : <LoadingSpinner image={pilotLoaderLogo} width="50px" height="50px"/>
             }
         </ClientsFilterContainer>

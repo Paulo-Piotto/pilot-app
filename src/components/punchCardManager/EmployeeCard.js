@@ -1,11 +1,13 @@
 import { useContext } from "react"
 import PunchCardContext from "../context/PunchCardContext"
+import { EmployeeCardContainer } from "./styles"
+import dayjs from "dayjs"
 
 export default function EmployeeCard({ employeeData, toggleExpander }) {
     const { setPunchCardData } = useContext(PunchCardContext)
 
     return (
-        <div
+        <EmployeeCardContainer
             onClick={e => {
                 e.stopPropagation()
                 console.log("EMPLOYEE CLICKED")
@@ -16,9 +18,9 @@ export default function EmployeeCard({ employeeData, toggleExpander }) {
                 toggleExpander();
             }}
         >
-            <p>{`Nome: ${employeeData.name}`}</p>
-            <p>{`Cadastrado em ${employeeData.start_day}`}</p>
-        </div>  
+            <p className="employee_name">{`${employeeData.name}`}</p>
+            <p className="employee_detail">{`- Cadastrado em ${dayjs(employeeData.start_day).format("DD/MM/YYYY")}`}</p>
+        </EmployeeCardContainer>  
     )
 }
 
