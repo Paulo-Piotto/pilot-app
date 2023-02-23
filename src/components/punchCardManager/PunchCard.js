@@ -2,13 +2,18 @@ import dayjs from "dayjs"
 import WorkDay from "./WorkDay"
 import { areDatesFromSameDay } from "./helpers";
 import { PunchCardContainer } from "./styles";
+import { useState } from "react";
 import WorkDayDialog from "./WorkDayDialog";
 
 // Se um employee tem dois registros de presença em um mesmo dia, a aplicação só pega o primeiro deles e ignora completamente o resto
 // das presenças, mesmo aquelas que não tenham duplicatas, isso por que não é esperado que um trabalhador tenha trabalhado ao mesmo tempo em dois lugares
 
 export default function PunchCard({ employeeData }) {
-    const renderDotsAmount = 250;
+    const [ dialogConfig, setDialogConfig ] = useState({
+        shouldOpen: false,
+        workDayData: {}
+    })
+    const renderDotsAmount = 232;
     const stepX = 24;
     const stepY = 24;
     const padding = 10
@@ -42,7 +47,7 @@ export default function PunchCard({ employeeData }) {
 
             if(lastCalculatedY === undefined) {
                 lastCalculatedY = (stepY*weekDay)+padding;
-                lastCalculatedX = 0;
+                lastCalculatedX = 30;
 
             } else {
                 const lastWeekDay = 6
@@ -63,11 +68,22 @@ export default function PunchCard({ employeeData }) {
     }
 
     return (
-        <PunchCardContainer viewBox={`0 0 815 200`}>
+        <PunchCardContainer viewBox={`0 0 820 200`}>
+            <text x="0" y='24'>Dom</text>
+            <text x="0" y='96'>Qua</text>
+            <text x="0" y='168'>Sáb</text>
             {
                [...calculateRectCoordinates()]
-                    .map(workedDay => <WorkDay key={workedDay.date} workedDayData={workedDay} />)
+                    .map(workedDay => <WorkDay key={workedDay.date} 
+                                               workedDayData={workedDay} 
+                                               dispatchDialog={() => setDialogConfig({ shouldOpen: true, workDayData: workedDay })} />)
             }
+            <WorkDayDialog 
+                openDialog={dialogConfig.shouldOpen}
+                handleCloseDialog={() => setDialogConfig(prev => ({ ...prev, shouldOpen: false }))}
+                workDayData={dialogConfig.workDayData}
+                employeeData={{ id: employeeData.id, name: employeeData.name }}
+            />
         </PunchCardContainer>
     )
 }

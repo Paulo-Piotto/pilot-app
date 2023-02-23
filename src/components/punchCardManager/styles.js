@@ -165,5 +165,7 @@ export const EmployeeRecordContainer = styled.div`
 `
 
 export const PunchCardContainer = styled.svg`
-
+    text {
+        font-size: 13px;
+    }
 `

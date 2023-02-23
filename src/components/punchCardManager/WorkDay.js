@@ -1,14 +1,14 @@
 import { WorkDayContainer } from "./styles"
 import Tooltip from '@mui/material/Tooltip';
 import dayjs from "dayjs"
+import { getWeekDayNameBasedOnInt } from "./helpers";
 
-export default function WorkDay({ workedDayData }) {
-    const weekDayIntRelation = [ "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"]
+export default function WorkDay({ workedDayData, dispatchDialog }) {
     const thisDate = dayjs(workedDayData.date)
 
     return (
         <Tooltip 
-            title={`${weekDayIntRelation[thisDate.day()]} - ${thisDate.format("DD/MM/YYYY")}`}
+            title={`${getWeekDayNameBasedOnInt(thisDate.day())} - ${thisDate.format("DD/MM/YYYY")}`}
             arrow
             disableInteractive
             enterDelay={50}
@@ -18,7 +18,7 @@ export default function WorkDay({ workedDayData }) {
                 y={workedDayData.rectY}
                 colorize={workedDayData.id}
                 color={ workedDayData.id ? "green" : null }
-                onClick={() => console.log(dayjs(workedDayData.date).format("DD/MM/YYYY"))}
+                onClick={dispatchDialog}
             />
         </Tooltip>
     )

@@ -17,6 +17,10 @@ export default function ExpanderMenu() {
     })
 
     useEffect(() => {
+        handleExpanderSelection(0)
+    }, [punchCardData.byEmployees])
+
+    useEffect(() => {
         function calculateComponentSize() {
             if(expanderMenuRef.current) setAnimationData(prev => ({
                 ...prev,
@@ -33,6 +37,7 @@ export default function ExpanderMenu() {
         return () => { window.removeEventListener("resize", calculateComponentSize) }
     }, [expanderMenuRef])
 
+    
     function handleExpanderSelection(expanderId) {
         if(expanderId !== animationData.currentSelectedId) setAnimationData(prev => ({
             ...prev,
