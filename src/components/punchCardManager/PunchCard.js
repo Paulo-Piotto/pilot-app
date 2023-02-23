@@ -2,42 +2,71 @@ import dayjs from "dayjs"
 import WorkDay from "./WorkDay"
 import { areDatesFromSameDay } from "./helpers";
 import { PunchCardContainer } from "./styles";
+import WorkDayDialog from "./WorkDayDialog";
 
-// requires that employee_worked_days are ordered by date in descending order
+// Se um employee tem dois registros de presença em um mesmo dia, a aplicação só pega o primeiro deles e ignora completamente o resto
+// das presenças, mesmo aquelas que não tenham duplicatas, isso por que não é esperado que um trabalhador tenha trabalhado ao mesmo tempo em dois lugares
+
 export default function PunchCard({ employeeData }) {
-    //plotar pontos fazendo loop de traz pra frente, para em 365 dias ou employee start_day
-    // pra cada iteração, criar um date e verificar se:
-    //          - 1º elemento de employee_worked_days[] é dessa data?
-    //              - se sim: presença, enviar employee_worked_day pra <WorkDay />
-    //              - se não: enviar objeto generico de falta (apenas com o userId
-    // ps. enviar objeto = inserir ele no arrai worDaysArray
+    const renderDotsAmount = 250;
+    const stepX = 24;
+    const stepY = 24;
+    const padding = 10
 
-    function generatePunchCard() {
+    function* generatePunchCard() {
         const todayDate = dayjs();
-        const workDaysArray = [];
         const registeredPresences = employeeData["employees_worked_days"]
         let employeeWorkedDaysCurrentIndex = 0;
     
-        for(let i = 0; i < 365; i++) {
+        for(let i = 0; i < renderDotsAmount; i++) {
             const iDate = todayDate.subtract(i, "day")
     
-            if(areDatesFromSameDay(registeredPresences[employeeWorkedDaysCurrentIndex].date, iDate)) {
-                workDaysArray.push(registeredPresences[employeeWorkedDaysCurrentIndex])
+            if (
+                employeeWorkedDaysCurrentIndex < registeredPresences.length 
+                && areDatesFromSameDay(registeredPresences[employeeWorkedDaysCurrentIndex].date, iDate)
+            ) {
+                yield registeredPresences[employeeWorkedDaysCurrentIndex]
                 employeeWorkedDaysCurrentIndex += 1
-            } else {
-                workDaysArray.push({
-                    date: iDate
-                })
-            }
+            } else yield { date: iDate.toISOString() }
         }
+    }
 
-        return workDaysArray;
+    function* calculateRectCoordinates() {
+        let punchCardGenerator = generatePunchCard();
+        let lastCalculatedY;
+        let lastCalculatedX;
+
+        for(let i = 0; i < renderDotsAmount; i++) {
+            const currentWorkDay = punchCardGenerator.next().value
+            const weekDay = dayjs(currentWorkDay.date).day();
+
+            if(lastCalculatedY === undefined) {
+                lastCalculatedY = (stepY*weekDay)+padding;
+                lastCalculatedX = 0;
+
+            } else {
+                const lastWeekDay = 6
+
+                if((lastCalculatedY-stepY) < padding) {
+                    lastCalculatedX += stepX;
+                    lastCalculatedY = (lastWeekDay*stepY)+padding
+                } else { lastCalculatedY -= stepY }
+            }
+
+            const currentWorkDayWithRectCoordinates = {
+                ...currentWorkDay,
+                rectX: lastCalculatedX,
+                rectY: lastCalculatedY
+            }
+            yield currentWorkDayWithRectCoordinates;
+        }
     }
 
     return (
-        <PunchCardContainer>
+        <PunchCardContainer viewBox={`0 0 815 200`}>
             {
-                generatePunchCard().map(workedDay => <WorkDay key={workedDay.date} workedDayData={workedDay}/>)
+               [...calculateRectCoordinates()]
+                    .map(workedDay => <WorkDay key={workedDay.date} workedDayData={workedDay} />)
             }
         </PunchCardContainer>
     )

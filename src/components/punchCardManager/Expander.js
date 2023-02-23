@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { ExpanderContainer } from "./styles"
 import { motion } from "framer-motion"
 
@@ -19,8 +18,6 @@ export default function Expander({ animationData, thisId, children, handleExpand
         damping: 30,
         duration: 100
     }
-
-    useEffect(() => {console.log(animationData.containerSize)}, [animationData.containerSize])
 
     return (
         <ExpanderContainer

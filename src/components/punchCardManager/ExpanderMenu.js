@@ -59,7 +59,7 @@ export default function ExpanderMenu() {
                 animationData={animationData}
                 thisId={1}
                 handleExpanderSelection={handleExpanderSelection}
-                backgroundColor="#FFFFFF"
+                backgroundColor="#eaeaea"
                 title="Ficha Pessoal"
             >
                 <EmployeeRecord />

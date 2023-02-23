@@ -34,6 +34,7 @@ export const MainContentContainer = styled(TableContainer)`
     background-color: #eaeaea;
     flex: 1;
     max-width: 1920px;
+    border-radius: 5px;
 
     #client_section {
         width: 30%;
@@ -65,13 +66,15 @@ export const ExpanderContainer = styled(motion.div)`
     }
 `
 
-export const WorkDayContainer = styled.div`
-    width: 15px;
-    height: 15px;
+export const WorkDayContainer = styled.rect`
+    width: 20px;
+    height: 20px;
+    rx: 5px;
+    ry: 5px;
     border-radius: 3px;
-    background-color: ${props => props.color ?? "#ffffff"};
-    border: 1px solid var(--primary-color);
-    cursor: pointer;
+    stroke: #43505f;
+    fill: ${props => props.colorize ? "#276a3c" : "#fff"};
+    shape-rendering: geometricPrecision;
 `
 
 export const ClientsFilterContainer = styled.section`
@@ -155,10 +158,12 @@ export const EmployeeRecordContainer = styled.div`
         justify-content: space-between;
         max-width: 270px;
     }
+
+    .punch_card {
+        width: 100%;
+    }
 `
 
-export const PunchCardContainer = styled.section`
-    display: grid;
-    grid-template-rows: repeat(7, 15px);
-    grid-template-columns: repeat(53, 15px);
+export const PunchCardContainer = styled.svg`
+
 `

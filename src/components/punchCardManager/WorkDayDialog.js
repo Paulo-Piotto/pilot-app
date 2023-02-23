@@ -1,6 +1,11 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import { PunchCardService } from '../../services/api.services';
 
 export default function WorkDayDialog({ openDialog, handleCloseDialog, workDayData }) {
+    function handleUpdateWorkDay() {
+        
+    }
+
     return (
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth='sm' fullWidth={true}>
             <DialogTitle>Fulano de tal</DialogTitle>
