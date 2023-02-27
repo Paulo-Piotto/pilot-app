@@ -2,7 +2,7 @@ import dayjs from "dayjs"
 import WorkDay from "./WorkDay"
 import { areDatesFromSameDay } from "./helpers";
 import { PunchCardContainer } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WorkDayDialog from "./WorkDayDialog";
 
 // Se um employee tem dois registros de presença em um mesmo dia, a aplicação só pega o primeiro deles e ignora completamente o resto
@@ -17,6 +17,8 @@ export default function PunchCard({ employeeData }) {
     const stepX = 24;
     const stepY = 24;
     const padding = 10
+
+    useEffect(() => {console.log(employeeData["employees_worked_days"].length)}, [employeeData])
 
     function* generatePunchCard() {
         const todayDate = dayjs();
@@ -76,12 +78,12 @@ export default function PunchCard({ employeeData }) {
                [...calculateRectCoordinates()]
                     .map(workedDay => <WorkDay key={workedDay.date} 
                                                workedDayData={workedDay} 
-                                               dispatchDialog={() => setDialogConfig({ shouldOpen: true, workDayData: workedDay })} />)
+                                               dispatchDialog={() => {setDialogConfig({ shouldOpen: true, workDayData: workedDay })}} />)
             }
             <WorkDayDialog 
                 openDialog={dialogConfig.shouldOpen}
-                handleCloseDialog={() => setDialogConfig(prev => ({ ...prev, shouldOpen: false }))}
-                workDayData={dialogConfig.workDayData}
+                closeDialog={() => {setDialogConfig(prev => ({ ...prev, shouldOpen: false }))}}
+                initialWorkDayData={dialogConfig.workDayData}
                 employeeData={{ id: employeeData.id, name: employeeData.name }}
             />
         </PunchCardContainer>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
 
-export default function Loader({image, speed, spins, width, height}){
+export default function LogoLoadingSpinner({image, speed, spins, width, height}){
     const [degree, setDegree] = useState(0);
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export default function Loader({image, speed, spins, width, height}){
  
     
     return(
-        <SpinningLeafsImageStyle degree={degree} src={image} width={width} height={height} />
+        <SpinningLeafsImageStyle degree={degree} src={image ?? pilotLoaderLogo} width={width} height={height} />
     );    
 }
 

@@ -1,7 +1,6 @@
 import { MainContentContainer } from "./styles"
 import ClientsFilter from "./ClientsFilter"
 import ExpanderMenu from "./ExpanderMenu"
-import { useState } from "react";
 
 export default function Displayer() {
 

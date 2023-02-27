@@ -5,7 +5,7 @@ import PunchCardContext from "../context/PunchCardContext";
 import ClientCard from "./ClientCard";
 import { ClientsFilterContainer } from "./styles";
 
-export default function ClientsFilter({ fireExpanderAnimationToEmployeesView }) {
+export default function ClientsFilter() {
     const { punchCardData } = useContext(PunchCardContext);
 
     return (
@@ -14,9 +14,8 @@ export default function ClientsFilter({ fireExpanderAnimationToEmployeesView }) 
 
             {
                 punchCardData.byClients.length
-                    ? punchCardData.byClients .map(byClientData => <ClientCard key={byClientData.id} 
-                                                                               clientData={byClientData} 
-                                                                               fireExpanderAnimationToEmployeesView={fireExpanderAnimationToEmployeesView}/>)
+                    ? punchCardData.byClients.map(byClientData => <ClientCard key={byClientData.id} 
+                                                                              clientData={byClientData} />)
                     : <LoadingSpinner image={pilotLoaderLogo} width="50px" height="50px"/>
             }
         </ClientsFilterContainer>

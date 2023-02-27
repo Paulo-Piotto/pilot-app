@@ -168,4 +168,14 @@ export const PunchCardContainer = styled.svg`
     text {
         font-size: 13px;
     }
+
+
+`
+
+export const WorkDayDialogLoadingContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
 `

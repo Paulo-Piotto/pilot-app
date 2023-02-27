@@ -1,13 +1,13 @@
 import { ExpanderMenuContainer } from "./styles"
 import Expander from "./Expander"
-import { useEffect, useRef, useState, useContext } from "react"
+import { useEffect, useRef, useState, useContext, useLayoutEffect } from "react"
 import PunchCardContext from "../context/PunchCardContext";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeRecord from "./EmployeeRecord";
 
 export default function ExpanderMenu() {
     const expanderMenuRef = useRef();
-    const { punchCardData } = useContext(PunchCardContext)
+    const { punchCardData, searchFilters } = useContext(PunchCardContext)
     const [ animationData, setAnimationData ] = useState({
         containerSize: {
             width: null,
@@ -17,8 +17,9 @@ export default function ExpanderMenu() {
     })
 
     useEffect(() => {
-        handleExpanderSelection(0)
-    }, [punchCardData.byEmployees])
+        const timeoutId = setTimeout(() => { handleExpanderSelection(0) }, 100) //otherwise will trigger state change while animating, witch causes glitch
+        return () => { clearTimeout(timeoutId) }
+    }, [searchFilters.client])
 
     useEffect(() => {
         function calculateComponentSize() {
@@ -54,10 +55,10 @@ export default function ExpanderMenu() {
                 backgroundColor="#A2A9AD"
                 title="Funcionários"
             >{
-                punchCardData.byEmployees.map(byEmployee => <EmployeeCard 
-                                                                key={byEmployee.id}
-                                                                employeeData={byEmployee}
-                                                                toggleExpander={() => setAnimationData(prev => ({ ...prev, currentSelectedId: 1 }))}/>)
+                punchCardData.byEmployees
+                    .map(byEmployee => <EmployeeCard key={byEmployee.id}
+                                                     employeeData={byEmployee}
+                                                     toggleExpander={() => setAnimationData(prev => ({ ...prev, currentSelectedId: 1 }))}/>)
             }</Expander>
 
             <Expander 

@@ -9,6 +9,7 @@ const PunchCardContext = createContext({});
 export function PunchCardContextProvider({ children }) {
     const todayMinus30 = Date.now() - 86400000*30
     const { userData } = useContext(AuthContext)
+    const [ refreshToggler, setRefreshToggler ] = useState(false);
     const [ punchCardData, setPunchCardData ] = useState({ byClients: [], byEmployees: [], selectedEmployee: null })
     const [ searchFilters, setSearchFilters ] = useState({
         client: null,
@@ -17,6 +18,12 @@ export function PunchCardContextProvider({ children }) {
             to: dayjs(Date.now()).toString()
         }
     })
+    const [ snackBar, setSnackBar ] = useState({
+        isOpen: false,
+        message: "",
+        type: "error", //error, warning, info, success
+        setter: () => {}
+    })
 
     useEffect(() => {
         async function updatePunchCardDataOnFilterChange() {
@@ -24,10 +31,15 @@ export function PunchCardContextProvider({ children }) {
                 PunchCardService.getPunchCardsByClients(parseObjectIntoQueryString(searchFilters), userData.token),
                 PunchCardService.getPunchCardsByEmployees(parseObjectIntoQueryString(searchFilters), userData.token)
             ])
-            setPunchCardData(prev => ({ ...prev, byClients: byClients.data, byEmployees: byEmployees.data }))
+            setPunchCardData(prev => ({
+                ...prev,
+                byClients: byClients.data,
+                byEmployees: byEmployees.data,
+                selectedEmployee: byEmployees.data.find(employee => employee.name === prev.selectedEmployee?.name)
+            }))
         }
         updatePunchCardDataOnFilterChange()
-    }, [searchFilters, userData.token])
+    }, [searchFilters, userData.token, refreshToggler])
 
     async function updateSearchFilters(key, value) {
         if(key === "date") {
@@ -44,6 +56,19 @@ export function PunchCardContextProvider({ children }) {
             [key]: value
         }))
     }
+
+    function callSnackBar(data) {
+        setSnackBar({ 
+            ...data,
+            isOpen: true,
+            setter: (value) => setSnackBar(prev => ({...prev, isOpen: value}))
+        })
+    }
+
+    function refreshPunchCardData() {
+        console.log("refreshing")
+        setRefreshToggler(prev => !prev)
+    }
     
     return (
         <PunchCardContext.Provider value={{
@@ -51,6 +76,9 @@ export function PunchCardContextProvider({ children }) {
             updateSearchFilters,
             punchCardData,
             setPunchCardData,
+            callSnackBar,
+            snackBar,
+            refreshPunchCardData
         }}>
             {children}
         </PunchCardContext.Provider>
