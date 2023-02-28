@@ -19,20 +19,20 @@ export default function EmployeeRecord() {
     )
     return (
         <EmployeeRecordContainer>
-            <div className="employee_record_cell">
-                <p>{selectedEmployee.name}</p>
+            <div className="employee_record_cell" >
+                <p>Nome: </p><span>{selectedEmployee.name}</span>
             </div>
 
             <div className="employee_record_cell">
-                <p>{`Salário Base: R$: ${parseIntToMoney(selectedEmployee.wage)}`}</p>
+                <p>Salário Base: </p><span>R$: {parseIntToMoney(selectedEmployee.wage)}</span>
             </div>
 
             <div className="employee_record_cell">
-                <p>{`Cadastrado em: ${dayjs(selectedEmployee.start_day).format("DD/MM/YYYY")}`}</p>
+                <p>Cadastrado em:</p><span>{dayjs(selectedEmployee.start_day).format("DD/MM/YYYY")}</span>
             </div>
 
             <div className="employee_record_cell">
-                <p>{`Dias Trabalhados: ${selectedEmployee.employees_worked_days.length}`}</p>
+                <p>Dias Trabalhados: </p><span>{selectedEmployee.employees_worked_days.length}</span>
             </div>
 
             <div className="punch_card">

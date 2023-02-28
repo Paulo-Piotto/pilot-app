@@ -10,6 +10,7 @@ const PunchCardContext = createContext({});
 export function PunchCardContextProvider({ children }) {
     const todayMinus30 = Date.now() - 86400000*30
     const { userData } = useContext(AuthContext)
+    const [ loadingInitialData, setLoadingInitialData ] = useState(true);
     const [ refreshToggler, setRefreshToggler ] = useState(false);
     const [ punchCardData, setPunchCardData ] = useState({ byClients: [], byEmployees: [], selectedEmployee: null })
     const [ searchFilters, setSearchFilters ] = useState({
@@ -40,7 +41,8 @@ export function PunchCardContextProvider({ children }) {
             }))
         }
         updatePunchCardDataOnFilterChange()
-    }, [searchFilters, userData.token, refreshToggler])
+        setLoadingInitialData(false)
+    }, [searchFilters, userData.token, refreshToggler, setLoadingInitialData])
 
     async function updateSearchFilters(key, value) {
         if(key === "date") {
@@ -78,7 +80,8 @@ export function PunchCardContextProvider({ children }) {
             setPunchCardData,
             callSnackBar,
             snackBar,
-            refreshPunchCardData
+            refreshPunchCardData,
+            loadingInitialData
         }}>
             {children}
         </PunchCardContext.Provider>

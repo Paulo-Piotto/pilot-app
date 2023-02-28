@@ -57,13 +57,26 @@ export const ExpanderContainer = styled(motion.div)`
     height: 100%;
     padding: 10px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: ${ props => props.textColor ?? "#fff" };
 
     h1 {
         font-size: 1.2rem;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 60px;
         padding: 10px;
         width: 100%;
+    }
+
+    .children_container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;;
     }
 `
 
@@ -74,7 +87,7 @@ export const WorkDayContainer = styled.rect`
     ry: 5px;
     border-radius: 3px;
     stroke: #43505f;
-    fill: ${props => props.colorize ? "#276a3c" : "#fff"};
+    fill: ${props => props.colorize ? "#131e31" : "#fff"};
     shape-rendering: geometricPrecision;
 `
 
@@ -84,7 +97,7 @@ export const ClientsFilterContainer = styled.section`
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    background-color: #43505F;
+    background-color: #131e31;
     color: #fff;
     height: 100%;
     padding: 10px;
@@ -102,10 +115,10 @@ export const ClientCardContainer = styled.div`
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: ${props => props.isClicked ? "#A2A9AD" : "inherit" };
-    border: 2px solid #A2A9AD;
+    background-color: inherit;
+    border: 2px solid ${props => props.isClicked ? "#d79318" : "#A2A9AD" };
     border-radius: 5px;
-    color: #fff;
+    color: ${props => props.isClicked ? "#d79318" : "inherit" };
     font-weight: bold;
     cursor: pointer;
 
@@ -131,6 +144,8 @@ export const EmployeeCardContainer = styled.div`
     color: #fff;
     font-weight: bold;
     margin-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
 
     .employee_name {
         font-size: 1.1rem;
@@ -142,7 +157,6 @@ export const EmployeeCardContainer = styled.div`
 
     @media screen and (max-width: 900px) {
         flex-direction: column;
-        flex-wrap: nowrap;
 
         .employee_name {
             margin-bottom: 5px;
@@ -152,16 +166,37 @@ export const EmployeeCardContainer = styled.div`
 `
 
 export const EmployeeRecordContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
     .employee_record_cell {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 270px;
+        width: 100%;
+        max-width: 500px;
+        border-bottom: 2px solid #131E29;
+
+        span {
+            background-color: #131E29;
+            color: #fff;
+            width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 3px;
+            border-radius: 5px 5px 0px 0px;
+            font-weight: bold;
+        }
     }
 
     .punch_card {
         width: 100%;
+        margin-top: 40px;
     }
 `
 

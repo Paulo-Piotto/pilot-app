@@ -1,13 +1,14 @@
 import { useContext } from "react"
 import LoadingSpinner from "../generics/logoLoadingSpinner";
-import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
 import PunchCardContext from "../context/PunchCardContext";
+import piottoWhiteLogo from "../../assets/pilot-white.png";
 import ClientCard from "./ClientCard";
 import { ClientsFilterContainer } from "./styles";
 
 export default function ClientsFilter() {
-    const { punchCardData } = useContext(PunchCardContext);
+    const { punchCardData, loadingInitialData } = useContext(PunchCardContext);
 
+    if(loadingInitialData) return <ClientsFilterContainer><h1>Clientes˼</h1><LoadingSpinner image={piottoWhiteLogo} width="70px" height="70px" /></ClientsFilterContainer>
     return (
         <ClientsFilterContainer>
             <h1>Clientes˼</h1>
@@ -16,9 +17,8 @@ export default function ClientsFilter() {
                 punchCardData.byClients.length
                     ? punchCardData.byClients.map(byClientData => <ClientCard key={byClientData.id} 
                                                                               clientData={byClientData} />)
-                    : <LoadingSpinner image={pilotLoaderLogo} width="50px" height="50px"/>
+                    : <p style={{color: "#d79318"}}>Não há registros de presença em nenhum cliente, aqui aparecerão todos os clientes que tiverem ao menos um registro de presença associado.</p>
             }
         </ClientsFilterContainer>
     )
 }
-

@@ -1,14 +1,15 @@
 import { ExpanderMenuContainer } from "./styles"
 import Expander from "./Expander"
-import { useEffect, useRef, useState, useContext } from "react"
+import { useEffect, useRef, useState, useContext, useCallback } from "react"
 import PunchCardContext from "../context/PunchCardContext";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeRecord from "./EmployeeRecord";
-import { useCallback } from "react";
+import LogoLoadingSpinner from "../generics/logoLoadingSpinner";
+import piottoWhiteLogo from "../../assets/pilot-white.png";
 
 export default function ExpanderMenu() {
     const expanderMenuRef = useRef();
-    const { punchCardData, searchFilters } = useContext(PunchCardContext)
+    const { punchCardData, searchFilters, loadingInitialData } = useContext(PunchCardContext)
     const [ animationData, setAnimationData ] = useState({
         containerSize: {
             width: null,
@@ -52,13 +53,16 @@ export default function ExpanderMenu() {
                 animationData={animationData}
                 thisId={0}
                 handleExpanderSelection={handleExpanderSelection}
-                backgroundColor="#A2A9AD"
+                backgroundColor="#3f4a5c"
                 title="Funcionários"
             >{
-                punchCardData.byEmployees
-                    .map(byEmployee => <EmployeeCard key={byEmployee.id}
+                loadingInitialData
+                ? <LogoLoadingSpinner image={piottoWhiteLogo} width="70px" height="70px" />
+                : punchCardData.byEmployees.length
+                    ? punchCardData.byEmployees.map(byEmployee => <EmployeeCard key={byEmployee.id}
                                                      employeeData={byEmployee}
                                                      toggleExpander={() => setAnimationData(prev => ({ ...prev, currentSelectedId: 1 }))}/>)
+                    : <p style={{color: "#d79318"}}>Ainda não há funcionários cadastrados. Cadastre um funcionário para poder visualizá-lo aqui</p>
             }</Expander>
 
             <Expander 
@@ -66,6 +70,7 @@ export default function ExpanderMenu() {
                 thisId={1}
                 handleExpanderSelection={handleExpanderSelection}
                 backgroundColor="#eaeaea"
+                textColor="#131E29"
                 title="Ficha Pessoal"
             >
                 <EmployeeRecord />

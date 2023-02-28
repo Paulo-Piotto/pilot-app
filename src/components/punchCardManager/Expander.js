@@ -1,7 +1,7 @@
 import { ExpanderContainer, UnactiveMotionTitle } from "./styles"
 import { motion } from "framer-motion"
 
-export default function Expander({ animationData, thisId, children, handleExpanderSelection, backgroundColor, title }) {
+export default function Expander({ animationData, thisId, children, handleExpanderSelection, backgroundColor, title, textColor }) {
     const animationTransition = {
         type: "spring",
         stiffness: 300,
@@ -44,6 +44,7 @@ export default function Expander({ animationData, thisId, children, handleExpand
             initial={ animationData.currentSelectedId === thisId ? "active" : "unactive" }
             animate={ animationData.currentSelectedId === thisId ? "active" : "unactive" }
             onClick={() => { handleExpanderSelection(thisId) }}
+            textColor={textColor}
         >
             <UnactiveMotionTitle
                 variants={verticalTitleVariants}
@@ -54,9 +55,11 @@ export default function Expander({ animationData, thisId, children, handleExpand
                 {title.toUpperCase()}
             </UnactiveMotionTitle>
             <motion.div
+                className="children_container"
                 variants={contentVariants}
                 initial="unactive"
                 animate={ animationData.currentSelectedId === thisId ? "active" : "unactive" }
+                transition={animationTransition}
             >
                 <h1>{title}</h1>
                 {children}

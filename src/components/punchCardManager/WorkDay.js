@@ -17,7 +17,6 @@ export default function WorkDay({ workedDayData, dispatchDialog }) {
                 x={workedDayData.rectX}
                 y={workedDayData.rectY}
                 colorize={workedDayData.id}
-                color={ workedDayData.id ? "green" : null }
                 onClick={dispatchDialog}
             />
         </Tooltip>
