@@ -18,7 +18,7 @@ export default function ClientCard({ clientData }) {
     return (
         <ClientCardContainer onClick={handleClick} isClicked={isClicked}>
             <p className="client_name">{`${clientData.name}`}</p>
-            <p className="client_detail">{`- Registros de presença: ${clientData["_count"].employees_worked_days}`}</p>
+            <p className="client_detail">{`- Registros de presença: ${clientData.workedDaysAmount}`}</p>
         </ClientCardContainer>
     )
 }
