@@ -1,10 +1,29 @@
-import { ExpanderContainer } from "./styles"
+import { ExpanderContainer, UnactiveMotionTitle } from "./styles"
 import { motion } from "framer-motion"
 
 export default function Expander({ animationData, thisId, children, handleExpanderSelection, backgroundColor, title }) {
+    const animationTransition = {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+        duration: 0.5,
+    }
+    
     const variants = {
-        active: { width: animationData.containerSize.width - 40 },
-        unactive: { width: 40 },
+        active: {
+            width: animationData.containerSize.width - 40,
+            transition: {
+                ...animationTransition,
+                when: "afterChildren"
+            }
+        },
+        unactive: { 
+            width: 40,
+            transition: {
+                ...animationTransition,
+                when: "beforeChildren"
+            }
+        },
     }
 
     const contentVariants = {
@@ -12,11 +31,9 @@ export default function Expander({ animationData, thisId, children, handleExpand
         active: { scale: 1, opacity: 1 }
     }
 
-    const animationTransition = {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-        duration: 100
+    const verticalTitleVariants = {
+        active: { y: 0 },
+        unactive: { y: -400 }
     }
 
     return (
@@ -26,14 +43,20 @@ export default function Expander({ animationData, thisId, children, handleExpand
             variants={variants}
             initial={ animationData.currentSelectedId === thisId ? "active" : "unactive" }
             animate={ animationData.currentSelectedId === thisId ? "active" : "unactive" }
-            transition={animationTransition}
             onClick={() => { handleExpanderSelection(thisId) }}
         >
+            <UnactiveMotionTitle
+                variants={verticalTitleVariants}
+                initial="unactive"
+                animate={animationData.currentSelectedId === thisId ? "unactive" : "active"}
+                transition={animationTransition}
+            >
+                {title.toUpperCase()}
+            </UnactiveMotionTitle>
             <motion.div
                 variants={contentVariants}
                 initial="unactive"
                 animate={ animationData.currentSelectedId === thisId ? "active" : "unactive" }
-                transition={animationTransition}
             >
                 <h1>{title}</h1>
                 {children}

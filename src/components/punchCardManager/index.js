@@ -2,7 +2,7 @@ import UpperSection from "./UpperSection";
 import Displayer from "./Displayer";
 import PunchCardContext from "../context/PunchCardContext";
 import { useContext } from "react";
-import RegisterSnackbar from "../generics/registerSnackbar";
+import GenericSnackbar from "../generics/genericSnackbar";
 
 export default function PunchCardManager() {
     const { snackBar } = useContext(PunchCardContext)
@@ -11,7 +11,7 @@ export default function PunchCardManager() {
         <>
             <UpperSection />
             <Displayer />
-            <RegisterSnackbar snackbar={snackBar.isOpen} setSnackbar={snackBar.setter} type={snackBar.type} message={snackBar.message} />
+            <GenericSnackbar snackbar={snackBar.isOpen} setSnackbar={snackBar.setter} type={snackBar.type} message={snackBar.message} />
         </>
     )
 }

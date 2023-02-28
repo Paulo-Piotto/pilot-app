@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import PunchCardContext from "../context/PunchCardContext"
-import LogoLoadingSpinner from "../generics/logoLoadingSpinner"
-import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
+import animation from "../../assets/person_searching.json"
 import { EmployeeRecordContainer } from "./styles";
 import parseIntToMoney from "../../services/utils/intToMoney";
 import dayjs from "dayjs";
 import PunchCard from "./PunchCard";
+import Lottie from "lottie-react";
 
 export default function EmployeeRecord() {
     const { punchCardData } = useContext(PunchCardContext)
@@ -13,8 +13,8 @@ export default function EmployeeRecord() {
 
     if(!selectedEmployee) return (
         <>
-            <LogoLoadingSpinner image={pilotLoaderLogo} width="50px" height="50px"/>
-            <p>Você não selecionou nenhum funcionário ainda</p>
+            <div style={{width: "100%",maxWidth: 600, margin: "0 auto",height: 300, display: "flex", alignItems: "center", justifyContent: "center"}}><Lottie animationData={animation} /></div>
+            <p style={{marginTop: 20, textAlign: "center"}}>Você não selecionou nenhum funcionário ainda, selecione um funcionário para ver sua ficha</p>
         </>
     )
     return (

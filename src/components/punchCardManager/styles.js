@@ -56,6 +56,7 @@ export const ExpanderContainer = styled(motion.div)`
     background-color: ${props => props.backgroundColor ?? "inherit"};
     height: 100%;
     padding: 10px;
+    position: relative;
 
     h1 {
         font-size: 1.2rem;
@@ -178,4 +179,16 @@ export const WorkDayDialogLoadingContainer = styled.div`
     align-items: center;
     justify-content: center;
     padding: 10px;
+`
+
+export const UnactiveMotionTitle = styled(motion.h1)`
+    writing-mode: vertical-rl;text-orientation: upright;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    font-weight: bold;
+
+    &:hover {
+        cursor: pointer
+    }
 `

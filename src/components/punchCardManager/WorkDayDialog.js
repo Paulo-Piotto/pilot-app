@@ -26,7 +26,7 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
     })
     const [ clients, setClients ] = useState({
         options: [],
-        selected: {}
+        selectedId: 0
     })
 
     useEffect(() => {
@@ -46,7 +46,7 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
     
                 setClients(prev => ({
                     ...prev,
-                    options: updatedClientOptions.data
+                    options: updatedClientOptions.data,
                 }))
             } catch (error) {
                 console.error("Loading client options failed")
@@ -66,46 +66,51 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
         })
     }, [openDialog])
 
-    async function deletePunch() {
-        setIsLoading(true)
-        try { 
-            await PunchCardService.delete(workDayData.id, userData.token)
-        } catch (error) {
-            console.error("Error while deleting punch")
-            console.error(error)
-            callSnackBar({ message: "Falha ao atribuir falta", type: "error" })
-        }
-        setIsLoading(false)
-    }
-
+    async function deletePunch() { await PunchCardService.delete(workDayData.id, userData.token) }
 
     async function createPunch() {
-        setIsLoading(true)
-        try {
-            await PunchCardService.create({
-                clientId: clients.selected.id,
-                employeeId: employeeData.id,
-                date: workDayData.date
-            })
-        } catch (error) {
-            console.error("Error while creating new punch in punchcard")
-            console.error(error)
-            callSnackBar({  message: "Falha ao atribuir presença", type: "error" })
-        }
-        setIsLoading(false)
+        await PunchCardService.create({
+            clientId: clients.selectedId,
+            employeeId: employeeData.id,
+            date: workDayData.date
+        })
     }
 
     async function editHandler() {
-        if(workDayData.isPresence) await deletePunch()
-        else await createPunch();
+        setIsLoading(true)
 
-        refreshPunchCardData()
-        callSnackBar({ message: "Alterações Salvas!", type: "success" })
+        if(!workDayData.isPresence && !clients.selectedId) {
+            callSnackBar({  message: "Atribua uma obra à presença", type: "warning" })
+            setIsLoading(false)
+            return
+        }
+
+        try {
+            if(workDayData.isPresence) await deletePunch()
+            else await createPunch();
+
+            refreshPunchCardData()
+            callSnackBar({ message: "Alterações Salvas!", type: "success" })
+        } catch (error) {
+            console.error("Error while creating new punch in punchcard")
+            console.error(error)
+            callSnackBar({  message: "Falha ao editar presença", type: "error" })
+        }
+
+        setIsLoading(false)
+        handleClose()
+    }
+
+    function handleClose() {
+        setClients(prev => ({ ...prev, selectedId: 0 }))
+        setWorkDayData(prev => ({ ...prev, clients: undefined }))
         closeDialog()
     }
 
+    useEffect(() => {console.log("select value: ",clients.options.find(client => client.id === workDayData.clients?.id)?.id ?? "")})
+
     return (
-        <Dialog open={openDialog} onClose={closeDialog} maxWidth='sm' fullWidth={true}>
+        <Dialog open={openDialog} onClose={handleClose} maxWidth='sm' fullWidth={true}>
             <DialogTitle>Cuidado!</DialogTitle>
 
             <DialogContent>
@@ -121,27 +126,30 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
                 <DialogContentText>
                    { `Status atual:   `}
                     <Button variant="text">{(workDayData.isPresence && mode==="preview") || (!workDayData.isPresence && mode==="edit") ? "PRESENÇA" : "FALTA"}</Button>
-
                 </DialogContentText>
+
                 <FormControl fullWidth>
                     <InputLabel id="client_options">Obra</InputLabel>
                     <Select
+                        id="outlined-select-client"
                         labelId="client_options"
-                        disabled={mode === "preview"}
-                        value={clients.selected}
+                        disabled={mode === "preview" || !!workDayData.isPresence}
+                        value={mode === "preview" ? clients.options.find(client => client.id === workDayData.clients?.id)?.id ?? "" : clients.selectedId}
                         label="Obra"
-                        onChange={e => setClients(prev => ({...prev, selected: e.target.value}))}
+                        error={!clients.selectedId}
+                        onChange={e => setClients(prev => ({...prev, selectedId: e.target.value}))}
                     >{
-                        clients.options.map(client => <MenuItem key={client.id} value={client}>{client.name}</MenuItem>)
+                        clients.options.map(client => <MenuItem key={client.id} value={client.id}>{client.name}</MenuItem>)
                     }</Select>
                 </FormControl>
             </DialogContent>
+
             <DialogActions>
                 {
                     isLoading
                     ? <WorkDayDialogLoadingContainer><LogoLoadingSpinner width="60px" height="60px" /></WorkDayDialogLoadingContainer>
                     : <>
-                        <Button onClick={closeDialog}>{mode === "edit" ? "Cancelar" : "Fechar"}</Button>
+                        <Button onClick={handleClose}>{mode === "edit" ? "Cancelar" : "Fechar"}</Button>
                         <Button variant='contained' 
                                 color='warning' 
                                 onClick={ mode === "preview" ? () => setMode("edit") : editHandler }

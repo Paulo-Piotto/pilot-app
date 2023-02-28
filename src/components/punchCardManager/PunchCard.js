@@ -82,7 +82,7 @@ export default function PunchCard({ employeeData }) {
             }
             <WorkDayDialog 
                 openDialog={dialogConfig.shouldOpen}
-                closeDialog={() => {setDialogConfig(prev => ({ ...prev, shouldOpen: false }))}}
+                closeDialog={() => {setDialogConfig(prev => ({ ...prev, shouldOpen: false, workDayData: {} }))}}
                 initialWorkDayData={dialogConfig.workDayData}
                 employeeData={{ id: employeeData.id, name: employeeData.name }}
             />
