@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { parseObjectIntoQueryString } from "../../services/utils";
 import { PunchCardService } from "../../services/api.services";
 import AuthContext from "./AuthContext";
+import { useCallback } from "react";
 
 const PunchCardContext = createContext({});
 
@@ -57,16 +58,15 @@ export function PunchCardContextProvider({ children }) {
         }))
     }
 
-    function callSnackBar(data) {
+    const callSnackBar = useCallback((data) => {
         setSnackBar({ 
             ...data,
             isOpen: true,
             setter: (value) => setSnackBar(prev => ({...prev, isOpen: value}))
         })
-    }
+    }, [setSnackBar]) 
 
     function refreshPunchCardData() {
-        console.log("refreshing")
         setRefreshToggler(prev => !prev)
     }
     

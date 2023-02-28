@@ -57,7 +57,7 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
         }
 
         getClientOptions()
-    }, [setClients])
+    }, [setClients, callSnackBar])
 
     useEffect(() => { 
         setMode(prev => {
@@ -73,7 +73,7 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
             clientId: clients.selectedId,
             employeeId: employeeData.id,
             date: workDayData.date
-        })
+        }, userData.token)
     }
 
     async function editHandler() {
@@ -106,8 +106,6 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
         setWorkDayData(prev => ({ ...prev, clients: undefined }))
         closeDialog()
     }
-
-    useEffect(() => {console.log("select value: ",clients.options.find(client => client.id === workDayData.clients?.id)?.id ?? "")})
 
     return (
         <Dialog open={openDialog} onClose={handleClose} maxWidth='sm' fullWidth={true}>

@@ -1,9 +1,10 @@
 import { ExpanderMenuContainer } from "./styles"
 import Expander from "./Expander"
-import { useEffect, useRef, useState, useContext, useLayoutEffect } from "react"
+import { useEffect, useRef, useState, useContext } from "react"
 import PunchCardContext from "../context/PunchCardContext";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeRecord from "./EmployeeRecord";
+import { useCallback } from "react";
 
 export default function ExpanderMenu() {
     const expanderMenuRef = useRef();
@@ -16,10 +17,17 @@ export default function ExpanderMenu() {
         currentSelectedId: 0,
     })
 
+    const handleExpanderSelection = useCallback((expanderId) => {
+        setAnimationData(prev => {
+            if(prev.currentSelectedId !== expanderId) return { ...prev, currentSelectedId: expanderId }
+            return { ...prev } 
+        })
+    }, [])
+
     useEffect(() => {
         const timeoutId = setTimeout(() => { handleExpanderSelection(0) }, 100) //otherwise will trigger state change while animating, witch causes glitch
         return () => { clearTimeout(timeoutId) }
-    }, [searchFilters.client])
+    }, [searchFilters.client, handleExpanderSelection])
 
     useEffect(() => {
         function calculateComponentSize() {
@@ -37,14 +45,6 @@ export default function ExpanderMenu() {
 
         return () => { window.removeEventListener("resize", calculateComponentSize) }
     }, [expanderMenuRef])
-
-    
-    function handleExpanderSelection(expanderId) {
-        if(expanderId !== animationData.currentSelectedId) setAnimationData(prev => ({
-            ...prev,
-            currentSelectedId: expanderId
-        }))
-    }
 
     return (
         <ExpanderMenuContainer ref={expanderMenuRef} layout>

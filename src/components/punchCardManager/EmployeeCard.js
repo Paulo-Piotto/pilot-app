@@ -10,7 +10,6 @@ export default function EmployeeCard({ employeeData, toggleExpander }) {
         <EmployeeCardContainer
             onClick={e => {
                 e.stopPropagation()
-                console.log("EMPLOYEE CLICKED")
                 setPunchCardData(prev => ({
                     ...prev,
                     selectedEmployee: employeeData
