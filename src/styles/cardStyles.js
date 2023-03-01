@@ -11,7 +11,7 @@ const CardsContainer = styled.div`
 `
 
 const CardStyle = styled.div`
-    width: 27%;
+    width: ${props => props.width ?? "27%"};
     height: 100%;
     background-color: ${(props) => props.contrast ? "#E89D17" : "#EAEAEA"};
     color: ${(props) => props.contrast ? "white" : "black"};

@@ -2,7 +2,7 @@ import { AccordionContainer } from "./styles"
 import { AiTwotoneEdit, AiFillCloseCircle } from "react-icons/ai";
 import { MdOutlineDownloadDone } from "react-icons/md"
 import { useState, useContext } from "react";
-import LoadingSpinner from "../generics/loadingSpinner";
+import LoadingSpinner from "../../../generics/loadingSpinner";
 import { UsersService } from "../../../../services/api.services";
 import ControlPanelContext from "../../../context/ControlPanelContext";
 import { objectHasBeenChanged } from "../../../../services/utils";

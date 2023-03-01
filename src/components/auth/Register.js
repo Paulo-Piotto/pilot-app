@@ -5,7 +5,7 @@ import Alerter from "./Alerter";
 import * as Utils from "./utils";
 import { AuthService } from "../../services/api.services";
 import { Register as RegisterValidate } from "../../services/validationServices/authValidation";
-import Loader from "../generics/Loader";
+import Loader from "../generics/logoLoadingSpinner";
 import pilotLoaderLogo from "../../assets/pilot-spinner-logo-black.png";
 
 export default function Register({ side: animationSide, callLoginScreen }) {
