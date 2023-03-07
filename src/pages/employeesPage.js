@@ -9,21 +9,39 @@ import {
   TableContainer,
   TableHeader,
 } from "../styles/tableStyles";
-import TableItem from "../components/stores/storeItem";
+import EmployeeItem from "../components/employees/employeeItem";
 import { Container } from "../components/generics/inProgress";
+import { Clear, Loading } from "../styles/generalStyles";
+import GenericSnackbar from "../components/generics/genericSnackbar";
+import { CircularProgress } from "@material-ui/core";
 
 export default function EmployeesPage() {
+  const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState([]);
   const [absoluteEmployees, setAbsoluteEmployees] = useState(0);
   const [openRegister, setOpenRegister] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
+  const [snackbar, setSnackbar] = useState(false);
+  const [snackbarType, setSnackbarType] = useState("");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  useEffect(() => {
-    EmployeesService.getAllEmployees().then((resp) => {
-      setEmployees(resp.data);
-      setAbsoluteEmployees(resp.data.length);
-    });
-  }, []);
+  function clearFilters() {
+    setLoading(true);
+    EmployeesService.getAllEmployees()
+      .then((resp) => {
+        setEmployees(resp.data);
+        setAbsoluteEmployees(resp.data.length);
+        setLoading(false);
+      })
+      .catch(() => {
+        setSnackbarMessage("Algo deu errado ao recuperar os dados");
+        setSnackbarType("error");
+        setSnackbar(true);
+        setLoading(false);
+      });
+  }
+
+  useEffect(clearFilters, []);
 
   function handleCloseDialog() {
     setOpenRegister(false);
@@ -64,23 +82,44 @@ export default function EmployeesPage() {
         handleCloseDialog={handleCloseDialog}
         setEmployees={setEmployees}
       />
+      <Clear onClick={clearFilters}>Limpar filtros</Clear>
+      <GenericSnackbar
+        setSnackbar={setSnackbar}
+        snackbar={snackbar}
+        type={snackbarType}
+        message={snackbarMessage}
+      />
       <HeaderContainer>
         <TableHeader>
           <p>Nome</p>
-          <p>Salário Base</p>
-          <p>Tel.</p>
-          <p>Data de início</p>
-          <p></p>
         </TableHeader>
       </HeaderContainer>
-      {employees[0] ? (
-        <TableContainer>
-          {employees.map((employee, index) => (
-            <TableItem key={index} rowData={employee} type="employee" />
-          ))}
-        </TableContainer>
+      {loading ? (
+        <Loading>
+          {" "}
+          <CircularProgress />{" "}
+        </Loading>
       ) : (
-        <Container>Nenhum item encontrado...</Container>
+        <>
+          {employees[0] ? (
+            <TableContainer>
+              {employees.map((employee, index) => (
+                <EmployeeItem
+                  key={index}
+                  rowData={employee}
+                  setItems={setEmployees}
+                  setAbsolute={setAbsoluteEmployees}
+                  setLoading={setLoading}
+                  setSnackbar={setSnackbar}
+                  setSnackbarType={setSnackbarType}
+                  setSnackbarMessage={setSnackbarMessage}
+                />
+              ))}
+            </TableContainer>
+          ) : (
+            <Container>Nenhum item encontrado...</Container>
+          )}
+        </>
       )}
     </>
   );

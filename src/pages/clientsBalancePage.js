@@ -29,7 +29,6 @@ export default function ClientsBalancePage() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const { userData } = useContext(AuthContext);
-  console.log(userData);
 
   function clearFilters() {
     setLoading(true);

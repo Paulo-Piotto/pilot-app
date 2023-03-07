@@ -109,7 +109,6 @@ export default function StoresPage() {
                   <StoreItem
                     key={index}
                     rowData={store}
-                    type="store"
                     setItems={setStores}
                     setAbsolute={setAbsoluteStores}
                     setLoading={setLoading}
