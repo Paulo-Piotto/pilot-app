@@ -72,7 +72,10 @@ export default function PunchCard({ employeeData }) {
         return [...calculateRectCoordinates()]
     }, [])
 
-    const memoizedPunchCardGeneratedData = useMemo(() => punchCardDataGenerator(employeeData), [employeeData, punchCardDataGenerator])
+    const memoizedPunchCardGeneratedData = useMemo(
+        () => punchCardDataGenerator(employeeData),
+        [employeeData, punchCardDataGenerator]
+    )
 
     return (
         <PunchCardContainer viewBox={`0 0 820 200`}>

@@ -6,6 +6,7 @@ import EmployeeCard from "./EmployeeCard";
 import EmployeeRecord from "./EmployeeRecord";
 import LogoLoadingSpinner from "../generics/logoLoadingSpinner";
 import piottoWhiteLogo from "../../assets/pilot-white.png";
+import MassEditor from "./MassEditor";
 
 export default function ExpanderMenu() {
     const expanderMenuRef = useRef();
@@ -59,9 +60,7 @@ export default function ExpanderMenu() {
                 loadingInitialData
                 ? <LogoLoadingSpinner image={piottoWhiteLogo} width="70px" height="70px" />
                 : punchCardData.byEmployees.length
-                    ? punchCardData.byEmployees.map(byEmployee => <EmployeeCard key={byEmployee.id}
-                                                     employeeData={byEmployee}
-                                                     toggleExpander={() => setAnimationData(prev => ({ ...prev, currentSelectedId: 1 }))}/>)
+                    ? <MassEditor toggleExpander={() => setAnimationData(prev => ({ ...prev, currentSelectedId: 1 }))}/>
                     : <p style={{color: "#d79318"}}>Ainda não há funcionários cadastrados. Cadastre um funcionário para poder visualizá-lo aqui</p>
             }</Expander>
 

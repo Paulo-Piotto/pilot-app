@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle, DialogContent } from '@mui/material';
-import { PunchCardService, ClientsService } from '../../services/api.services';
+import { PunchCardService } from '../../services/api.services';
 import dayjs from 'dayjs';
 import { getWeekDayNameBasedOnInt } from './helpers';
 import { DialogContentText } from '@material-ui/core';
@@ -15,8 +15,8 @@ import { WorkDayDialogLoadingContainer } from "./styles"
 
 export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayData, employeeData }) {
     const { userData } = useContext(AuthContext)
-    const { callSnackBar, refreshPunchCardData } = useContext(PunchCardContext)
-    const [ isLoading, setIsLoading ] = useState(true)
+    const { callSnackBar, refreshPunchCardData, clientOptions } = useContext(PunchCardContext)
+    const [ isLoading, setIsLoading ] = useState(false)
     const [ mode, setMode ] = useState("preview")
     const [ workDayData, setWorkDayData ] = useState({
         ...initialWorkDayData,
@@ -25,7 +25,7 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
         weekDay: getWeekDayNameBasedOnInt(dayjs(initialWorkDayData.date).day())
     })
     const [ clients, setClients ] = useState({
-        options: [],
+        options: clientOptions,
         selectedId: 0
     })
 
@@ -38,26 +38,6 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
             weekDay: getWeekDayNameBasedOnInt(dayjs(initialWorkDayData.date).day())
         }))
     }, [initialWorkDayData])
-
-    useEffect(() => {
-        async function getClientOptions() {
-            try {
-                const updatedClientOptions = await ClientsService.getAllClients();
-    
-                setClients(prev => ({
-                    ...prev,
-                    options: updatedClientOptions.data,
-                }))
-            } catch (error) {
-                console.error("Loading client options failed")
-                console.error(error)
-                callSnackBar({  message: "Falha ao consultar repositório de clientes", type: "error" })
-            }
-            setIsLoading(false)
-        }
-
-        getClientOptions()
-    }, [setClients, callSnackBar])
 
     useEffect(() => { 
         setMode(prev => {

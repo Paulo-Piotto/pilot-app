@@ -1,24 +1,33 @@
 import { useContext } from "react"
 import PunchCardContext from "../context/PunchCardContext"
 import { EmployeeCardContainer } from "./styles"
-import dayjs from "dayjs"
+import PunchCardPreview from "./PunchCardPreview"
+import ContactPageIcon from '@mui/icons-material/ContactPage';
 
 export default function EmployeeCard({ employeeData, toggleExpander }) {
     const { setPunchCardData } = useContext(PunchCardContext)
 
     return (
-        <EmployeeCardContainer
-            onClick={e => {
-                e.stopPropagation()
-                setPunchCardData(prev => ({
-                    ...prev,
-                    selectedEmployee: employeeData
-                }))
-                toggleExpander();
-            }}
-        >
+        <EmployeeCardContainer>
             <p className="employee_name">{`${employeeData.name}`}</p>
-            <p className="employee_detail">{`- Cadastrado em ${dayjs(employeeData.start_day).format("DD/MM/YYYY")}`}</p>
+            <section id="punch_card_preview">
+                <PunchCardPreview previewSize={5} workedDaysData={employeeData["employees_worked_days"]} />
+            </section>
+            
+            <section 
+                id="icons_container"
+                onClick={e => {
+                    e.stopPropagation()
+                    setPunchCardData(prev => ({
+                        ...prev,
+                        selectedEmployee: employeeData
+                    }))
+                    toggleExpander();
+                }}
+            >
+                <ContactPageIcon />
+            </section>
+            {/* <p className="employee_detail">{`- Cadastrado em ${dayjs(employeeData.start_day).format("DD/MM/YYYY")}`}</p> */}
         </EmployeeCardContainer>  
     )
 }

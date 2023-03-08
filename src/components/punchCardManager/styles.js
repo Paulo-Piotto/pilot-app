@@ -140,7 +140,6 @@ export const EmployeeCardContainer = styled.div`
     padding: 10px;
     border: 2px solid #fff;
     border-radius: 5px;
-    cursor: pointer;
     color: #fff;
     font-weight: bold;
     margin-bottom: 10px;
@@ -148,11 +147,27 @@ export const EmployeeCardContainer = styled.div`
     max-width: 500px;
 
     .employee_name {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
 
     .employee_detail {
         font-size: 1rem;
+    }
+
+    #punch_card_preview {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 100%;
+    }
+
+    #icons_container {
+        cursor: pointer;
     }
 
     @media screen and (max-width: 900px) {
@@ -201,6 +216,9 @@ export const EmployeeRecordContainer = styled.div`
 `
 
 export const PunchCardContainer = styled.svg`
+    width: 100%;
+    height: 100%;
+
     text {
         font-size: 13px;
     }
@@ -216,14 +234,50 @@ export const WorkDayDialogLoadingContainer = styled.div`
     padding: 10px;
 `
 
-export const UnactiveMotionTitle = styled(motion.h1)`
-    writing-mode: vertical-rl;text-orientation: upright;
+export const UnactiveMotionTitle = styled(motion.h2)`
+    writing-mode: vertical-rl;
+    text-orientation: upright;
     position: absolute;
-    top: 50px;
-    left: 0px;
+    top: 8%;
+    left: 10px;
     font-weight: bold;
 
     &:hover {
         cursor: pointer
+    }
+`
+
+export const MassEditorContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+`
+
+export const ActionsContainer = styled.div`
+    margin-bottom: 20px;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    overflow: auto;
+
+    select {
+        
+    }
+
+    .action {
+        margin: 0px 10px 0px 5px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 `
