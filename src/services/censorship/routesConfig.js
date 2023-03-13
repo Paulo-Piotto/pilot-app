@@ -14,7 +14,7 @@ const routesConfig = [
     unauthorizedComponent: null,
   },
   {
-    component: EmployeesPage, //done
+    component: InProgress, //done
     path: "/employees",
     minimumAcessLevel: "admin",
     unauthorizedComponent: null,
@@ -44,7 +44,7 @@ const routesConfig = [
     unauthorizedComponent: null,
   },
   {
-    component: PunchCardPage, //?
+    component: InProgress, //?
     path: "/frequency",
     minimumAcessLevel: "admin",
     unauthorizedComponent: null,
