@@ -1,14 +1,23 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import PunchCardContext from "../context/PunchCardContext"
 import { EmployeeCardContainer } from "./styles"
 import PunchCardPreview from "./PunchCardPreview"
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 
-export default function EmployeeCard({ employeeData, toggleExpander }) {
-    const { setPunchCardData } = useContext(PunchCardContext)
+export default function EmployeeCard({ employeeData, toggleExpander, notifySelection, allSelected }) {
+    const { setPunchCardData, punchCardData } = useContext(PunchCardContext)
+    const [ isSelected, setIsSelected ] = useState(false);
+
+    useEffect(() => { setIsSelected(allSelected) }, [allSelected])
 
     return (
-        <EmployeeCardContainer>
+        <EmployeeCardContainer
+            isSelected={isSelected}
+            onClick={() => {
+                notifySelection(!isSelected, employeeData.id)
+                setIsSelected(prev => !prev)
+            }}
+        >
             <p className="employee_name">{`${employeeData.name}`}</p>
             <section id="punch_card_preview">
                 <PunchCardPreview previewSize={5} workedDaysData={employeeData["employees_worked_days"]} />
@@ -25,7 +34,11 @@ export default function EmployeeCard({ employeeData, toggleExpander }) {
                     toggleExpander();
                 }}
             >
-                <ContactPageIcon />
+                {
+                    isSelected
+                    ? <p>obra tal</p>
+                    : <ContactPageIcon />
+                }
             </section>
             {/* <p className="employee_detail">{`- Cadastrado em ${dayjs(employeeData.start_day).format("DD/MM/YYYY")}`}</p> */}
         </EmployeeCardContainer>  

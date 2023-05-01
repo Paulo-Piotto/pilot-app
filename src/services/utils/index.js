@@ -17,6 +17,7 @@ export function parseObjectIntoQueryString(obj, first=true) {
     }
 
     if(first) return "?" + query.slice(0, query.length-1);
+    console.log("query: ", query)
     return query
 }
 

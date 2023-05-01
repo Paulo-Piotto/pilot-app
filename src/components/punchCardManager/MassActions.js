@@ -1,16 +1,11 @@
 import { ActionsContainer } from "./styles"
 import PunchCardContext from "../context/PunchCardContext"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef } from "react"
 import dayjs from "dayjs"
 
-export default function MassActions({ onClick }) {
+export default function MassActions({ setAllSelected, massActionConfig, selectAllEmployees, unselectAllEmployees, setMassActionConfig, dispatchMassAction }) {
     const scrollRef = useRef()
     const { clientOptions } = useContext(PunchCardContext)
-    const [ massActionConfig, setMassActionConfig ] = useState({
-        isPresence: true,
-        date: dayjs(),
-        clientId: 0 
-    })
 
     useEffect(() => {
         const currentRef = scrollRef.current
@@ -34,29 +29,35 @@ export default function MassActions({ onClick }) {
             ref={scrollRef}
         >
             <div className="action">
+                <label for="employees"><nobr>Selecionar Todos: </nobr></label>
+                <input type="checkbox" name="employees" onClick={() => {
+                    setAllSelected(prev => {
+                        if(prev) unselectAllEmployees()
+                        else selectAllEmployees()
+                        return !prev
+                    })
+                }}/>
+            </div>
+
+            <div className="action">
                 <label for="operation_type">Aplicar: </label>
                 <select name="operation_type"
-                    onChange={e => setMassActionConfig(prev => ({ ...prev, isPresence: e.target.value }))}
+                    onChange={e => setMassActionConfig(prev => ({ ...prev, isPresence: e.target.value === "true"}))}
                 >
-                    <option value={true} >Presença</option>
+                    <option value={true}>Presença</option>
                     <option value={false}>Falta</option>
                 </select>
             </div>
  
             <div className="action">
-                <label for="employees">Funcionários: </label>
-                <select name="employees">
-                    <option>Todos</option>
-                </select>
-            </div>
-
-            <div className="action">
                 <label for="date">Dia: </label>
                 <input type="date" name="date"
-                    onChange={e => setMassActionConfig(prev => ({ ...prev, date: e.target.value }))}
-
+                    onChange={e => {
+                        console.log("DATA CHANGED TO: ", e.target.value)
+                        setMassActionConfig(prev => ({ ...prev, date: dayjs(e.target.value)}))
+                    }}
                 />
-            </div>
+            </div>  
 
             <div className="action">
                 <label for="client">Obra: </label>
@@ -64,10 +65,16 @@ export default function MassActions({ onClick }) {
                     onChange={e => setMassActionConfig(prev => ({ ...prev, clientId: e.target.value }))}
                 >
                     {
-                        clientOptions.map(client => <option value={client.id}>{client.name}</option>)
+                        clientOptions.map(client => <option key={client.id} value={client.id}>{client.name}</option>)
                     }
                 </select>
             </div>
+
+            {
+                massActionConfig.clientId > 0 &&
+
+                <button className="save_mass_action" onClick={dispatchMassAction}>salvar</button>
+            }
         </ActionsContainer>
     )
 }

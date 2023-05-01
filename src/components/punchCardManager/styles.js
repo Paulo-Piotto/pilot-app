@@ -145,6 +145,7 @@ export const EmployeeCardContainer = styled.div`
     margin-bottom: 10px;
     width: 100%;
     max-width: 500px;
+    background-color: ${props => props.isSelected ? "green" : "unset"};
 
     .employee_name {
         font-size: 1rem;
@@ -275,6 +276,16 @@ export const ActionsContainer = styled.div`
         margin: 0px 10px 0px 5px;
         display: flex;
         flex-direction: row;
+
+            label {
+                
+            }
+
+    }
+
+    .save_mass_action {
+        position: sticky;
+        right: 5px;
     }
 
     &::-webkit-scrollbar {

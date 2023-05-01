@@ -12,7 +12,6 @@ export default function ClientsFilter() {
     return (
         <ClientsFilterContainer>
             <h1>Clientes˼</h1>
-
             {
                 punchCardData.byClients.length
                     ? punchCardData.byClients.map(byClientData => <ClientCard key={byClientData.id} 
