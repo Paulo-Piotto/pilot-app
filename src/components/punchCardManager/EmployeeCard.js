@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react"
 import PunchCardContext from "../context/PunchCardContext"
+import MassActionContext from "../context/MassEditorContext"
 import { EmployeeCardContainer } from "./styles"
 import PunchCardPreview from "./PunchCardPreview"
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 
-export default function EmployeeCard({ employeeData, toggleExpander, notifySelection, allSelected }) {
-    const { setPunchCardData, punchCardData } = useContext(PunchCardContext)
+export default function EmployeeCard({ employeeData, toggleExpander }) {
+    const { clientOptions, setPunchCardData } = useContext(PunchCardContext)
+    const { massActionConfig, handleEmployeeUniqueSelection, allSelected } = useContext(MassActionContext)
     const [ isSelected, setIsSelected ] = useState(false);
 
     useEffect(() => { setIsSelected(allSelected) }, [allSelected])
@@ -14,7 +16,7 @@ export default function EmployeeCard({ employeeData, toggleExpander, notifySelec
         <EmployeeCardContainer
             isSelected={isSelected}
             onClick={() => {
-                notifySelection(!isSelected, employeeData.id)
+                handleEmployeeUniqueSelection(!isSelected, employeeData.id)
                 setIsSelected(prev => !prev)
             }}
         >
@@ -23,24 +25,21 @@ export default function EmployeeCard({ employeeData, toggleExpander, notifySelec
                 <PunchCardPreview previewSize={5} workedDaysData={employeeData["employees_worked_days"]} />
             </section>
             
-            <section 
-                id="icons_container"
-                onClick={e => {
-                    e.stopPropagation()
-                    setPunchCardData(prev => ({
-                        ...prev,
-                        selectedEmployee: employeeData
-                    }))
-                    toggleExpander();
-                }}
-            >
+            <section id="icons_container">
                 {
                     isSelected
-                    ? <p>obra tal</p>
-                    : <ContactPageIcon />
+                    ? <p className="selected_client_name">{clientOptions.find(client => client.id === Number(massActionConfig.clientId))?.name ?? "Selecione uma obra"}</p>
+                    : <ContactPageIcon 
+                        onClick={e => {
+                            e.stopPropagation()
+                            setPunchCardData(prev => ({
+                                ...prev,
+                                selectedEmployee: employeeData
+                            }))
+                            toggleExpander();
+                        }}/>
                 }
             </section>
-            {/* <p className="employee_detail">{`- Cadastrado em ${dayjs(employeeData.start_day).format("DD/MM/YYYY")}`}</p> */}
         </EmployeeCardContainer>  
     )
 }

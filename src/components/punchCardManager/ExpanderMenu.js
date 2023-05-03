@@ -2,7 +2,6 @@ import { ExpanderMenuContainer } from "./styles"
 import Expander from "./Expander"
 import { useEffect, useRef, useState, useContext, useCallback } from "react"
 import PunchCardContext from "../context/PunchCardContext";
-import EmployeeCard from "./EmployeeCard";
 import EmployeeRecord from "./EmployeeRecord";
 import LogoLoadingSpinner from "../generics/logoLoadingSpinner";
 import piottoWhiteLogo from "../../assets/pilot-white.png";

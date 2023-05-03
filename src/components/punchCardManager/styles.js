@@ -66,7 +66,7 @@ export const ExpanderContainer = styled(motion.div)`
     h1 {
         font-size: 1.2rem;
         text-align: center;
-        margin-bottom: 60px;
+        margin-bottom: 25px;
         padding: 10px;
         width: 100%;
     }
@@ -145,7 +145,7 @@ export const EmployeeCardContainer = styled.div`
     margin-bottom: 10px;
     width: 100%;
     max-width: 500px;
-    background-color: ${props => props.isSelected ? "green" : "unset"};
+    background-color: ${props => props.isSelected ? "#d79318" : "unset"};
 
     .employee_name {
         font-size: 1rem;
@@ -168,7 +168,19 @@ export const EmployeeCardContainer = styled.div`
     }
 
     #icons_container {
-        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        >svg {
+            cursor: pointer;
+        }
+
+        .selected_client_name {
+            font-size: .7rem;
+        }
     }
 
     @media screen and (max-width: 900px) {
@@ -269,23 +281,45 @@ export const ActionsContainer = styled.div`
     overflow: auto;
 
     select {
-        
+        height: 100%;
+        background-color: #3f4a5c;
+        color: #fff;
+        border-radius: 2px;
     }
 
     .action {
         margin: 0px 10px 0px 5px;
         display: flex;
         flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: .8rem;
 
             label {
-                
+                margin-right: 5px;
+            }
+
+            >input {
+                background-color: #3f4a5c;
+                border: none;
+                color: #fff;
             }
 
     }
 
     .save_mass_action {
         position: sticky;
-        right: 5px;
+        left: 5px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        padding: 2px 10px;
+        background-color: #131e31;
+        color: #d69218;
+        outline: none;
+        cursor: pointer;
+        border: none;;
+        border: 1px solid #d69218;
+        margin-right: 10px;
+        border-radius: 2px;
     }
 
     &::-webkit-scrollbar {

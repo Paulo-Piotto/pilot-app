@@ -13,7 +13,16 @@ export default function PunchCardPreview({ previewSize, workedDaysData }) {
             for(let i = 0; i < previewSize; i++) {
                 const iDate = todayDate.subtract(i, "day")
 
-                if(
+                if( workedDaysCurrentIndex+1 < workedDaysData.length &&
+                    areDatesFromSameDay(
+                        workedDaysData[workedDaysCurrentIndex].date,
+                        workedDaysData[workedDaysCurrentIndex+1].date)
+                ) {
+                    i--
+                    workedDaysCurrentIndex += 1
+                }
+
+                else if(
                     workedDaysCurrentIndex < workedDaysData.length 
                     && areDatesFromSameDay(iDate, workedDaysData[workedDaysCurrentIndex].date)
                 ) {
