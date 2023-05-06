@@ -85,22 +85,39 @@ const UsersService = {
 };
 
 const PunchCardService = {
-    getAllPunchCardsData: (filterString, token) => axios.get(`${URL}/frequency${filterString ?? ""}`, {headers: {
-        Authorization: `Bearer ${token}`
-    }}),
-    getPunchCardsByClients: (filterString, token) => axios.get(`${URL}/frequency/clients${filterString ?? ""}`, {headers: {
-        Authorization: `Bearer ${token}`
-    }}),
-    getPunchCardsByEmployees: (filterString, token) => axios.get(`${URL}/frequency/employees${filterString ?? ""}`, {headers: {
-        Authorization: `Bearer ${token}`
-    }}),
-    massAction: (massActionConfig, token) => axios.post(`${URL}/frequency/massaction`, massActionConfig, {headers: {
-        Authorization: `Bearer ${token}`
-    }}),
-    create: (data, token) => axios.post(`${URL}/frequency`, data, {headers: { Authorization: `Bearer ${token}` }}),
-    delete: (id, token) => axios.delete(`${URL}/frequency/${id}`, { headers: { Authorization: `Bearer ${token}` }})
-
-}
+  getAllPunchCardsData: (filterString, token) =>
+    axios.get(`${URL}/frequency${filterString ?? ""}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  getPunchCardsByClients: (filterString, token) =>
+    axios.get(`${URL}/frequency/clients${filterString ?? ""}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  getPunchCardsByEmployees: (filterString, token) =>
+    axios.get(`${URL}/frequency/employees${filterString ?? ""}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  massAction: (massActionConfig, token) => 
+    axios.post(`${URL}/frequency/massaction`, massActionConfig, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+    }),
+  create: (data, token) =>
+    axios.post(`${URL}/frequency`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  delete: (id, token) =>
+    axios.delete(`${URL}/frequency/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+};
 
 export {
   EmployeesService,
@@ -110,5 +127,5 @@ export {
   AuthService,
   IncomesService,
   UsersService,
-  PunchCardService
+  PunchCardService,
 };
