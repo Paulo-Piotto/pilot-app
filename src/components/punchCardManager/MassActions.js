@@ -9,7 +9,7 @@ export default function MassActions() {
     const { clientOptions, punchCardData } = useContext(PunchCardContext)
     const {
         massActionConfig, setMassActionConfig,
-        selectAllEmployees, unselectAllEmployees, setAllSelected,
+        allSelected, selectAllEmployees, unselectAllEmployees, setAllSelected,
         dispatchMassAction
     } = useContext(MassActionContext)
 
@@ -35,7 +35,7 @@ export default function MassActions() {
             }
             <div className="action">
                 <label for="employees"><nobr>Selecionar Todos: </nobr></label>
-                <input type="checkbox" name="employees" onClick={() => {
+                <input type="checkbox" name="employees" checked={allSelected} onChange={() => {
                     setAllSelected(prev => {
                         if(prev) unselectAllEmployees()
                         else selectAllEmployees(punchCardData.byEmployees)
@@ -57,6 +57,7 @@ export default function MassActions() {
             <div className="action">
                 <label for="date">Dia: </label>
                 <input type="date" name="date"
+                    value={massActionConfig.date ? dayjs(massActionConfig.date).format("YYYY-MM-DD") : null}
                     onChange={e => {
                         setMassActionConfig(prev => ({ ...prev, date: dayjs(e.target.value)}))
                     }}
@@ -65,7 +66,7 @@ export default function MassActions() {
 
             <div className="action">
                 <label for="client">Obra: </label>
-                <select name="client"
+                <select name="client" value={massActionConfig.clientId}
                     onChange={e => setMassActionConfig(prev => ({ ...prev, clientId: e.target.value }))}
                 >
                     <option key="empty" value="0"></option>

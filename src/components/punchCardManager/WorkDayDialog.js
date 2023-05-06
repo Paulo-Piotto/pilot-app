@@ -49,7 +49,6 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
     async function deletePunch() { await PunchCardService.delete(workDayData.id, userData.token) }
 
     async function createPunch() {
-        console.log("creating punch date: ", workDayData.date)
         await PunchCardService.create({
             clientId: clients.selectedId,
             employeeId: employeeData.id,
