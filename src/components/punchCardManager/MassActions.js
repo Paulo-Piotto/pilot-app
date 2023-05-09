@@ -39,7 +39,7 @@ export default function MassActions() {
                     : void(0)
             }
             <div className="action">
-                <label for="employees"><nobr>Selecionar Todos: </nobr></label>
+                <label><nobr>Selecionar Todos: </nobr></label>
                 <input type="checkbox" name="employees" checked={allSelected} onChange={() => {
                     setAllSelected(prev => {
                         if(prev) unselectAllEmployees()
@@ -50,7 +50,7 @@ export default function MassActions() {
             </div>
 
             <div className="action">
-                <label for="operation_type">Aplicar: </label>
+                <label>Aplicar: </label>
                 <select name="operation_type" value={massActionConfig.isPresence}
                     onChange={e => setMassActionConfig(prev => ({ ...prev, isPresence: e.target.value === "true"}))}
                 >
@@ -60,9 +60,9 @@ export default function MassActions() {
             </div>
  
             <div className="action">
-                <label for="date">Dia: </label>
+                <label>Dia: </label>
                 <input type="date" name="date"
-                    value={massActionConfig.date ? dayjs(massActionConfig.date).format("YYYY-MM-DD") : null}
+                    value={massActionConfig.date ? dayjs(massActionConfig.date).format("YYYY-MM-DD") : ""}
                     onChange={e => {
                         setMassActionConfig(prev => ({ ...prev, date: dayjs(e.target.value)}))
                     }}
@@ -70,7 +70,7 @@ export default function MassActions() {
             </div>  
 
             <div className="action">
-                <label for="client">Obra: </label>
+                <label>Obra: </label>
                 <select name="client" value={massActionConfig.clientId}
                     onChange={e => setMassActionConfig(prev => ({ ...prev, clientId: e.target.value }))}
                 >
