@@ -60,7 +60,7 @@ export default function ExpanderMenu() {
                 ? <LogoLoadingSpinner image={piottoWhiteLogo} width="70px" height="70px" />
                 : punchCardData.byEmployees.length
                     ? <MassEditor toggleExpander={() => setAnimationData(prev => ({ ...prev, currentSelectedId: 1 }))}/>
-                    : <p style={{color: "#d79318"}}>Ainda não há funcionários cadastrados. Cadastre um funcionário para poder visualizá-lo aqui</p>
+                    : <p style={{color: "#d79318"}}>Ainda não há funcionários cadastrados que obedeçam aos filtros aplicados</p>
             }</Expander>
 
             <Expander 

@@ -25,12 +25,17 @@ export default function MassActions() {
         }
     }, [])
 
+    function handleMassAction() {
+        unselectAllEmployees();
+        dispatchMassAction();
+    }
+
     return (
         <ActionsContainer ref={scrollRef}>
             {
                 Number(massActionConfig.clientId) &&
                 massActionConfig.selectedEmployeesIds.length 
-                    ? <button className="save_mass_action" onClick={dispatchMassAction}>salvar</button>
+                    ? <button className="save_mass_action" onClick={handleMassAction}>salvar</button>
                     : void(0)
             }
             <div className="action">
@@ -46,7 +51,7 @@ export default function MassActions() {
 
             <div className="action">
                 <label for="operation_type">Aplicar: </label>
-                <select name="operation_type"
+                <select name="operation_type" value={massActionConfig.isPresence}
                     onChange={e => setMassActionConfig(prev => ({ ...prev, isPresence: e.target.value === "true"}))}
                 >
                     <option value={true}>Presença</option>
@@ -75,8 +80,6 @@ export default function MassActions() {
                     }
                 </select>
             </div>
-
-
         </ActionsContainer>
     )
 }

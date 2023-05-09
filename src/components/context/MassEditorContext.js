@@ -39,7 +39,7 @@ export function MassActionContextProvider({ children }) {
         try {
             await PunchCardService.massAction(massActionConfig, userData.token);
             callSnackBar({ message: "Presenças Registradas", type: "success" })
-            setMassActionConfig(prev => ({...prev, ...baseMassActionConfig}))
+            setMassActionConfig(prev => ({...prev, ...baseMassActionConfig, isPresence: prev.isPresence}))
             setAllSelected(false)
             refreshPunchCardData()
         }
@@ -47,7 +47,6 @@ export function MassActionContextProvider({ children }) {
             console.error(error)
             callSnackBar({ message: error.response?.data ?? "Falha ao salvar registros", type: "error"})
         }
-        
     }
 
     return (

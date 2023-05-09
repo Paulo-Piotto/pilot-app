@@ -25,6 +25,58 @@ export const DatePickerCardStyle = styled(CardStyle)`
     }
 `
 
+export const SearchCardContainer = styled(CardStyle)`
+    padding: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    >section {
+        margin: 0 auto;
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+
+        >input {
+            background-color: inherit;
+            border: none;
+            border-bottom: 2px solid #131e31;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        .control_buttons_container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            
+            button {
+                font-size: .7rem;
+                max-width: 120px;
+                border: none;
+                outline: none;
+                background-color: inherit;
+                cursor: pointer;
+                color: #132e31;
+                text-decoration: underline #132e31;
+                margin: 1px 0px;
+            }
+        }
+    }
+
+    .search_icon_container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+`
+
 export const SearchBarCardStyle = styled(Card)`
     width: 54%;
 `

@@ -58,7 +58,6 @@ export function PunchCardContextProvider({ children }) {
         async function getClientOptions() {
             try {
                 const updatedClientOptions = await ClientsService.getAllClients();
-    
                 setClientOptions(updatedClientOptions.data)
             } catch (error) {
                 console.error("Loading client options failed")

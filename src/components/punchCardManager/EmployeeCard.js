@@ -8,16 +8,18 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 export default function EmployeeCard({ employeeData, toggleExpander }) {
     const { clientOptions, setPunchCardData } = useContext(PunchCardContext)
     const { massActionConfig, handleEmployeeUniqueSelection, allSelected } = useContext(MassActionContext)
-    const [ isSelected, setIsSelected ] = useState(false);
+    const [ isSelected, setIsSelected ] = useState(!!massActionConfig.selectedEmployeesIds.find(id => id === employeeData.id));
 
     useEffect(() => { setIsSelected(allSelected) }, [allSelected])
+    useEffect(() => {
+        setIsSelected(!!massActionConfig.selectedEmployeesIds.find(id => id === employeeData.id))
+    }, [massActionConfig.selectedEmployeesIds, employeeData.id])
 
     return (
         <EmployeeCardContainer
             isSelected={isSelected}
             onClick={() => {
                 handleEmployeeUniqueSelection(!isSelected, employeeData.id)
-                setIsSelected(prev => !prev)
             }}
         >
             <p className="employee_name">{`${employeeData.name}`}</p>
