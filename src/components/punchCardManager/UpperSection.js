@@ -41,7 +41,7 @@ export default function UpperSection() {
                             required={true}
                             variant="standard"
                             onChange={e => {
-                                if(e.toString() !== "Invalid Date") updateSearchFilters("date", {from: e.toString()})
+                                if(e.toString() !== "Invalid Date") updateSearchFilters("date", {to: e.toString()})
                             }}
                             renderInput={(params) => <TextField {...params} sx={{ ml: 1}} margin='dense' />}
                         />
@@ -51,8 +51,7 @@ export default function UpperSection() {
 
                 <SearchCard
                     contrast={false} 
-                    subtitle='Configurações de'
-                    searchString='Busca'
+                    plHolder='Buscar funcionário'
                     iconName='search-outline'
                     width={"40%"}
                     action={() => {}}

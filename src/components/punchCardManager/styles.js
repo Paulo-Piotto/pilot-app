@@ -25,6 +25,58 @@ export const DatePickerCardStyle = styled(CardStyle)`
     }
 `
 
+export const SearchCardContainer = styled(CardStyle)`
+    padding: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    >section {
+        margin: 0 auto;
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+
+        >input {
+            background-color: inherit;
+            border: none;
+            border-bottom: 2px solid #131e31;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        .control_buttons_container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            
+            button {
+                font-size: .7rem;
+                max-width: 120px;
+                border: none;
+                outline: none;
+                background-color: inherit;
+                cursor: pointer;
+                color: #132e31;
+                text-decoration: underline #132e31;
+                margin: 1px 0px;
+            }
+        }
+    }
+
+    .search_icon_container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+`
+
 export const SearchBarCardStyle = styled(Card)`
     width: 54%;
 `
@@ -66,7 +118,7 @@ export const ExpanderContainer = styled(motion.div)`
     h1 {
         font-size: 1.2rem;
         text-align: center;
-        margin-bottom: 60px;
+        margin-bottom: 25px;
         padding: 10px;
         width: 100%;
     }
@@ -140,19 +192,47 @@ export const EmployeeCardContainer = styled.div`
     padding: 10px;
     border: 2px solid #fff;
     border-radius: 5px;
-    cursor: pointer;
     color: #fff;
     font-weight: bold;
     margin-bottom: 10px;
     width: 100%;
     max-width: 500px;
+    background-color: ${props => props.isSelected ? "#d79318" : "unset"};
 
     .employee_name {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
 
     .employee_detail {
         font-size: 1rem;
+    }
+
+    #punch_card_preview {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 100%;
+    }
+
+    #icons_container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        >svg {
+            cursor: pointer;
+        }
+
+        .selected_client_name {
+            font-size: .7rem;
+        }
     }
 
     @media screen and (max-width: 900px) {
@@ -201,6 +281,9 @@ export const EmployeeRecordContainer = styled.div`
 `
 
 export const PunchCardContainer = styled.svg`
+    width: 100%;
+    height: 100%;
+
     text {
         font-size: 13px;
     }
@@ -216,14 +299,82 @@ export const WorkDayDialogLoadingContainer = styled.div`
     padding: 10px;
 `
 
-export const UnactiveMotionTitle = styled(motion.h1)`
-    writing-mode: vertical-rl;text-orientation: upright;
+export const UnactiveMotionTitle = styled(motion.h2)`
+    writing-mode: vertical-rl;
+    text-orientation: upright;
     position: absolute;
-    top: 50px;
-    left: 0px;
+    top: 8%;
+    left: 10px;
     font-weight: bold;
 
     &:hover {
         cursor: pointer
+    }
+`
+
+export const MassEditorContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+`
+
+export const ActionsContainer = styled.div`
+    margin-bottom: 20px;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    overflow: auto;
+
+    select {
+        height: 100%;
+        background-color: #3f4a5c;
+        color: #fff;
+        border-radius: 2px;
+    }
+
+    .action {
+        margin: 0px 10px 0px 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: .8rem;
+
+            label {
+                margin-right: 5px;
+            }
+
+            >input {
+                background-color: #3f4a5c;
+                border: none;
+                color: #fff;
+            }
+
+    }
+
+    .save_mass_action {
+        position: sticky;
+        left: 5px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        padding: 2px 10px;
+        background-color: #131e31;
+        color: #d69218;
+        outline: none;
+        cursor: pointer;
+        border: none;;
+        border: 1px solid #d69218;
+        margin-right: 10px;
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 `

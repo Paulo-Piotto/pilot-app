@@ -12,12 +12,11 @@ export default function ClientsFilter() {
     return (
         <ClientsFilterContainer>
             <h1>Clientes˼</h1>
-
             {
                 punchCardData.byClients.length
                     ? punchCardData.byClients.map(byClientData => <ClientCard key={byClientData.id} 
                                                                               clientData={byClientData} />)
-                    : <p style={{color: "#d79318"}}>Não há registros de presença em nenhum cliente, aqui aparecerão todos os clientes que tiverem ao menos um registro de presença associado.</p>
+                    : <p style={{color: "#d79318"}}>Não há registros de presença em nenhum cliente que obedeça aos filtros aplicados, aqui aparecerão clientes que tiverem ao menos um registro de presença associado.</p>
             }
         </ClientsFilterContainer>
     )

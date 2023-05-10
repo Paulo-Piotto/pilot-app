@@ -4,6 +4,7 @@ import { parseObjectIntoQueryString } from "../../services/utils";
 import { PunchCardService } from "../../services/api.services";
 import AuthContext from "./AuthContext";
 import { useCallback } from "react";
+import { ClientsService } from "../../services/api.services";
 
 const PunchCardContext = createContext({});
 
@@ -13,6 +14,7 @@ export function PunchCardContextProvider({ children }) {
     const [ loadingInitialData, setLoadingInitialData ] = useState(true);
     const [ refreshToggler, setRefreshToggler ] = useState(false);
     const [ punchCardData, setPunchCardData ] = useState({ byClients: [], byEmployees: [], selectedEmployee: null })
+    const [ clientOptions, setClientOptions ] = useState([]);
     const [ searchFilters, setSearchFilters ] = useState({
         client: null,
         date: {
@@ -26,6 +28,14 @@ export function PunchCardContextProvider({ children }) {
         type: "error", //error, warning, info, success
         setter: () => {}
     })
+
+    const callSnackBar = useCallback((data) => {
+        setSnackBar({ 
+            ...data,
+            isOpen: true,
+            setter: (value) => setSnackBar(prev => ({...prev, isOpen: value}))
+        })
+    }, [setSnackBar]) 
 
     useEffect(() => {
         async function updatePunchCardDataOnFilterChange() {
@@ -44,6 +54,21 @@ export function PunchCardContextProvider({ children }) {
         setLoadingInitialData(false)
     }, [searchFilters, userData.token, refreshToggler, setLoadingInitialData])
 
+    useEffect(() => {
+        async function getClientOptions() {
+            try {
+                const updatedClientOptions = await ClientsService.getAllClients();
+                setClientOptions(updatedClientOptions.data)
+            } catch (error) {
+                console.error("Loading client options failed")
+                console.error(error)
+                callSnackBar({  message: "Falha ao consultar repositório de clientes", type: "error" })
+            }
+        }
+
+        getClientOptions()
+    }, [setClientOptions, callSnackBar])
+
     async function updateSearchFilters(key, value) {
         if(key === "date") {
             setSearchFilters(prev => ({
@@ -60,14 +85,6 @@ export function PunchCardContextProvider({ children }) {
         }))
     }
 
-    const callSnackBar = useCallback((data) => {
-        setSnackBar({ 
-            ...data,
-            isOpen: true,
-            setter: (value) => setSnackBar(prev => ({...prev, isOpen: value}))
-        })
-    }, [setSnackBar]) 
-
     function refreshPunchCardData() {
         setRefreshToggler(prev => !prev)
     }
@@ -81,7 +98,8 @@ export function PunchCardContextProvider({ children }) {
             callSnackBar,
             snackBar,
             refreshPunchCardData,
-            loadingInitialData
+            loadingInitialData,
+            clientOptions
         }}>
             {children}
         </PunchCardContext.Provider>

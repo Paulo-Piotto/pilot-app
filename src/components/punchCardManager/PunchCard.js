@@ -5,9 +5,6 @@ import { PunchCardContainer } from "./styles";
 import { useState, useCallback, useMemo } from "react";
 import WorkDayDialog from "./WorkDayDialog";
 
-// Se um employee tem dois registros de presença em um mesmo dia, a aplicação só pega o primeiro deles e ignora completamente o resto
-// das presenças, mesmo aquelas que não tenham duplicatas, isso por que não é esperado que um trabalhador tenha trabalhado ao mesmo tempo em dois lugares
-
 export default function PunchCard({ employeeData }) {
     const [ dialogConfig, setDialogConfig ] = useState({
         shouldOpen: false,
@@ -28,7 +25,16 @@ export default function PunchCard({ employeeData }) {
             for(let i = 0; i < renderDotsAmount; i++) {
                 const iDate = todayDate.subtract(i, "day")
         
-                if (
+                //if encounter multiple presences from the same day, it will render only the last one
+                if( employeeWorkedDaysCurrentIndex+1 < registeredPresences.length &&
+                    areDatesFromSameDay(
+                    registeredPresences[employeeWorkedDaysCurrentIndex].date,
+                    registeredPresences[employeeWorkedDaysCurrentIndex+1].date)
+                ) {
+                    i--
+                    employeeWorkedDaysCurrentIndex += 1
+                }
+                else if (
                     employeeWorkedDaysCurrentIndex < registeredPresences.length 
                     && areDatesFromSameDay(registeredPresences[employeeWorkedDaysCurrentIndex].date, iDate)
                 ) {
@@ -72,7 +78,10 @@ export default function PunchCard({ employeeData }) {
         return [...calculateRectCoordinates()]
     }, [])
 
-    const memoizedPunchCardGeneratedData = useMemo(() => punchCardDataGenerator(employeeData), [employeeData, punchCardDataGenerator])
+    const memoizedPunchCardGeneratedData = useMemo(
+        () => punchCardDataGenerator(employeeData),
+        [employeeData, punchCardDataGenerator]
+    )
 
     return (
         <PunchCardContainer viewBox={`0 0 820 200`}>

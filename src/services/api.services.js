@@ -103,6 +103,18 @@ const PunchCardService = {
         Authorization: `Bearer ${token}`,
       },
     }),
+  getEmptyPunchCards:(token) => 
+    axios.get(`${URL}/frequency/empty`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+  massAction: (massActionConfig, token) => 
+    axios.post(`${URL}/frequency/massaction`, massActionConfig, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+    }),
   create: (data, token) =>
     axios.post(`${URL}/frequency`, data, {
       headers: { Authorization: `Bearer ${token}` },
