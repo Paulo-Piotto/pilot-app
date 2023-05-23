@@ -9,7 +9,7 @@ REACT_APP_SERVER_URL='http://localhost:5000'
 REACT_APP_PRIVATE_KEY="segredoxablau" - precisa ser o mesmo secret usado no back
 ```
  
- - Com o backend já rodando `npm start` para rodar
+ - Com o backend(https://github.com/Paulo-Piotto/pilot-server) já rodando use na pasta do projeto `npm start` para rodar o front
  - inicialmente como novo usuário você não terá acesso a nenhuma informação da aplicação, no app em produção essa alteração só pode ser concedida pelo dono da empresa, mas rodando um banco local você pode facilmente alterar suas permissóes alterando o banco, você vai precisar acessar o psql, conectar no banco e executar o comando:
 ```
  UPDATE users SET "role_id" = 3 WHERE email = 'lele@email.com';
