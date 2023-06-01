@@ -67,7 +67,7 @@ export default function PaymentsPage() {
         setLoading(false);
       });
   }
-
+  // eslint-disable-next-line
   useEffect(clearFilters, []);
 
   function handleCloseDialog() {
