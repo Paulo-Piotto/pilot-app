@@ -103,17 +103,17 @@ const PunchCardService = {
         Authorization: `Bearer ${token}`,
       },
     }),
-  getEmptyPunchCards:(token) => 
+  getEmptyPunchCards: (token) =>
     axios.get(`${URL}/frequency/empty`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-  massAction: (massActionConfig, token) => 
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  massAction: (massActionConfig, token) =>
     axios.post(`${URL}/frequency/massaction`, massActionConfig, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }),
   create: (data, token) =>
     axios.post(`${URL}/frequency`, data, {
@@ -122,6 +122,21 @@ const PunchCardService = {
   delete: (id, token) =>
     axios.delete(`${URL}/frequency/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
+    }),
+};
+
+const PaymentsService = {
+  getEmployeesWorkedDays: (filterString, token) =>
+    axios.get(`${URL}/workedDays?${filterString ?? ""}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  getPeriodWorkingDays: (filterString, token) =>
+    axios.get(`${URL}/workedDays/workingDays?${filterString ?? ""}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }),
 };
 
@@ -134,4 +149,5 @@ export {
   IncomesService,
   UsersService,
   PunchCardService,
+  PaymentsService,
 };
