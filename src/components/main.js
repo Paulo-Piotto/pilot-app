@@ -13,6 +13,7 @@ import {
   IoBriefcaseOutline,
   IoStorefrontOutline,
   IoCashOutline,
+  IoReceiptOutline,
 } from "react-icons/io5";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -63,6 +64,14 @@ export default function Main() {
             }}
           >
             <IoPeopleOutline />
+          </IconBox>
+          <IconBox
+            isSelected={selectedIcon === "payments" ? true : false}
+            onClick={() => {
+              selectPage("payments", "/payments");
+            }}
+          >
+            <IoReceiptOutline />
           </IconBox>
           <IconBox
             isSelected={selectedIcon === "clients" ? true : false}

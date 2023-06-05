@@ -5,6 +5,7 @@ import ClientsBalancePage from "../../pages/clientsBalancePage";
 import IncomesPage from "../../pages/incomesPage";
 import InProgress from "../../components/generics/inProgress";
 import PunchCardPage from "../../pages/punchCardPage";
+import PaymentsPage from "../../pages/paymentsPage";
 
 const routesConfig = [
   {
@@ -16,6 +17,12 @@ const routesConfig = [
   {
     component: EmployeesPage, //done
     path: "/employees",
+    minimumAcessLevel: "admin",
+    unauthorizedComponent: null,
+  },
+  {
+    component: PaymentsPage, //done
+    path: "/payments",
     minimumAcessLevel: "admin",
     unauthorizedComponent: null,
   },
