@@ -13,12 +13,12 @@ export default function EmployeeRecord() {
 
     if(!selectedEmployee) return (
         <>
-            <div style={{width: "100%",maxWidth: 600, margin: "0 auto",height: 300, display: "flex", alignItems: "center", justifyContent: "center"}}><Lottie animationData={animation} /></div>
+            <div style={{width: "70%",maxWidth: 600, margin: "0 auto",height: 300, display: "flex", alignItems: "center", justifyContent: "center"}}><Lottie animationData={animation} /></div>
             <p style={{marginTop: 20, textAlign: "center"}}>Você não selecionou nenhum funcionário ainda, selecione um funcionário para ver sua ficha</p>
         </>
     )
     return (
-        <EmployeeRecordContainer>
+        <EmployeeRecordContainer selectedEmployee={!!selectedEmployee}>
             <div className="employee_record_cell" >
                 <p>Nome: </p><span>{selectedEmployee.name}</span>
             </div>

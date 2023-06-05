@@ -54,7 +54,7 @@ export default function SearchCard({contrast, plHolder, iconName, action, width}
                     
                     <div className="control_buttons_container">
                         <button onClick={clearSearch}>Limpar Filtros</button>
-                        <button onClick={getEmployeesWithoutPunchCardRecord}>Exibir Funcionários sem Presenças</button>
+                        <button onClick={getEmployeesWithoutPunchCardRecord}>Funcionários sem presença</button>
                     </div>
                 </section>
 

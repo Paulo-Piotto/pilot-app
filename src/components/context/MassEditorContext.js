@@ -4,12 +4,14 @@ import { useContext } from "react";
 import AuthContext from "./AuthContext";
 import PunchCardContext from "./PunchCardContext";
 import { validateMassActionConfig } from "../../services/validationServices/punchCardValidation";
+import dayjs from "dayjs";
 
 const MassActionContext = createContext({});
 const baseMassActionConfig = {
     isPresence: true,
     clientId: 0,
-    selectedEmployeesIds: []
+    selectedEmployeesIds: [],
+    date: dayjs(),
 }
 
 export function MassActionContextProvider({ children }) {
@@ -17,7 +19,7 @@ export function MassActionContextProvider({ children }) {
     const { callSnackBar, refreshPunchCardData } = useContext(PunchCardContext)
 
     const [ allSelected, setAllSelected ] = useState(false);
-    const [ massActionConfig, setMassActionConfig ] = useState({...baseMassActionConfig, date: null})
+    const [ massActionConfig, setMassActionConfig ] = useState({...baseMassActionConfig })
 
     function handleEmployeeUniqueSelection(selected, employeeId) {
         if(selected) setMassActionConfig(prev => ({ ...prev, selectedEmployeesIds: [...prev.selectedEmployeesIds, employeeId] }))

@@ -26,7 +26,6 @@ export default function MassActions() {
     }, [])
 
     function handleMassAction() {
-        unselectAllEmployees();
         dispatchMassAction();
     }
 
@@ -62,7 +61,7 @@ export default function MassActions() {
             <div className="action">
                 <label>Dia: </label>
                 <input type="date" name="date"
-                    value={massActionConfig.date ? dayjs(massActionConfig.date).format("YYYY-MM-DD") : ""}
+                    value={massActionConfig.date.format("YYYY-MM-DD")}
                     onChange={e => {
                         setMassActionConfig(prev => ({ ...prev, date: dayjs(e.target.value)}))
                     }}

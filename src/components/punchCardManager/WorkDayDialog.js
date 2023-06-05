@@ -90,7 +90,6 @@ export default function WorkDayDialog({ openDialog, closeDialog, initialWorkDayD
     return (
         <Dialog open={openDialog} onClose={handleClose} maxWidth='sm' fullWidth={true}>
             <DialogTitle>Cuidado!</DialogTitle>
-            <p>{workDayData.date}</p>
             <DialogContent>
                 <DialogContentText>{`Você está prestes a editar a presença referente ao dia ${workDayData.parsedDate}, ${workDayData.weekDay}`}</DialogContentText>
             </DialogContent>
