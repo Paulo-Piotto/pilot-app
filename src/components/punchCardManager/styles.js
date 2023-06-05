@@ -11,7 +11,7 @@ export const AdaptedCardsContainer = styled(CardsContainer)`
 export const DatePickerCardStyle = styled(CardStyle)`
     flex-direction: column;
     justify-content: space-around;
-    padding: 15px 9px 0px 9px;
+    padding: 22px 9px 9px 9px;
     height: calc(100% + 1px);
     max-width: 270px;
 
@@ -26,10 +26,11 @@ export const DatePickerCardStyle = styled(CardStyle)`
 `
 
 export const SearchCardContainer = styled(CardStyle)`
-    padding: 5px;
+    padding: 5px 15px 5px 5px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    max-width: 300px;
 
     >section {
         margin: 0 auto;

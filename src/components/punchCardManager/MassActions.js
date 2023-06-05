@@ -85,13 +85,8 @@ export default function MassActions() {
         <input
           type="date"
           name="date"
-          value={
-            massActionConfig.date
-              ? dayjs(massActionConfig.date).format("YYYY-MM-DD")
-              : ""
-          }
+          value={massActionConfig.date.format("YYYY-MM-DD")}
           onChange={(e) => {
-            console.log(dayjs(e.target.value));
             setMassActionConfig((prev) => ({
               ...prev,
               date: averageDateHour(dayjs(e.target.value)),
