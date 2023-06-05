@@ -11,9 +11,10 @@ export const AdaptedCardsContainer = styled(CardsContainer)`
 export const DatePickerCardStyle = styled(CardStyle)`
     flex-direction: column;
     justify-content: space-around;
-    padding: 22px 9px 9px 9px;
+    padding: 28px 11px 11px 11px;
     height: calc(100% + 1px);
     max-width: 270px;
+    min-width: 190px;
 
     div {
         font-size: 1rem;
@@ -22,6 +23,7 @@ export const DatePickerCardStyle = styled(CardStyle)`
         justify-content: end;
         padding-bottom: 0px;
         margin: 0px;
+        transform: scaleY(.95);
     }
 `
 
@@ -31,6 +33,7 @@ export const SearchCardContainer = styled(CardStyle)`
     align-items: center;
     justify-content: space-between;
     max-width: 300px;
+    min-width: 280px;
 
     >section {
         margin: 0 auto;
@@ -88,9 +91,12 @@ export const MainContentContainer = styled(TableContainer)`
     flex: 1;
     max-width: 1920px;
     border-radius: 5px;
+    overflow-x: hidden;
+
 
     #client_section {
         width: 30%;
+        max-height: 100%;
     }
 
     #expander_section {
@@ -129,7 +135,12 @@ export const ExpanderContainer = styled(motion.div)`
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        flex-direction: column;;
+        flex-direction: column;
+        overflow: auto;
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
     }
 `
 
@@ -154,6 +165,11 @@ export const ClientsFilterContainer = styled.section`
     color: #fff;
     height: 100%;
     padding: 10px;
+    overflow: auto;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
     h1 {
         font-size: 1.2rem;
@@ -202,10 +218,11 @@ export const EmployeeCardContainer = styled.div`
 
     .employee_name {
         font-size: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+        align-self: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width:120px;
     }
 
     .employee_detail {
@@ -226,6 +243,7 @@ export const EmployeeCardContainer = styled.div`
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        width: 40px;
 
         >svg {
             cursor: pointer;
@@ -276,20 +294,17 @@ export const EmployeeRecordContainer = styled.div`
     }
 
     .punch_card {
-        width: 100%;
+        width: 95%;
         margin-top: 40px;
     }
 `
 
 export const PunchCardContainer = styled.svg`
     width: 100%;
-    height: 100%;
 
     text {
         font-size: 13px;
     }
-
-
 `
 
 export const WorkDayDialogLoadingContainer = styled.div`
@@ -327,6 +342,7 @@ export const ActionsContainer = styled.div`
     border-bottom: 1px solid #fff;
     padding: 5px;
     width: 100%;
+    max-height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;

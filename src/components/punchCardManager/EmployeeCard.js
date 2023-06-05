@@ -23,6 +23,7 @@ export default function EmployeeCard({ employeeData, toggleExpander }) {
             }}
         >
             <p className="employee_name">{`${employeeData.name}`}</p>
+            
             <section id="punch_card_preview">
                 <PunchCardPreview previewSize={5} workedDaysData={employeeData["employees_worked_days"]} />
             </section>

@@ -1,11 +1,11 @@
 import { ActionsContainer } from "./styles";
 import PunchCardContext from "../context/PunchCardContext";
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import dayjs from "dayjs";
 import MassActionContext from "../context/MassEditorContext";
 
 export default function MassActions() {
-  const scrollRef = useRef();
+/*   const scrollRef = useRef(); */
   const { clientOptions, punchCardData } = useContext(PunchCardContext);
   const {
     massActionConfig,
@@ -17,24 +17,12 @@ export default function MassActions() {
     dispatchMassAction,
   } = useContext(MassActionContext);
 
-  useEffect(() => {
-    const currentRef = scrollRef.current;
-    if (currentRef) {
-      const onWheel = (event) => {
-        event.preventDefault();
-        currentRef.scrollBy({ left: event.deltaY < 0 ? -30 : 30 });
-      };
-      currentRef.addEventListener("wheel", onWheel);
-      return () => currentRef.removeEventListener("wheel", onWheel);
-    }
-  }, []);
-
   function handleMassAction() {
     dispatchMassAction();
   }
 
   return (
-    <ActionsContainer ref={scrollRef}>
+    <ActionsContainer>
       {Number(massActionConfig.clientId) &&
       massActionConfig.selectedEmployeesIds.length ? (
         <button className="save_mass_action" onClick={handleMassAction}>
@@ -45,7 +33,7 @@ export default function MassActions() {
       )}
       <div className="action">
         <label>
-          <nobr>Selecionar Todos: </nobr>
+          <nobr>Todos: </nobr>
         </label>
         <input
           type="checkbox"
