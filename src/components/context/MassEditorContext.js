@@ -5,6 +5,7 @@ import AuthContext from "./AuthContext";
 import PunchCardContext from "./PunchCardContext";
 import { validateMassActionConfig } from "../../services/validationServices/punchCardValidation";
 import dayjs from "dayjs";
+import { averageDateHour } from "../../services/utils/dateServices";
 
 const MassActionContext = createContext({});
 const baseMassActionConfig = {
@@ -39,7 +40,7 @@ export function MassActionContextProvider({ children }) {
         if(!validationResult.isValid) return callSnackBar({ message: validationResult.message, type: "warning" })
 
         try {
-            await PunchCardService.massAction(massActionConfig, userData.token);
+            await PunchCardService.massAction({...massActionConfig, date: averageDateHour(massActionConfig.date)}, userData.token);
             callSnackBar({ message: "Presenças Registradas", type: "success" })
             setMassActionConfig(prev => ({...prev, ...baseMassActionConfig, isPresence: prev.isPresence}))
             setAllSelected(false)
