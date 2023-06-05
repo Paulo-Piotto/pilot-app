@@ -3,7 +3,6 @@ import PunchCardContext from "../context/PunchCardContext";
 import { useContext, useEffect, useRef } from "react";
 import dayjs from "dayjs";
 import MassActionContext from "../context/MassEditorContext";
-import { averageDateHour } from "../../services/utils/dateServices";
 
 export default function MassActions() {
   const scrollRef = useRef();
@@ -31,7 +30,6 @@ export default function MassActions() {
   }, []);
 
   function handleMassAction() {
-    unselectAllEmployees();
     dispatchMassAction();
   }
 
@@ -89,7 +87,7 @@ export default function MassActions() {
           onChange={(e) => {
             setMassActionConfig((prev) => ({
               ...prev,
-              date: averageDateHour(dayjs(e.target.value)),
+              date: dayjs(e.target.value),
             }));
           }}
         />
