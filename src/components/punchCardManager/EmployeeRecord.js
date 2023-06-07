@@ -17,9 +17,9 @@ export default function EmployeeRecord() {
         <div
           style={{
             width: "70%",
-            maxWidth: 600,
+            maxWidth: 300,
             margin: "0 auto",
-            height: 300,
+            height: 200,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
