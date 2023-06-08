@@ -11,14 +11,16 @@ function sumTotal(ordersArray) {
 function sumTotalBalance(clientsArray) {
   let balance = 0;
   let ordersTotal = 0;
+  let laborTotal = 0;
   let incomesTotal = 0;
 
   clientsArray.forEach((client) => {
     ordersTotal += sumTotal(client.orders);
     incomesTotal += sumTotal(client.incomes);
+    laborTotal += client.totalExpense;
   });
 
-  balance = incomesTotal - ordersTotal;
+  balance = incomesTotal - (ordersTotal + laborTotal);
   return balance;
 }
 
