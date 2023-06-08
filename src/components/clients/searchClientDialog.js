@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ptBR } from "@mui/x-date-pickers/locales";
 import styled from "styled-components";
 import { ceilDateHour, floorDateHour } from "../../services/utils/dateServices";
 
@@ -75,7 +76,12 @@ export default function SearchClientDialog({
         <DialogTitle>Buscar Obra</DialogTitle>
         <form onSubmit={handleSubmit} noValidate>
           <DialogContent>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              localeText={
+                ptBR.components.MuiLocalizationProvider.defaultProps.localeText
+              }
+            >
               <DateContainer>
                 <DesktopDatePicker
                   value={initialDate}
@@ -83,7 +89,8 @@ export default function SearchClientDialog({
                   margin="dense"
                   label="De:"
                   id="date"
-                  inputFormat="DD/MM/YYYY"
+                  inputFormat="MM/YYYY"
+                  views={["month", "year"]}
                   type="date"
                   required={true}
                   variant="standard"
@@ -98,7 +105,8 @@ export default function SearchClientDialog({
                   margin="dense"
                   label="Até:"
                   id="date"
-                  inputFormat="DD/MM/YYYY"
+                  inputFormat="MM/YYYY"
+                  views={["month", "year"]}
                   type="date"
                   required={true}
                   variant="standard"

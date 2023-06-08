@@ -36,13 +36,8 @@ const ClientsService = {
     );
   },
   updateClient: (updateData) => axios.put(`${URL}/clients`, updateData),
-  getClientsBalance: (searchSettings) => {
-    if (searchSettings.initialDate && searchSettings.endDate) {
-      return axios.get(
-        `${URL}/clients/balance?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}`
-      );
-    }
-    return axios.get(`${URL}/clients/balance`);
+  getClientsBalance: (filterString) => {
+    return axios.get(`${URL}/clients/balance?${filterString}`);
   },
 };
 

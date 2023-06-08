@@ -67,4 +67,27 @@ function averageDateHour(date) {
   return arrayDate.join("");
 }
 
-export { floorDateHour, ceilDateHour, averageDateHour };
+function lastDay20() {
+  const today = new Date(Date.now());
+  const day = today.getDate();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  let newYear;
+  let newMonth;
+  let result;
+
+  if (day < 20 && month !== 0) {
+    newMonth = month - 1;
+    newYear = year;
+  } else if (day < 20 && month === 0) {
+    newMonth = 11;
+    newYear = year - 1;
+  } else {
+    newMonth = month;
+    newYear = year;
+  }
+  result = new Date(newYear, newMonth, 20, 20, 59, 59, 999);
+  return result.toISOString();
+}
+
+export { floorDateHour, ceilDateHour, averageDateHour, lastDay20 };

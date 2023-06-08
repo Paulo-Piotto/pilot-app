@@ -17,6 +17,7 @@ import intToMoney from "../services/utils/intToMoney";
 import RegisterClientDialog from "../components/clients/registerClientDialog";
 import SearchClientDialog from "../components/clients/searchClientDialog";
 import AuthContext from "../components/context/AuthContext";
+import { lastDay20 } from "../services/utils/dateServices";
 
 export default function ClientsBalancePage() {
   const [loading, setLoading] = useState(true);
@@ -32,12 +33,10 @@ export default function ClientsBalancePage() {
 
   function clearFilters() {
     setLoading(true);
-    ClientsService.getClientsBalance({
-      initialDate: undefined,
-      endDate: undefined,
-    })
+    ClientsService.getClientsBalance(`to=${lastDay20()}`)
       .then((resp) => {
         setClients(resp.data);
+        console.log(resp.data);
         setTotal(intToMoney(sumTotalBalance(resp.data)));
         setLoading(false);
       })
