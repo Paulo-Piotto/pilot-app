@@ -25,15 +25,8 @@ const ClientsService = {
   getAllClients: () => axios.get(`${URL}/clients?includeArchived=false`),
   deleteClient: (id) => axios.delete(`${URL}/clients?id=${id}`),
   registerClient: (newClient) => axios.post(`${URL}/clients`, newClient),
-  searchClient: (searchSettings) => {
-    if (searchSettings.initialDate && searchSettings.endDate) {
-      return axios.get(
-        `${URL}/clients?name=${searchSettings.name}&initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&includeArchived=${searchSettings.includeArchived}`
-      );
-    }
-    return axios.get(
-      `${URL}/clients?name=${searchSettings.name}&includeArchived=${searchSettings.includeArchived}`
-    );
+  searchClient: (filterString) => {
+    return axios.get(`${URL}/clients?${filterString}`);
   },
   updateClient: (updateData) => axios.put(`${URL}/clients`, updateData),
   getClientsBalance: (filterString) => {

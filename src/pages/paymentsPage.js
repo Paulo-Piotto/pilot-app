@@ -17,6 +17,7 @@ import intToMoney from "../services/utils/intToMoney";
 import { sumTotalPayments } from "../services/utils/sumTotal";
 import { PaymentsService } from "../services/api.services";
 import AuthContext from "../components/context/AuthContext";
+import { lastDayTarget, penultDayTarget } from "../services/utils/dateServices";
 
 export default function PaymentsPage() {
   const [loading, setLoading] = useState(true);
@@ -27,13 +28,14 @@ export default function PaymentsPage() {
   const [snackbar, setSnackbar] = useState(false);
   const [snackbarType, setSnackbarType] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const todayMinus30 = Date.now() - 86400000 * 30;
   const { userData } = useContext(AuthContext);
 
   function clearFilters() {
     setLoading(true);
     PaymentsService.getEmployeesWorkedDays(
-      `from=${dayjs(todayMinus30).toISOString()}`,
+      `from=${dayjs(penultDayTarget(21)).toISOString()}&to=${dayjs(
+        lastDayTarget(20)
+      ).toISOString()}`,
       userData.token
     )
       .then((resp) => {
@@ -41,7 +43,9 @@ export default function PaymentsPage() {
         const employeesArray = resp.data;
 
         PaymentsService.getPeriodWorkingDays(
-          `from=${dayjs(todayMinus30).toISOString()}`,
+          `from=${dayjs(penultDayTarget(21)).toISOString()}&to=${dayjs(
+            lastDayTarget(20)
+          ).toISOString()}`,
           userData.token
         )
           .then((resp) => {
