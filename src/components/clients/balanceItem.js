@@ -22,10 +22,12 @@ export default function BalanceItem({
   const [openDelete, setOpenDelete] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
-  const ordersValue = intToMoney(sumTotal(rowData.orders));
+  const ordersValue = sumTotal(rowData.orders);
+  const laborValue = rowData.totalExpense;
   const incomesValue = intToMoney(sumTotal(rowData.incomes));
+  const fullExpense = intToMoney(ordersValue + laborValue);
   const balance = intToMoney(
-    sumTotal(rowData.incomes) - sumTotal(rowData.orders)
+    sumTotal(rowData.incomes) - (ordersValue + laborValue)
   );
   const balanceColor = balance[0] === "-" ? "#db0000" : "#047a0a";
   const { userData } = useContext(AuthContext);
@@ -121,7 +123,7 @@ export default function BalanceItem({
         {userData.role === "root" ? (
           <>
             <RowCell>{incomesValue}</RowCell>
-            <RowCell>{ordersValue}</RowCell>
+            <RowCell>{fullExpense}</RowCell>
             <RowCell color={balanceColor} bold={true}>
               {balance}
             </RowCell>

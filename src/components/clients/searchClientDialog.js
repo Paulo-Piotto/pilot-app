@@ -16,8 +16,14 @@ import dayjs from "dayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ptBR } from "@mui/x-date-pickers/locales";
 import styled from "styled-components";
-import { ceilDateHour, floorDateHour } from "../../services/utils/dateServices";
+import {
+  ceilDateHour,
+  floorDateHour,
+  lastDayTarget,
+  penultDayTarget,
+} from "../../services/utils/dateServices";
 
 export default function SearchClientDialog({
   openDialog,
@@ -29,9 +35,8 @@ export default function SearchClientDialog({
   setSnackbarType,
   setSnackbarMessage,
 }) {
-  const todayMinus30 = Date.now() - 86400000 * 30;
-  const [initialDate, setInitialDate] = useState(dayjs(todayMinus30));
-  const [endDate, setEndDate] = useState(dayjs(Date.now()));
+  const [initialDate, setInitialDate] = useState(dayjs(penultDayTarget(21)));
+  const [endDate, setEndDate] = useState(dayjs(lastDayTarget(20)));
   const [name, setName] = useState("");
   const [includeArchived, setIncludeArchived] = useState(false);
 
@@ -39,29 +44,37 @@ export default function SearchClientDialog({
     e.preventDefault();
     setLoading(true);
     handleCloseDialog();
+    const today = new Date(Date.now());
 
-    const searchSettings = {
-      initialDate: floorDateHour(initialDate),
-      endDate: ceilDateHour(endDate),
-      name,
-      includeArchived,
-    };
-    ClientsService.searchClient(searchSettings)
-      .then((resp) => {
-        setClients(resp.data);
-        setTotal(intToMoney(sumTotalBalance(resp.data)));
-        setName("");
-        setLoading(false);
-        setIncludeArchived(false);
-      })
-      .catch((err) => {
-        setSnackbar(true);
-        setSnackbarMessage("Nenhum resultado para essa busca");
-        setSnackbarType("error");
-        setClients([]);
-        setTotal("0,00");
-        setLoading(false);
-      });
+    if (initialDate >= today || endDate >= today) {
+      setSnackbar(true);
+      setSnackbarMessage("Data Inválida");
+      setSnackbarType("error");
+      setLoading(false);
+    } else {
+      const filterString = `from=${floorDateHour(
+        initialDate
+      )}&to=${ceilDateHour(
+        endDate
+      )}&client=${name}&includeArchived=${includeArchived}`;
+
+      ClientsService.searchClient(filterString)
+        .then((resp) => {
+          setClients(resp.data);
+          setTotal(intToMoney(sumTotalBalance(resp.data)));
+          setName("");
+          setLoading(false);
+          setIncludeArchived(false);
+        })
+        .catch((err) => {
+          setSnackbar(true);
+          setSnackbarMessage("Nenhum resultado para essa busca");
+          setSnackbarType("error");
+          setClients([]);
+          setTotal("0,00");
+          setLoading(false);
+        });
+    }
   }
 
   return (
@@ -75,7 +88,12 @@ export default function SearchClientDialog({
         <DialogTitle>Buscar Obra</DialogTitle>
         <form onSubmit={handleSubmit} noValidate>
           <DialogContent>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              localeText={
+                ptBR.components.MuiLocalizationProvider.defaultProps.localeText
+              }
+            >
               <DateContainer>
                 <DesktopDatePicker
                   value={initialDate}
@@ -83,7 +101,8 @@ export default function SearchClientDialog({
                   margin="dense"
                   label="De:"
                   id="date"
-                  inputFormat="DD/MM/YYYY"
+                  inputFormat="MM/YYYY"
+                  views={["month", "year"]}
                   type="date"
                   required={true}
                   variant="standard"
@@ -98,7 +117,8 @@ export default function SearchClientDialog({
                   margin="dense"
                   label="Até:"
                   id="date"
-                  inputFormat="DD/MM/YYYY"
+                  inputFormat="MM/YYYY"
+                  views={["month", "year"]}
                   type="date"
                   required={true}
                   variant="standard"

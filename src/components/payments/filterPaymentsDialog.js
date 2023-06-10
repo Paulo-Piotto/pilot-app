@@ -14,7 +14,12 @@ import styled from "styled-components";
 import { ClientsService, PaymentsService } from "../../services/api.services";
 import { sumTotalPayments } from "../../services/utils/sumTotal";
 import intToMoney from "../../services/utils/intToMoney";
-import { floorDateHour, ceilDateHour } from "../../services/utils/dateServices";
+import {
+  floorDateHour,
+  ceilDateHour,
+  lastDayTarget,
+  penultDayTarget,
+} from "../../services/utils/dateServices";
 import AuthContext from "../context/AuthContext";
 
 export default function FilterPaymentsDialog({
@@ -28,9 +33,8 @@ export default function FilterPaymentsDialog({
   setSnackbarType,
   setSnackbarMessage,
 }) {
-  const todayMinus30 = Date.now() - 86400000 * 30;
-  const [from, setFrom] = useState(dayjs(todayMinus30));
-  const [to, setTo] = useState(dayjs(Date.now()));
+  const [from, setFrom] = useState(dayjs(penultDayTarget(21)));
+  const [to, setTo] = useState(dayjs(lastDayTarget(20)));
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState("Todas");
   const [employeeName, setEmployeeName] = useState("");
