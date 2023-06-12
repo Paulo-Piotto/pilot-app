@@ -92,6 +92,9 @@ export default function EmployeesPage() {
       <HeaderContainer>
         <TableHeader>
           <p>Nome</p>
+          <p>Documento</p>
+          <p>Contato</p>
+          <p></p>
         </TableHeader>
       </HeaderContainer>
       {loading ? (

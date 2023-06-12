@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function UpdateDialog({
+export default function UpdateClientDialog({
   openDialog,
   handleCloseDialog,
   handleSubmit,
@@ -15,6 +15,10 @@ export default function UpdateDialog({
   const [name, setName] = useState(rowData.name || "");
   const [accountable, setAccountable] = useState(rowData.accountable || "");
   const [contact, setContact] = useState(rowData.contact || "");
+  const [projectNumber, setProjectNumber] = useState(
+    rowData.project_number || ""
+  );
+  const [document, setDocument] = useState(rowData.document || "");
   const [address, setAddress] = useState(rowData.address || "");
   const [nameHelper, setNameHelper] = useState("");
   const [nameError, setNameError] = useState(false);
@@ -39,6 +43,10 @@ export default function UpdateDialog({
               setContact,
               address,
               setAddress,
+              projectNumber,
+              setProjectNumber,
+              document,
+              setDocument,
               setName,
               setNameHelper,
               setNameError,
@@ -80,6 +88,26 @@ export default function UpdateDialog({
               fullWidth
               variant="standard"
               onChange={(e) => setContact(e.target.value)}
+            />
+            <TextField
+              value={document}
+              margin="dense"
+              id="contact"
+              label="Documento (opcional)"
+              type="text"
+              fullWidth
+              variant="standard"
+              onChange={(e) => setDocument(e.target.value)}
+            />
+            <TextField
+              value={projectNumber}
+              margin="dense"
+              id="contact"
+              label="Nº da matrícula (opcional)"
+              type="text"
+              fullWidth
+              variant="standard"
+              onChange={(e) => setProjectNumber(e.target.value)}
             />
             <TextField
               value={address}

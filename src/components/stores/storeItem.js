@@ -5,7 +5,7 @@ import DeleteDialog from "../generics/deleteDialog";
 import { StoresService } from "../../services/api.services";
 import DropMenu from "../generics/dropMenu";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
-import UpdateDialog from "../generics/updateDialog";
+import UpdateStoreDialog from "./updateStoreDialog";
 import AuthContext from "../context/AuthContext";
 import StoreDetailsDialog from "./storeDetailsDialog";
 
@@ -59,7 +59,19 @@ export default function StoreItem({
       });
   }
 
-  function handleUpdate({ e, name, setName, setNameError, setNameHelper }) {
+  function handleUpdate({
+    e,
+    name,
+    setName,
+    accountable,
+    setAccountable,
+    contact,
+    setContact,
+    address,
+    setAddress,
+    setNameError,
+    setNameHelper,
+  }) {
     e.preventDefault();
     setLoading(true);
     const errorObject = storeNClientValidation({ name });
@@ -70,6 +82,9 @@ export default function StoreItem({
     } else {
       const updatePromise = updateStore({
         name,
+        accountable,
+        contact,
+        address,
         id: rowData.id,
         author: userData.name,
       });
@@ -77,6 +92,9 @@ export default function StoreItem({
         .then(() => {
           setOpenUpdate(false);
           setName("");
+          setAccountable("");
+          setContact("");
+          setAddress("");
           const getPromise = getAllStores();
           getPromise
             .then((resp) => {
@@ -123,7 +141,8 @@ export default function StoreItem({
         handleCloseDialog={() => setOpenDelete(false)}
         handleSubmit={handleDelete}
       />
-      <UpdateDialog
+      <UpdateStoreDialog
+        rowData={rowData}
         openDialog={openUpdate}
         handleCloseDialog={() => setOpenUpdate(false)}
         handleSubmit={handleUpdate}

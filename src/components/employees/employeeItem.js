@@ -4,6 +4,7 @@ import DeleteDialog from "../generics/deleteDialog";
 import { EmployeesService } from "../../services/api.services";
 import DropMenu from "../generics/dropMenu";
 import EmployeeDetailsDialog from "./employeeDetailsDialog";
+import UpdateEmployeeDialog from "./updateEmployeeDialog";
 
 export default function EmployeeItem({
   rowData,
@@ -17,6 +18,7 @@ export default function EmployeeItem({
   const { deleteEmployee, getAllEmployees } = EmployeesService;
   const [openDelete, setOpenDelete] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
 
   function handleDelete() {
     setLoading(true);
@@ -52,14 +54,17 @@ export default function EmployeeItem({
 
   return (
     <>
-      <TableRow single={true}>
+      <TableRow>
         <RowCell>{rowData.name}</RowCell>
+        <RowCell>{rowData.document || "--"}</RowCell>
+        <RowCell>{rowData.contact || "--"}</RowCell>
         <RowCell icon={true}>
           <DropMenu
             setOpenDetails={setOpenDetails}
             setOpenDelete={setOpenDelete}
+            setOpenUpdate={setOpenUpdate}
             details={true}
-            edit={false}
+            edit={true}
             deletion={true}
           />
         </RowCell>
@@ -72,6 +77,12 @@ export default function EmployeeItem({
       <EmployeeDetailsDialog
         openDialog={openDetails}
         handleCloseDialog={() => setOpenDetails(false)}
+        rowData={rowData}
+      />
+      <UpdateEmployeeDialog
+        openDialog={openUpdate}
+        handleCloseDialog={() => setOpenUpdate(false)}
+        setEmployees={setItems}
         rowData={rowData}
       />
     </>

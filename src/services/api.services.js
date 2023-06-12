@@ -8,6 +8,7 @@ const EmployeesService = {
   deleteEmployee: (id) => axios.delete(`${URL}/employees?id=${id}`),
   registerEmployee: (newEmployee) =>
     axios.post(`${URL}/employees`, newEmployee),
+  updateEmployee: (employeeData) => axios.put(`${URL}/employees`, employeeData),
   searchEmployeeByName: (employeeName) =>
     axios.get(`${URL}/employees?name=${employeeName}`),
 };

@@ -49,7 +49,43 @@ export default function EmployeeDetailsDialog({
             }}
           />
           <TextField
-            value="N/A"
+            value={rowData.contact || "n/a"}
+            margin="dense"
+            id="contact"
+            label="Contato:"
+            type="text"
+            variant="standard"
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            value={rowData.document || "n/a"}
+            margin="dense"
+            id="document"
+            label="Documento:"
+            type="text"
+            variant="standard"
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            value={rowData.pix || "n/a"}
+            margin="dense"
+            id="document"
+            label="Chave Pix:"
+            type="text"
+            variant="standard"
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            value={rowData.address || "n/a"}
             margin="dense"
             id="address"
             label="Endereço:"
@@ -61,15 +97,19 @@ export default function EmployeeDetailsDialog({
             }}
           />
           <TextField
-            value="N/A"
+            value={rowData.obs || "n/a"}
             margin="dense"
             id="contact"
-            label="Contato:"
+            label="Observações:"
             type="text"
-            variant="standard"
+            variant="filled"
             fullWidth
+            multiline
             InputProps={{
               readOnly: true,
+              sx: {
+                fontSize: 15,
+              },
             }}
           />
           <TextField

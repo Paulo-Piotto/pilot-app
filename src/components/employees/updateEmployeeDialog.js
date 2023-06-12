@@ -16,20 +16,24 @@ import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import AuthContext from "../context/AuthContext";
 
-export default function RegisterEmployeeDialog({
+export default function UpdateEmployeeDialog({
   openDialog,
   handleCloseDialog,
   setEmployees,
-  setAbsoluteEmployees,
+  rowData,
 }) {
-  const [name, setName] = useState("");
-  const [wageValue, setWageValue] = useState("");
-  const [startDate, setStartDate] = useState(dayjs(Date.now()));
-  const [contact, setContact] = useState("");
-  const [document, setDocument] = useState("");
-  const [pix, setPix] = useState("");
-  const [address, setAddress] = useState("");
-  const [obs, setObs] = useState("");
+  const [name, setName] = useState(rowData.name || "");
+  const [wageValue, setWageValue] = useState(
+    (rowData.wage / 100).toString() || ""
+  );
+  const [startDate, setStartDate] = useState(
+    rowData.start_day || dayjs(Date.now())
+  );
+  const [contact, setContact] = useState(rowData.contact || "");
+  const [document, setDocument] = useState(rowData.document || "");
+  const [pix, setPix] = useState(rowData.pix || "");
+  const [address, setAddress] = useState(rowData.address || "");
+  const [obs, setObs] = useState(rowData.obs || "");
   const [nameHelper, setNameHelper] = useState("");
   const [dateHelper, setDateHelper] = useState("");
   const [nameError, setNameError] = useState(false);
@@ -41,16 +45,17 @@ export default function RegisterEmployeeDialog({
     const errorObject = employeeValidation({
       name,
       wageValue,
-      startDate: startDate.toISOString(),
+      startDate: startDate,
     });
 
     if (errorObject) {
+      console.log(errorObject);
       setNameError(errorObject.name.error);
       setNameHelper(errorObject.name.helper);
       setDateHelper(errorObject.startDate.helper);
     } else {
       const wage = Number(wageValue.replace(",", ".") * 100);
-      EmployeesService.registerEmployee({
+      EmployeesService.updateEmployee({
         name,
         wage,
         startDate,
@@ -60,16 +65,14 @@ export default function RegisterEmployeeDialog({
         obs,
         address,
         author: userData.name,
+        id: rowData.id,
       })
         .then(() => {
           setSnackbar(true);
           handleCloseDialog();
-          setName("");
-          setWageValue("");
           setStartDate(dayjs(Date.now()));
           EmployeesService.getAllEmployees().then((resp) => {
             setEmployees(resp.data);
-            setAbsoluteEmployees(resp.data.length);
           });
         })
         .catch(() => {
@@ -81,7 +84,7 @@ export default function RegisterEmployeeDialog({
   return (
     <>
       <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
-        <DialogTitle>Registrar Funcionário</DialogTitle>
+        <DialogTitle>Atualizar Cadastro</DialogTitle>
         <DialogContent>
           <TextField
             error={nameError}
