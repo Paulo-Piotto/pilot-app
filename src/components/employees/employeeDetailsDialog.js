@@ -104,6 +104,7 @@ export default function EmployeeDetailsDialog({
             type="text"
             variant="filled"
             fullWidth
+            minRows={4}
             multiline
             InputProps={{
               readOnly: true,

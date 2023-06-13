@@ -83,12 +83,6 @@ export default function PaymentsPage() {
       <CardsContainer>
         <Card
           contrast={false}
-          subtitle="Buscar"
-          title="Funcionário"
-          iconName="briefcase-outline"
-        />
-        <Card
-          contrast={false}
           subtitle="Configurações de"
           title="Busca"
           iconName="search-outline"
@@ -126,9 +120,11 @@ export default function PaymentsPage() {
               <HeaderContainer>
                 <TableHeader>
                   <p>Nome</p>
-                  <p>Salário Base</p>
-                  <p>Dias Trabalhados</p>
-                  <p>A Receber</p>
+                  <p>Base</p>
+                  <p>Vale</p>
+                  <p>Dias</p>
+                  <p>Salário Bruto</p>
+                  <p>Salário Líquido</p>
                   <p></p>
                 </TableHeader>
               </HeaderContainer>
