@@ -11,7 +11,7 @@ export default function ClientsFilter() {
     if(loadingInitialData) return <ClientsFilterContainer><h1>Clientes˼</h1><LoadingSpinner image={piottoWhiteLogo} width="70px" height="70px" /></ClientsFilterContainer>
     return (
         <ClientsFilterContainer>
-            <h1>Clientes˼</h1>
+            <h1 >Clientes˼</h1>
             {
                 punchCardData.byClients.length
                     ? punchCardData.byClients.map(byClientData => <ClientCard key={byClientData.id} 
