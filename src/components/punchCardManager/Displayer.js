@@ -6,7 +6,7 @@ export default function Displayer() {
 
     return (
         <MainContentContainer>
-            <section id="client_section">
+            <section id="client_section" >
                 <ClientsFilter />
             </section>
 

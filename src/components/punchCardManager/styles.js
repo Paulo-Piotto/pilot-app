@@ -128,6 +128,9 @@ export const ExpanderContainer = styled(motion.div)`
     margin-bottom: 25px;
     padding: 10px;
     width: 100%;
+    position: sticky;
+    top: 0px;
+    background-color: ${(props) => props.backgroundColor ?? "inherit"};
   }
 
   .children_container {
@@ -164,7 +167,7 @@ export const ClientsFilterContainer = styled.section`
   background-color: #131e31;
   color: #fff;
   height: 100%;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   overflow: auto;
 
   ::-webkit-scrollbar {
@@ -176,7 +179,11 @@ export const ClientsFilterContainer = styled.section`
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 20px 10px 10px 10px;
+    position: sticky;
+    top: 0px;
+    background-color: #131e31;
+    border-radius: 0px 0px 5px 5px;
   }
 `;
 
@@ -348,6 +355,9 @@ export const ActionsContainer = styled.div`
   justify-content: space-between;
   font-size: 0.9rem;
   overflow: auto;
+  position: sticky;
+  top: 40px;
+  background-color: #3f4a5c;
 
   select {
     height: 100%;
