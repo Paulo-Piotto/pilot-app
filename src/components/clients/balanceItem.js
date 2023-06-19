@@ -3,7 +3,7 @@ import { TableRow, RowCell } from "../../styles/tableStyles";
 import intToMoney from "../../services/utils/intToMoney";
 import { sumTotal, sumTotalBalance } from "../../services/utils/sumTotal";
 import DeleteDialog from "../generics/deleteDialog";
-import UpdateDialog from "../generics/updateDialog";
+import UpdateClientDialog from "./updateClientDialog";
 import ClientDetailsDialog from "./ClientDetailsDialog";
 import { ClientsService } from "../../services/api.services";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
@@ -69,7 +69,23 @@ export default function BalanceItem({
       });
   }
 
-  function handleUpdate({ e, name, setName, setNameError, setNameHelper }) {
+  function handleUpdate({
+    e,
+    name,
+    accountable,
+    setAccountable,
+    contact,
+    setContact,
+    address,
+    setAddress,
+    projectNumber,
+    setProjectNumber,
+    document,
+    setDocument,
+    setName,
+    setNameHelper,
+    setNameError,
+  }) {
     e.preventDefault();
     setLoading(true);
     const errorObject = storeNClientValidation({ name });
@@ -80,6 +96,11 @@ export default function BalanceItem({
     } else {
       const updatePromise = ClientsService.updateClient({
         name,
+        accountable,
+        contact,
+        address,
+        projectNumber,
+        document,
         id: rowData.id,
         author: userData.name,
       });
@@ -145,10 +166,11 @@ export default function BalanceItem({
         handleCloseDialog={() => setOpenDelete(false)}
         handleSubmit={handleDelete}
       />
-      <UpdateDialog
+      <UpdateClientDialog
         openDialog={openUpdate}
         handleCloseDialog={() => setOpenUpdate(false)}
         handleSubmit={handleUpdate}
+        rowData={rowData}
       />
       <ClientDetailsDialog
         openDialog={openDetails}

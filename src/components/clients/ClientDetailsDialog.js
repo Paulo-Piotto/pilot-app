@@ -98,7 +98,7 @@ export default function ClientDetailsDialog({
             }}
           />
           <TextField
-            value="N/A"
+            value={rowData.accountable || "n/a"}
             margin="dense"
             id="accountable"
             label="Responsável:"
@@ -110,10 +110,10 @@ export default function ClientDetailsDialog({
             }}
           />
           <TextField
-            value="N/A"
+            value={rowData.contact || "n/a"}
             margin="dense"
-            id="address"
-            label="Endereço:"
+            id="contact"
+            label="Contato:"
             type="text"
             variant="standard"
             fullWidth
@@ -122,10 +122,34 @@ export default function ClientDetailsDialog({
             }}
           />
           <TextField
-            value="N/A"
+            value={rowData.document || "n/a"}
             margin="dense"
-            id="contact"
-            label="Contato:"
+            id="document"
+            label="Documento:"
+            type="text"
+            variant="standard"
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            value={rowData.projectNumber || "n/a"}
+            margin="dense"
+            id="projectNumber"
+            label="Nº da matrícula:"
+            type="text"
+            variant="standard"
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            value={rowData.address || "n/a"}
+            margin="dense"
+            id="address"
+            label="Endereço:"
             type="text"
             variant="standard"
             fullWidth
