@@ -8,7 +8,7 @@ import Censorship from "./services/censorship";
 function App() {
   const { userData } = useContext(AuthContext)
 
-  if(!userData) return <Auth />
+  if(!userData || !userData.token) return <Auth />
   return (
       <HashRouter>
         <Main />
