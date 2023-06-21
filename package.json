@@ -5,8 +5,8 @@
   "main": "public/electron.js",
   "homepage": "./",
   "author": {
-    "name": "adriano gotardo",
-    "email": "adrianogotardo.12@gmail.com"
+    "name": "Paulo Piotto",
+    "email": "paulo_piotto@hotmail.com"
   },
   "description": "Gerencie o seu negócio",
   "dependencies": {
