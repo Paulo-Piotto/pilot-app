@@ -55,6 +55,11 @@ export default function RegisterClientDialog({
           setSnackbarMessage("Obra Cadastrada com sucesso!");
           handleCloseDialog();
           setName("");
+          setAccountable("");
+          setContact("");
+          setProjectNumber("");
+          setDocument("");
+          setAddress("");
           ClientsService.getClientsBalance({
             initialDate: false,
             endDate: false,

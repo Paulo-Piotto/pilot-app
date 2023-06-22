@@ -46,6 +46,9 @@ export default function RegisterStoreDialog({
         .then(() => {
           setSnackbar(true);
           setName("");
+          setAccountable("");
+          setContact("");
+          setAddress("");
           StoresService.getAllStores()
             .then((resp) => {
               setStores(resp.data);

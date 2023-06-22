@@ -67,6 +67,11 @@ export default function RegisterEmployeeDialog({
           setName("");
           setWageValue("");
           setStartDate(dayjs(Date.now()));
+          setContact("");
+          setDocument("");
+          setPix("");
+          setAddress("");
+          setObs("");
           EmployeesService.getAllEmployees().then((resp) => {
             setEmployees(resp.data);
             setAbsoluteEmployees(resp.data.length);

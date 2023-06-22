@@ -26,6 +26,7 @@ import intToMoney from "../../services/utils/intToMoney";
 import GenericSnackbar from "../generics/genericSnackbar";
 import AuthContext from "../context/AuthContext";
 import findPaymentMethod from "../../services/utils/findPaymentMethod";
+import dayjs from "dayjs";
 
 export default function EditOrderDialog({
   openDialog,
@@ -138,7 +139,9 @@ export default function EditOrderDialog({
         author: userData.name,
       })
         .then(() => {
-          OrdersService.getAllOrders()
+          const todayMinus30 = Date.now() - 86400000 * 30;
+          const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0};
+          OrdersService.filterOrders(searchSettings)
             .then((resp) => {
               setLoading(false);
               setOrders(resp.data);
