@@ -7,7 +7,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { StoresService } from "../../services/api.services";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
-import RegisterSnackbar from "../generics/registerSnackbar";
 import AuthContext from "../context/AuthContext";
 
 export default function RegisterStoreDialog({
@@ -16,12 +15,14 @@ export default function RegisterStoreDialog({
   setStores,
   setAbsoluteStores,
   setLoading,
+  setSnackbar,
+  setSnackbarMessage,
+  setSnackbarType,
 }) {
   const [name, setName] = useState("");
   const [accountable, setAccountable] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
-  const [snackbar, setSnackbar] = useState(false);
   const [nameHelper, setNameHelper] = useState("");
   const [nameError, setNameError] = useState(false);
   const { userData } = useContext(AuthContext);
@@ -45,6 +46,8 @@ export default function RegisterStoreDialog({
       })
         .then(() => {
           setSnackbar(true);
+          setSnackbarType('success');
+          setSnackbarMessage('Fornecedor registrado com sucesso');
           setName("");
           setAccountable("");
           setContact("");
@@ -57,11 +60,15 @@ export default function RegisterStoreDialog({
             })
             .catch(() => {
               setLoading(false);
-              alert("algo deu errado");
+              setSnackbar(true);
+              setSnackbarType('error');
+              setSnackbarMessage('Algo deu errado ao buscar os fornecedores');
             });
         })
         .catch(() => {
-          alert("algo deu errado");
+          setSnackbar(true);
+          setSnackbarType('error');
+          setSnackbarMessage('Algo deu errado ao cadastrar o fornecedor');
           setLoading(false);
         });
     }
@@ -130,11 +137,6 @@ export default function RegisterStoreDialog({
           </DialogActions>
         </form>
       </Dialog>
-      <RegisterSnackbar
-        snackbar={snackbar}
-        setSnackbar={setSnackbar}
-        type={"success"}
-      />
     </>
   );
 }

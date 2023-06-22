@@ -10,7 +10,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { employeeValidation } from "../../services/validationServices/employeesValidation";
 import styled from "styled-components";
-import RegisterSnackbar from "../generics/registerSnackbar";
 import { EmployeesService } from "../../services/api.services";
 import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
@@ -21,6 +20,9 @@ export default function UpdateEmployeeDialog({
   handleCloseDialog,
   setEmployees,
   rowData,
+  setSnackbar,
+  setSnackbarMessage,
+  setSnackbarType,
 }) {
   const [name, setName] = useState(rowData.name || "");
   const [wageValue, setWageValue] = useState(
@@ -37,7 +39,6 @@ export default function UpdateEmployeeDialog({
   const [nameHelper, setNameHelper] = useState("");
   const [dateHelper, setDateHelper] = useState("");
   const [nameError, setNameError] = useState(false);
-  const [snackbar, setSnackbar] = useState(false);
   const { userData } = useContext(AuthContext);
 
   function handleSubmit(e) {
@@ -69,6 +70,8 @@ export default function UpdateEmployeeDialog({
       })
         .then(() => {
           setSnackbar(true);
+          setSnackbarType('success');
+          setSnackbarMessage('Funcionário Atualizado com sucesso');
           handleCloseDialog();
           setStartDate(dayjs(Date.now()));
           EmployeesService.getAllEmployees().then((resp) => {
@@ -76,7 +79,9 @@ export default function UpdateEmployeeDialog({
           });
         })
         .catch(() => {
-          alert("algo deu errado");
+          setSnackbar(true);
+          setSnackbarType('error');
+          setSnackbarMessage('Algo deu errado ao atualizar o funcionário');
         });
     }
   }
@@ -197,11 +202,6 @@ export default function UpdateEmployeeDialog({
           <Button onClick={handleSubmit}>Registrar</Button>
         </DialogActions>
       </Dialog>
-      <RegisterSnackbar
-        snackbar={snackbar}
-        setSnackbar={setSnackbar}
-        type={"success"}
-      />
     </>
   );
 }

@@ -76,6 +76,9 @@ export default function EmployeesPage() {
         handleCloseDialog={handleCloseDialog}
         setEmployees={setEmployees}
         setAbsoluteEmployees={setAbsoluteEmployees}
+        setSnackbar={setSnackbar}
+        setSnackbarMessage={setSnackbarMessage}
+        setSnackbarType={setSnackbarType}
       />
       <SearchEmployeeDialog
         openDialog={openSearch}

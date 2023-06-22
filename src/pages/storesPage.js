@@ -77,6 +77,9 @@ export default function StoresPage() {
         setStores={setStores}
         setAbsoluteStores={setAbsoluteStores}
         setLoading={setLoading}
+        setSnackbar={setSnackbar}
+        setSnackbarMessage={setSnackbarMessage}
+        setSnackbarType={setSnackbarType}
       />
       <SearchStoreDialog
         openDialog={openSearch}
