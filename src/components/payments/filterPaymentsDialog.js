@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { ClientsService, PaymentsService } from "../../services/api.services";
 import { sumTotalPayments } from "../../services/utils/sumTotal";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import {
   floorDateHour,
   ceilDateHour,

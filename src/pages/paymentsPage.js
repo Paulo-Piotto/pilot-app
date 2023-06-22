@@ -13,7 +13,7 @@ import PaymentItem from "../components/payments/paymentItem";
 import FilterPaymentsDialog from "../components/payments/filterPaymentsDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
 import dayjs from "dayjs";
-import intToMoney from "../services/utils/intToMoney";
+import {intToMoney} from "../services/utils/format";
 import { sumTotalPayments } from "../services/utils/sumTotal";
 import { PaymentsService } from "../services/api.services";
 import AuthContext from "../components/context/AuthContext";

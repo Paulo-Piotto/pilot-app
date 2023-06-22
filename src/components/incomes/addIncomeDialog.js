@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import { ClientsService, IncomesService } from "../../services/api.services";
 import { incomesValidation } from '../../services/validationServices/incomesValidation';
 import { sumTotal } from '../../services/utils/sumTotal';
-import intToMoney from '../../services/utils/intToMoney';
+import {intToMoney} from '../../services/utils/format';
 import AuthContext from '../context/AuthContext';
 
 export default function AddIncomeDialog({openDialog, handleCloseDialog, setIncomes, setTotal, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){

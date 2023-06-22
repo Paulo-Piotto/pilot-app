@@ -22,7 +22,7 @@ import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import applyDiscount from "../../services/utils/applyDiscount";
 import { sumTotal } from "../../services/utils/sumTotal";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import GenericSnackbar from "../generics/genericSnackbar";
 import AuthContext from "../context/AuthContext";
 

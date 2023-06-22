@@ -10,7 +10,7 @@ import {
   DialogContentText,
 } from "@mui/material/";
 import { ClientsService } from "../../services/api.services";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import { sumTotalBalance } from "../../services/utils/sumTotal";
 import dayjs from "dayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";

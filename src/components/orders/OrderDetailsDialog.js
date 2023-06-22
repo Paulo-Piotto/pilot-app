@@ -1,5 +1,5 @@
 import { TextField, DialogTitle, DialogContent, DialogActions, Dialog, Button } from '@mui/material';
-import intToMoney from '../../services/utils/intToMoney';
+import {intToMoney} from '../../services/utils/format';
 import dayjs from 'dayjs';
 
 

@@ -18,7 +18,7 @@ import {
   ClientsService,
 } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import { floorDateHour, ceilDateHour } from "../../services/utils/dateServices";
 
 export default function SearchOrdersDialog({

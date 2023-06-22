@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TableRow, RowCell } from "../../styles/tableStyles";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import DropMenu from "../generics/dropMenu";
 import EmployeeDetailsDialog from "../employees/employeeDetailsDialog";
 

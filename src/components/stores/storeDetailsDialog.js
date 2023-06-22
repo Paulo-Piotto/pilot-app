@@ -6,6 +6,7 @@ import {
   Dialog,
   Button,
 } from "@mui/material";
+import { stringToPhone } from "../../services/utils/format";
 
 export default function StoreDetailsDialog({
   rowData,
@@ -47,7 +48,7 @@ export default function StoreDetailsDialog({
             }}
           />
           <TextField
-            value={rowData.contact || "n/a"}
+            value={stringToPhone(rowData.contact) || "n/a"}
             margin="dense"
             id="contact"
             label="Contato:"
