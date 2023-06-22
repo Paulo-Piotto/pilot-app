@@ -13,7 +13,7 @@ import { Clear, Loading } from "../styles/generalStyles";
 import CircularProgress from "@mui/material/CircularProgress";
 import GenericSnackbar from "../components/generics/genericSnackbar";
 import { sumTotalBalance } from "../services/utils/sumTotal";
-import intToMoney from "../services/utils/intToMoney";
+import {intToMoney} from "../services/utils/format";
 import RegisterClientDialog from "../components/clients/registerClientDialog";
 import SearchClientDialog from "../components/clients/searchClientDialog";
 import AuthContext from "../components/context/AuthContext";

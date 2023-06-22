@@ -5,7 +5,7 @@ import DeleteDialog from "../generics/deleteDialog";
 import IncomeDetailsDialog from "./incomeDetailsDialog";
 import { IncomesService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import DropMenu from "../generics/dropMenu";
 
 export default function IncomeItem({rowData, setTotal, setIncomes, setLoading, setSnackbar, setSnackbarType, setSnackbarMessage}){

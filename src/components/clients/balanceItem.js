@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { TableRow, RowCell } from "../../styles/tableStyles";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import { sumTotal, sumTotalBalance } from "../../services/utils/sumTotal";
 import DeleteDialog from "../generics/deleteDialog";
 import UpdateClientDialog from "./updateClientDialog";

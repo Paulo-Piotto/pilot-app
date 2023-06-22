@@ -21,8 +21,7 @@ import {
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import applyDiscount from "../../services/utils/applyDiscount";
 import { sumTotal } from "../../services/utils/sumTotal";
-import intToTwoDecimals from "../../services/utils/intToTwoDecimals";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToTwoDecimals, intToMoney} from "../../services/utils/format";
 import GenericSnackbar from "../generics/genericSnackbar";
 import AuthContext from "../context/AuthContext";
 import findPaymentMethod from "../../services/utils/findPaymentMethod";

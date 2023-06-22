@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { ClientsService } from "../../services/api.services";
 import { storeNClientValidation } from "../../services/validationServices/storesNClientsValidation";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import { sumTotalBalance } from "../../services/utils/sumTotal";
 import AuthContext from "../context/AuthContext";
 

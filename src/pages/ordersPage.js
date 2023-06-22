@@ -14,7 +14,7 @@ import { sumTotal } from "../services/utils/sumTotal";
 import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
 import AddOrderDialog from "../components/orders/addOrderDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
-import intToMoney from "../services/utils/intToMoney";
+import {intToMoney} from "../services/utils/format";
 import { Container } from "../components/generics/inProgress";
 import { Clear, Loading, PrintButton } from "../styles/generalStyles";
 import pdfGenerator from "../components/pdf/pdfGenerator";

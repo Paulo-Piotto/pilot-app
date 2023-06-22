@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import DeleteDialog from "../generics/deleteDialog";
 import { OrdersService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import DropMenu from "../generics/dropMenu";
 import OrderDetailsDialog from "./OrderDetailsDialog";
 import EditOrderDialog from "./editOrderDialog";

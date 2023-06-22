@@ -9,7 +9,7 @@ import { sumTotal } from "../services/utils/sumTotal";
 import AddIncomeDialog from "../components/incomes/addIncomeDialog"
 import SearchIncomesDialog from "../components/incomes/searchIncomesDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
-import intToMoney from "../services/utils/intToMoney";
+import {intToMoney} from "../services/utils/format";
 import { Container } from "../components/generics/inProgress";
 import { Clear, Loading } from "../styles/generalStyles";
 

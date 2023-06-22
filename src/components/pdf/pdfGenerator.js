@@ -1,7 +1,7 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import dayjs from "dayjs";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 
 export default function pdfGenerator(items) {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;

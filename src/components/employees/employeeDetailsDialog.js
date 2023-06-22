@@ -6,7 +6,7 @@ import {
   Dialog,
   Button,
 } from "@mui/material";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import dayjs from "dayjs";
 
 export default function EmployeeDetailsDialog({

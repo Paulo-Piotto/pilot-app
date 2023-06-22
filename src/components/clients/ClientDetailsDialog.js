@@ -13,7 +13,7 @@ import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import styled from "styled-components";
 import ArchiveDialog from "../generics/archiveDialog";
 import { ClientsService } from "../../services/api.services";
-import intToMoney from "../../services/utils/intToMoney";
+import {intToMoney} from "../../services/utils/format";
 import { sumTotalBalance, sumTotal } from "../../services/utils/sumTotal";
 import AuthContext from "../context/AuthContext";
 
