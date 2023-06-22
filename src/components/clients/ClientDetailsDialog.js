@@ -13,7 +13,7 @@ import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import styled from "styled-components";
 import ArchiveDialog from "../generics/archiveDialog";
 import { ClientsService } from "../../services/api.services";
-import {intToMoney} from "../../services/utils/format";
+import {intToMoney, stringToCpf, stringToPhone} from "../../services/utils/format";
 import { sumTotalBalance, sumTotal } from "../../services/utils/sumTotal";
 import AuthContext from "../context/AuthContext";
 
@@ -110,7 +110,7 @@ export default function ClientDetailsDialog({
             }}
           />
           <TextField
-            value={rowData.contact || "n/a"}
+            value={stringToPhone(rowData.contact) || "n/a"}
             margin="dense"
             id="contact"
             label="Contato:"
@@ -122,7 +122,7 @@ export default function ClientDetailsDialog({
             }}
           />
           <TextField
-            value={rowData.document || "n/a"}
+            value={stringToCpf(rowData.document) || "n/a"}
             margin="dense"
             id="document"
             label="Documento:"

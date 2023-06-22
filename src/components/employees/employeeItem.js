@@ -5,7 +5,7 @@ import { EmployeesService } from "../../services/api.services";
 import DropMenu from "../generics/dropMenu";
 import EmployeeDetailsDialog from "./employeeDetailsDialog";
 import UpdateEmployeeDialog from "./updateEmployeeDialog";
-import { stringToCpf } from "../../services/utils/format";
+import { stringToCpf, stringToPhone } from "../../services/utils/format";
 
 export default function EmployeeItem({
   rowData,
@@ -58,7 +58,7 @@ export default function EmployeeItem({
       <TableRow>
         <RowCell>{rowData.name}</RowCell>
         <RowCell>{stringToCpf(rowData.document) || "--"}</RowCell>
-        <RowCell>{rowData.contact || "--"}</RowCell>
+        <RowCell>{stringToPhone(rowData.contact) || "--"}</RowCell>
         <RowCell icon={true}>
           <DropMenu
             setOpenDetails={setOpenDetails}

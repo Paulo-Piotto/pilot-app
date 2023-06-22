@@ -6,7 +6,7 @@ import {
   Dialog,
   Button,
 } from "@mui/material";
-import {intToMoney} from "../../services/utils/format";
+import {intToMoney, stringToCpf, stringToPhone} from "../../services/utils/format";
 import dayjs from "dayjs";
 
 export default function EmployeeDetailsDialog({
@@ -49,7 +49,7 @@ export default function EmployeeDetailsDialog({
             }}
           />
           <TextField
-            value={rowData.contact || "n/a"}
+            value={stringToPhone(rowData.contact) || "n/a"}
             margin="dense"
             id="contact"
             label="Contato:"
@@ -61,7 +61,7 @@ export default function EmployeeDetailsDialog({
             }}
           />
           <TextField
-            value={rowData.document || "n/a"}
+            value={stringToCpf(rowData.document) || "n/a"}
             margin="dense"
             id="document"
             label="Documento:"
