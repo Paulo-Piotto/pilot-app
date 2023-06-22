@@ -124,7 +124,9 @@ export default function AddOrderDialog({
         author: userData.name,
       })
         .then(() => {
-          OrdersService.getAllOrders()
+          const todayMinus30 = Date.now() - 86400000 * 30;
+          const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0};
+          OrdersService.filterOrders(searchSettings)
             .then((resp) => {
               setLoading(false);
               setOrders(resp.data);

@@ -18,6 +18,7 @@ import intToMoney from "../services/utils/intToMoney";
 import { Container } from "../components/generics/inProgress";
 import { Clear, Loading, PrintButton } from "../styles/generalStyles";
 import pdfGenerator from "../components/pdf/pdfGenerator";
+import dayjs from "dayjs";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -30,9 +31,12 @@ export default function OrdersPage() {
     "Item deletado com sucesso"
   );
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
-    OrdersService.getAllOrders()
+    const todayMinus30 = Date.now() - 86400000 * 30;
+  const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0}
+    OrdersService.filterOrders(searchSettings)
       .then((resp) => {
         setOrders(resp.data);
         setTotal(intToMoney(sumTotal(resp.data)));
@@ -52,8 +56,10 @@ export default function OrdersPage() {
   }
 
   function clearFilters() {
+    const todayMinus30 = Date.now() - 86400000 * 30;
+    const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0}
     setLoading(true);
-    OrdersService.getAllOrders()
+    OrdersService.filterOrders(searchSettings)
       .then((resp) => {
         setOrders(resp.data);
         setTotal(intToMoney(sumTotal(resp.data)));
