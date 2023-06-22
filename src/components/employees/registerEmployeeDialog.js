@@ -10,7 +10,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { employeeValidation } from "../../services/validationServices/employeesValidation";
 import styled from "styled-components";
-import RegisterSnackbar from "../generics/registerSnackbar";
 import { EmployeesService } from "../../services/api.services";
 import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
@@ -21,6 +20,9 @@ export default function RegisterEmployeeDialog({
   handleCloseDialog,
   setEmployees,
   setAbsoluteEmployees,
+  setSnackbar,
+  setSnackbarMessage,
+  setSnackbarType,
 }) {
   const [name, setName] = useState("");
   const [wageValue, setWageValue] = useState("");
@@ -33,7 +35,6 @@ export default function RegisterEmployeeDialog({
   const [nameHelper, setNameHelper] = useState("");
   const [dateHelper, setDateHelper] = useState("");
   const [nameError, setNameError] = useState(false);
-  const [snackbar, setSnackbar] = useState(false);
   const { userData } = useContext(AuthContext);
 
   function handleSubmit(e) {
@@ -63,6 +64,8 @@ export default function RegisterEmployeeDialog({
       })
         .then(() => {
           setSnackbar(true);
+          setSnackbarType('success');
+          setSnackbarMessage('Funcionário Registrado com sucesso');
           handleCloseDialog();
           setName("");
           setWageValue("");
@@ -78,7 +81,9 @@ export default function RegisterEmployeeDialog({
           });
         })
         .catch(() => {
-          alert("algo deu errado");
+          setSnackbar(true);
+          setSnackbarType('error');
+          setSnackbarMessage('Algo deu errado ao tentar registrar o funcionário');
         });
     }
   }
@@ -199,11 +204,6 @@ export default function RegisterEmployeeDialog({
           <Button onClick={handleSubmit}>Registrar</Button>
         </DialogActions>
       </Dialog>
-      <RegisterSnackbar
-        snackbar={snackbar}
-        setSnackbar={setSnackbar}
-        type={"success"}
-      />
     </>
   );
 }

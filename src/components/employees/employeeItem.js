@@ -84,6 +84,9 @@ export default function EmployeeItem({
         handleCloseDialog={() => setOpenUpdate(false)}
         setEmployees={setItems}
         rowData={rowData}
+        setSnackbar={setSnackbar}
+        setSnackbarMessage={setSnackbarMessage}
+        setSnackbarType={setSnackbarType}
       />
     </>
   );
