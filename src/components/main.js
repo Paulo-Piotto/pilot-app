@@ -14,6 +14,7 @@ import {
   IoStorefrontOutline,
   IoCashOutline,
   IoReceiptOutline,
+  IoFastFoodOutline,
 } from "react-icons/io5";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -72,6 +73,14 @@ export default function Main() {
             }}
           >
             <IoReceiptOutline />
+          </IconBox>
+          <IconBox
+            isSelected={selectedIcon === "food" ? true : false}
+            onClick={() => {
+              selectPage("food", "/food");
+            }}
+          >
+            <IoFastFoodOutline />
           </IconBox>
           <IconBox
             isSelected={selectedIcon === "clients" ? true : false}
