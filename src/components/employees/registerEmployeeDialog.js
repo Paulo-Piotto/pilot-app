@@ -25,6 +25,7 @@ export default function RegisterEmployeeDialog({
   setSnackbarType,
 }) {
   const [name, setName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [wageValue, setWageValue] = useState("");
   const [startDate, setStartDate] = useState(dayjs(Date.now()));
   const [contact, setContact] = useState("");
@@ -53,6 +54,7 @@ export default function RegisterEmployeeDialog({
       const wage = Number(wageValue.replace(",", ".") * 100);
       EmployeesService.registerEmployee({
         name,
+        fullname,
         wage,
         startDate,
         contact,
@@ -68,6 +70,7 @@ export default function RegisterEmployeeDialog({
           setSnackbarMessage('Funcionário Registrado com sucesso');
           handleCloseDialog();
           setName("");
+          setFullname("");
           setWageValue("");
           setStartDate(dayjs(Date.now()));
           setContact("");
@@ -99,13 +102,24 @@ export default function RegisterEmployeeDialog({
             autoFocus
             margin="dense"
             id="name"
-            label="Nome do funcionário"
+            label="Apelido do funcionário"
             type="text"
             required={true}
             fullWidth
             variant="standard"
             helperText={nameHelper}
             onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            value={fullname}
+            autoFocus
+            margin="dense"
+            id="fullname"
+            label="Nome Completo"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setFullname(e.target.value)}
           />
           <MoneyLabel>Salário Base*:</MoneyLabel>
           <MoneyInput

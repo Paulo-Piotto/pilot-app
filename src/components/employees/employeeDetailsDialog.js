@@ -28,7 +28,19 @@ export default function EmployeeDetailsDialog({
             value={rowData.name}
             margin="dense"
             id="name"
-            label="Nome do funcionário:"
+            label="Apelido do funcionário:"
+            type="text"
+            variant="standard"
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            value={rowData.fullname || "n/a"}
+            margin="dense"
+            id="fullname"
+            label="Nome Completo:"
             type="text"
             variant="standard"
             fullWidth
