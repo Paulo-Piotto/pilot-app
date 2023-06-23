@@ -75,7 +75,6 @@ export default function UpdateEmployeeDialog({
           setSnackbarType('success');
           setSnackbarMessage('Funcionário Atualizado com sucesso');
           handleCloseDialog();
-          setStartDate(dayjs(Date.now()));
           EmployeesService.getAllEmployees().then((resp) => {
             setEmployees(resp.data);
           });
