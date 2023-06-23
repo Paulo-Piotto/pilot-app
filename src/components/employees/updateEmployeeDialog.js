@@ -25,6 +25,7 @@ export default function UpdateEmployeeDialog({
   setSnackbarType,
 }) {
   const [name, setName] = useState(rowData.name || "");
+  const [fullname, setFullname] = useState(rowData.fullname || "");
   const [wageValue, setWageValue] = useState(
     (rowData.wage / 100).toString() || ""
   );
@@ -58,6 +59,7 @@ export default function UpdateEmployeeDialog({
       const wage = Number(wageValue.replace(",", ".") * 100);
       EmployeesService.updateEmployee({
         name,
+        fullname,
         wage,
         startDate,
         contact,
@@ -97,13 +99,24 @@ export default function UpdateEmployeeDialog({
             autoFocus
             margin="dense"
             id="name"
-            label="Nome do funcionário"
+            label="Apelido do funcionário"
             type="text"
             required={true}
             fullWidth
             variant="standard"
             helperText={nameHelper}
             onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            value={fullname}
+            autoFocus
+            margin="dense"
+            id="fullname"
+            label="Nome Completo"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setFullname(e.target.value)}
           />
           <MoneyLabel>Salário Base*:</MoneyLabel>
           <MoneyInput
