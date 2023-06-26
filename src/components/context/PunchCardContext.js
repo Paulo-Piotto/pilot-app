@@ -18,8 +18,8 @@ export function PunchCardContextProvider({ children }) {
     const [ searchFilters, setSearchFilters ] = useState({
         client: null,
         date: {
-            from: dayjs(todayMinus30).toString(),
-            to: dayjs(Date.now()).toString()
+            from: dayjs(todayMinus30),
+            to: dayjs(Date.now())
         }
     })
     const [ snackBar, setSnackBar ] = useState({
@@ -40,8 +40,20 @@ export function PunchCardContextProvider({ children }) {
     useEffect(() => {
         async function updatePunchCardDataOnFilterChange() {
             const [ byClients, byEmployees ] = await Promise.all([
-                PunchCardService.getPunchCardsByClients(parseObjectIntoQueryString(searchFilters), userData.token),
-                PunchCardService.getPunchCardsByEmployees(parseObjectIntoQueryString(searchFilters), userData.token)
+                PunchCardService.getPunchCardsByClients(parseObjectIntoQueryString({
+                    ...searchFilters,
+                    date: {
+                        from: searchFilters.date.from.toISOString(),
+                        to: searchFilters.date.to.toISOString()
+                    }
+                }), userData.token),
+                PunchCardService.getPunchCardsByEmployees(parseObjectIntoQueryString({
+                    ...searchFilters,
+                    date: {
+                        from: searchFilters.date.from.toISOString(),
+                        to: searchFilters.date.to.toISOString()
+                    }
+                }), userData.token)
             ])
             setPunchCardData(prev => ({
                 ...prev,
