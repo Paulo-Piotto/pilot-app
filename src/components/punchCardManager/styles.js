@@ -6,6 +6,28 @@ import { motion } from "framer-motion";
 
 export const AdaptedCardsContainer = styled(CardsContainer)`
   justify-content: space-evenly;
+
+  #upper_section_date_picker {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background-color: #fff;
+    width: 250px;
+    height: 120px;
+    border-radius: 5px;
+    padding: 10px;
+
+    >input {
+        width: 100%;
+        height: 60px;
+        margin-bottom: 5px;
+        outline-color: #131E31;
+        color: #131E31;
+        border: none;
+        border-bottom: 2px solid #131E31;
+    } 
+  }
 `;
 
 export const DatePickerCardStyle = styled(CardStyle)`
