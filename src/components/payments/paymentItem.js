@@ -20,6 +20,7 @@ export default function PaymentItem({ rowData, workingDays }) {
       <TableRow>
         <RowCell>{rowData.name}</RowCell>
         <RowCell>R${intToMoney(baseWage)}</RowCell>
+        <RowCell>- R${intToMoney(10000)}</RowCell>
         <RowCell>R${intToMoney(preWage)}</RowCell>
         <RowCell>{`${employeeWorkedDays}/${workingDays}`}</RowCell>
         <RowCell>R${intToMoney(fullPayment)}</RowCell>

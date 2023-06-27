@@ -121,6 +121,7 @@ export default function PaymentsPage() {
                 <TableHeader>
                   <p>Nome</p>
                   <p>Base</p>
+                  <p>Marmitas</p>
                   <p>Vale</p>
                   <p>Dias</p>
                   <p>Salário Bruto</p>

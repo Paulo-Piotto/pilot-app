@@ -75,9 +75,9 @@ export default function Main() {
             <IoReceiptOutline />
           </IconBox>
           <IconBox
-            isSelected={selectedIcon === "food" ? true : false}
+            isSelected={selectedIcon === "foodControl" ? true : false}
             onClick={() => {
-              selectPage("food", "/food");
+              selectPage("foodControl", "/foodControl");
             }}
           >
             <IoFastFoodOutline />
