@@ -18,6 +18,7 @@ import { FoodControlService } from "../services/api.services";
 import AuthContext from "../components/context/AuthContext";
 import { floorDateHour, ceilDateHour } from "../services/utils/dateServices";
 import CreateLunchboxDialog from "../components/lunchboxes/createLunchboxDialog";
+import FilterLunchboxesDialog from "../components/lunchboxes/filterLunchboxesDialog";
 
 export default function FoodControlPage() {
     const [loading, setLoading] = useState(true);
@@ -85,6 +86,16 @@ export default function FoodControlPage() {
         />
         <CreateLunchboxDialog 
         openDialog={openAdd}
+        handleCloseDialog={handleCloseDialog}
+        setItems={setLunchboxes}
+        setTotal={setTotal}
+        setSnackbar={setSnackbar}
+        setSnackbarMessage={setSnackbarMessage}
+        setSnackbarType={setSnackbarType}
+        setLoading={setLoading}
+        />
+        <FilterLunchboxesDialog 
+        openDialog={openSearch}
         handleCloseDialog={handleCloseDialog}
         setItems={setLunchboxes}
         setTotal={setTotal}
