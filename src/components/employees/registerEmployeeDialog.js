@@ -64,7 +64,8 @@ export default function RegisterEmployeeDialog({
         address,
         author: userData.name,
       })
-        .then(() => {
+        .then((resp) => {
+          console.log(resp.data)
           setSnackbar(true);
           setSnackbarType('success');
           setSnackbarMessage('Funcionário Registrado com sucesso');
@@ -112,7 +113,6 @@ export default function RegisterEmployeeDialog({
           />
           <TextField
             value={fullname}
-            autoFocus
             margin="dense"
             id="fullname"
             label="Nome Completo"
