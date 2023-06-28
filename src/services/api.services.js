@@ -129,6 +129,33 @@ const PaymentsService = {
     }),
 };
 
+const FoodControlService = {
+  getFoodOrders: (filterString, token) =>
+    axios.get(`${URL}/employeesFood?${filterString ?? ""}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  deleteFoodOrder: (deleteSettings, token) => 
+  axios.delete(`${URL}/employeesFood?${deleteSettings ?? ""}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }),
+  createFoodOrder: (foodOrder, token) => 
+  axios.post(`${URL}/employeesFood`, foodOrder, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }),
+  updateFoodOrder: (foodOrder, token) => 
+  axios.put(`${URL}/employeesFood`, foodOrder, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }),
+};
+
 export {
   EmployeesService,
   StoresService,
@@ -139,4 +166,5 @@ export {
   UsersService,
   PunchCardService,
   PaymentsService,
+  FoodControlService,
 };
