@@ -35,6 +35,7 @@ export default function UpdateEmployeeDialog({
   const [contact, setContact] = useState(rowData.contact || "");
   const [document, setDocument] = useState(rowData.document || "");
   const [pix, setPix] = useState(rowData.pix || "");
+  const [loanValue, setLoanValue] = useState(rowData.loan || "");
   const [address, setAddress] = useState(rowData.address || "");
   const [obs, setObs] = useState(rowData.obs || "");
   const [nameHelper, setNameHelper] = useState("");
@@ -57,6 +58,7 @@ export default function UpdateEmployeeDialog({
       setDateHelper(errorObject.startDate.helper);
     } else {
       const wage = Number(wageValue.replace(",", ".") * 100);
+      const loan = Number(loanValue.replace(",",".") * 100)
       EmployeesService.updateEmployee({
         name,
         fullname,
@@ -65,6 +67,7 @@ export default function UpdateEmployeeDialog({
         contact,
         document,
         pix,
+        loan,
         obs,
         address,
         author: userData.name,
@@ -156,6 +159,16 @@ export default function UpdateEmployeeDialog({
             fullWidth
             variant="standard"
             onChange={(e) => setPix(e.target.value)}
+          />
+          <MoneyLabel>Valor Emprestado:</MoneyLabel>
+          <MoneyInput
+            id="loan-input"
+            name="loan-name"
+            placeholder="0,00"
+            value={loanValue}
+            intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+            decimalScale={2}
+            onValueChange={(value) => setLoanValue(value)}
           />
           <TextField
             value={address}
