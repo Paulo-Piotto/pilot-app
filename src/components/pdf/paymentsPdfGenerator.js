@@ -15,13 +15,13 @@ export default function paymentsPdfGenerator(employees, workingDays) {
     const realPayment = (fullPayment - preWage - foodTotal).toFixed(0);
 
     return [
-      { text: employee.name, fontSize: 9, margin: [0, 2, 0, 2] },
-      { text: `R$${intToMoney(employee.wage)}`, fontSize: 9, margin: [0, 2, 0, 2] },
-      { text: `R$${intToMoney(preWage)}`, fontSize: 9, margin: [0, 2, 0, 2] },
-      { text: `${workedDays}/${workingDays}`, fontSize: 9, margin: [0, 2, 0, 2] },
-      { text: `R$${intToMoney(fullPayment)}`, fontSize: 9, margin: [0, 2, 0, 2] },
-      { text: `- R$${intToMoney(foodTotal)}`, fontSize: 9, margin: [0, 2, 0, 2] },
-      { text: `R$${intToMoney(realPayment)}`, fontSize: 9, margin: [0, 2, 0, 2] },
+      { text: employee.name, fontSize: 8, margin: [0, 2, 0, 2] },
+      { text: `R$${intToMoney(employee.wage)}`, fontSize: 8, margin: [0, 2, 0, 2] },
+      { text: `R$${intToMoney(preWage)}`, fontSize: 8, margin: [0, 2, 0, 2] },
+      { text: employee.pix, fontSize: 8, margin: [0, 2, 0, 2] },
+      { text: `R$${intToMoney(fullPayment)}`, fontSize: 8, margin: [0, 2, 0, 2] },
+      { text: `- R$${intToMoney(foodTotal)}`, fontSize: 8, margin: [0, 2, 0, 2] },
+      { text: `R$${intToMoney(realPayment)}`, fontSize: 8, margin: [0, 2, 0, 2] },
     ];
   });
 
@@ -37,16 +37,16 @@ export default function paymentsPdfGenerator(employees, workingDays) {
     {
       table: {
         headerRows: 1,
-        widths: ["*", "*", "*", "*", "*", "*", "*"],
+        widths: [50, 60, 60, 120, 60, 60, 60],
         body: [
           [
-            { text: "Funcionário", style: "tableHeader", fontSize: 10, bold: true },
-            { text: "Base", style: "tableHeader", fontSize: 10, bold: true },
-            { text: "Vale", style: "tableHeader", fontSize: 10, bold: true },
-            { text: "Dias", style: "tableHeader", fontSize: 10, bold: true },
-            { text: "Bruto", style: "tableHeader", fontSize: 10, bold: true },
-            { text: "Marmitas", style: "tableHeader", fontSize: 10, bold: true },
-            { text: "Líquido", style: "tableHeader", fontSize: 10, bold: true },
+            { text: "Funcionário", style: "tableHeader", fontSize: 9, bold: true },
+            { text: "Base", style: "tableHeader", fontSize: 9, bold: true },
+            { text: "Vale", style: "tableHeader", fontSize: 9, bold: true },
+            { text: "PIX", style: "tableHeader", fontSize: 9, bold: true },
+            { text: "Bruto", style: "tableHeader", fontSize: 9, bold: true },
+            { text: "Marmitas", style: "tableHeader", fontSize: 9, bold: true },
+            { text: "Líquido", style: "tableHeader", fontSize: 9, bold: true },
           ],
           ...data,
         ],
