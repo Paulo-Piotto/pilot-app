@@ -7,7 +7,8 @@ import {
   HeaderContainer,
 } from "../styles/tableStyles";
 import { Container } from "../components/generics/inProgress";
-import { Clear, Loading } from "../styles/generalStyles";
+import { Clear, Loading, PrintButton } from "../styles/generalStyles";
+import PrintIcon from "@mui/icons-material/Print";
 import CircularProgress from "@mui/material/CircularProgress";
 import PaymentItem from "../components/payments/paymentItem";
 import FilterPaymentsDialog from "../components/payments/filterPaymentsDialog";
@@ -18,6 +19,7 @@ import { sumTotalPayments } from "../services/utils/sumTotal";
 import { PaymentsService } from "../services/api.services";
 import AuthContext from "../components/context/AuthContext";
 import { lastDayTarget, penultDayTarget } from "../services/utils/dateServices";
+import paymentsPdfGenerator from "../components/pdf/paymentsPdfGenerator";
 
 export default function PaymentsPage() {
   const [loading, setLoading] = useState(true);
@@ -127,6 +129,9 @@ export default function PaymentsPage() {
                   <p>Marmitas</p>
                   <p>Salário Líquido</p>
                   <p></p>
+                  <PrintButton onClick={() => paymentsPdfGenerator(employees, workingDays.length)}>
+                    <PrintIcon sx={{ color: "#EAEAEA" }} />
+                  </PrintButton>
                 </TableHeader>
               </HeaderContainer>
               <TableContainer>
