@@ -24,6 +24,7 @@ export default function PaymentItem({ rowData, workingDays }) {
         <RowCell>R${intToMoney(baseWage)}</RowCell>
         <RowCell>R${intToMoney(preWage)}</RowCell>
         <RowCell>{`${employeeWorkedDays}/${workingDays}`}</RowCell>
+        <RowCell>R${intToMoney(rowData.loan)}</RowCell>
         <RowCell>R${intToMoney(fullPayment)}</RowCell>
         <RowCell>- R${intToMoney(foodTotal)}</RowCell>
         <RowCell bold={true}>R${intToMoney(realPayment)}</RowCell>

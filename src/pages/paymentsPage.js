@@ -125,6 +125,7 @@ export default function PaymentsPage() {
                   <p>Base</p>
                   <p>Vale</p>
                   <p>Dias</p>
+                  <p>Emprestado</p>
                   <p>Salário Bruto</p>
                   <p>Marmitas</p>
                   <p>Salário Líquido</p>

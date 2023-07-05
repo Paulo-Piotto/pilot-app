@@ -97,6 +97,18 @@ export default function EmployeeDetailsDialog({
             }}
           />
           <TextField
+            value={intToMoney(rowData.loan)}
+            margin="dense"
+            id="loan"
+            label="Valor Emprestado:"
+            type="text"
+            variant="standard"
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
             value={rowData.address || "n/a"}
             margin="dense"
             id="address"
