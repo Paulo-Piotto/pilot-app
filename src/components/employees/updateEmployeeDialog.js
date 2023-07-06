@@ -52,7 +52,6 @@ export default function UpdateEmployeeDialog({
     });
 
     if (errorObject) {
-      console.log(errorObject);
       setNameError(errorObject.name.error);
       setNameHelper(errorObject.name.helper);
       setDateHelper(errorObject.startDate.helper);
@@ -78,7 +77,7 @@ export default function UpdateEmployeeDialog({
           setSnackbarType('success');
           setSnackbarMessage('Funcionário Atualizado com sucesso');
           handleCloseDialog();
-          EmployeesService.getAllEmployees().then((resp) => {
+          EmployeesService.getEmployees().then((resp) => {
             setEmployees(resp.data);
           });
         })

@@ -79,6 +79,12 @@ export default function EmployeeItem({
         openDialog={openDetails}
         handleCloseDialog={() => setOpenDetails(false)}
         rowData={rowData}
+        setSnackbar={setSnackbar}
+        setSnackbarMessage={setSnackbarMessage}
+        setSnackbarType={setSnackbarType}
+        setEmployees={setItems}
+        setAbsolute={setAbsolute}
+        setLoading={setLoading}
       />
       <UpdateEmployeeDialog
         openDialog={openUpdate}

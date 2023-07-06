@@ -26,7 +26,7 @@ export default function FilterLunchboxesDialog({openDialog, handleCloseDialog, s
 
     useEffect(() => {
         setLoading(true);
-        EmployeesService.getAllEmployees()
+        EmployeesService.getEmployees()
         .then((resp) => {
           setEmployees(resp.data)
           setLoading(false);

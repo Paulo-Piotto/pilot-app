@@ -28,7 +28,8 @@ export default function ClientDetailsDialog({
   setClients,
   setTotal,
 }) {
-  const [checked, setChecked] = useState(rowData.isArchived);
+  const isArchived = rowData.isArchived;
+  const [checked, setChecked] = useState(isArchived);
   const [openArchive, setOpenArchive] = useState(false);
   const { userData } = useContext(AuthContext);
 

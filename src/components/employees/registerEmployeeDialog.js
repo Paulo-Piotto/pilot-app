@@ -68,7 +68,6 @@ export default function RegisterEmployeeDialog({
         author: userData.name,
       })
         .then((resp) => {
-          console.log(resp.data)
           setSnackbar(true);
           setSnackbarType('success');
           setSnackbarMessage('Funcionário Registrado com sucesso');
@@ -82,7 +81,7 @@ export default function RegisterEmployeeDialog({
           setPix("");
           setAddress("");
           setObs("");
-          EmployeesService.getAllEmployees().then((resp) => {
+          EmployeesService.getEmployees().then((resp) => {
             setEmployees(resp.data);
             setAbsoluteEmployees(resp.data.length);
           });
