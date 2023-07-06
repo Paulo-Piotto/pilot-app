@@ -71,7 +71,8 @@ export default function FilterPaymentsDialog({
             );
             handleCloseDialog();
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log(err)
             setLoading(false);
             setSnackbar(true);
             setSnackbarType("error");

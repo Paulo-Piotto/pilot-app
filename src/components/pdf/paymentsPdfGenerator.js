@@ -1,7 +1,7 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import {intToMoney} from "../../services/utils/format";
-import { sumTotal } from "../../services/utils/sumTotal";
+import { sumTotal, sumTotalPayments, sumTotalPreWage, sumTotalRealPayment } from "../../services/utils/sumTotal";
 import dayjs from "dayjs";
 
 export default function paymentsPdfGenerator(employees, workingDays) {
@@ -25,6 +25,10 @@ export default function paymentsPdfGenerator(employees, workingDays) {
       { text: `R$${intToMoney(realPayment)}`, fontSize: 7, margin: [0, 2, 0, 2] },
     ];
   });
+
+  const total = sumTotalPayments(employees, workingDays).toFixed(0);
+  const preWageTotal = sumTotalPreWage(employees);
+  const realPaymentTotal = sumTotalRealPayment(employees, workingDays);
 
   const pdfHeader = [
     {
@@ -55,6 +59,26 @@ export default function paymentsPdfGenerator(employees, workingDays) {
       },
       layout: "lightHorizontalLines",
     },
+    {
+      table: {
+        headerRows: 1,
+        widths: ["*", "*", "*"],
+        body: [
+          [
+            { text: "Vale Total", style: "tableHeader", fontSize: 12, bold: true },
+            { text: "Total Bruto", style: "tableHeader", fontSize: 12, bold: true },
+            { text: "Total Líquido", style: "tableHeader", fontSize: 12, bold: true },
+          ],
+          [
+            { text: `R$ ${intToMoney(preWageTotal)}`, fontSize: 11, margin: [0, 2, 0, 2] },
+            { text: `R$ ${intToMoney(total)}`, fontSize: 11, margin: [0, 2, 0, 2] },
+            { text: `R$ ${intToMoney(realPaymentTotal)}`, fontSize: 11, margin: [0, 2, 0, 2] },
+          ]
+        ],
+      },
+      layout: "lightHorizontalLines",
+      margin: [0, 50, 0, 0]
+    }
   ];
   function pdfFooter(currentPage, pageCount) {
     return [
