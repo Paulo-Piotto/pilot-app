@@ -50,7 +50,7 @@ export default function UpdateLunchboxDialog({
   const filterString = `from=${todayMinus30}&to=${today}`;
 
   useEffect(() => {
-    EmployeesService.getAllEmployees()
+    EmployeesService.getEmployees()
       .then((resp) => {
         setEmployees(resp.data)
       })

@@ -1,21 +1,28 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Checkbox,
+  DialogContentText,
+} from '@mui/material';
 import { EmployeesService } from '../../services/api.services';
 import RegisterSnackbar from '../generics/registerSnackbar';
+import styled from 'styled-components';
 
 export default function SearchEmployeeDialog({openDialog, handleCloseDialog, setEmployees}){
 
     const [name, setName] = useState('');
     const [snackbar, setSnackbar] = useState(false)
+    const [includeArchived, setIncludeArchived] = useState(false);
 
    function handleSubmit(e){
     e.preventDefault();
-    EmployeesService.searchEmployeeByName(name)
+    const filterString = `${includeArchived ? `includeArchived=${includeArchived}` : ''}${name ? `&name=${name}` : ''}`
+    EmployeesService.getEmployees(filterString)
             .then((resp) => {
                 setEmployees(resp.data);
                 handleCloseDialog();
@@ -23,7 +30,7 @@ export default function SearchEmployeeDialog({openDialog, handleCloseDialog, set
             })
             .catch(() => {
                 setSnackbar(true)
-                EmployeesService.getAllEmployees()
+                EmployeesService.getEmployees()
                     .then((resp) => {
                         setEmployees(resp.data)
                     })
@@ -47,7 +54,17 @@ export default function SearchEmployeeDialog({openDialog, handleCloseDialog, set
             fullWidth
             variant="standard"
             onChange={(e) => setName(e.target.value)}
-          />          
+          />   
+          <DialogContentText sx={{ fontSize: 18, mt: 3 }}>
+              <ArchiveContainer>
+                <Checkbox
+                  checked={includeArchived}
+                  onChange={(e) => setIncludeArchived(e.target.checked)}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+                <p>Incluir Arquivados </p>
+              </ArchiveContainer>
+            </DialogContentText>       
         </DialogContent>
         <DialogActions>
           <Button  onClick={handleCloseDialog}>Cancelar</Button>
@@ -59,3 +76,8 @@ export default function SearchEmployeeDialog({openDialog, handleCloseDialog, set
       </>
     );
 }
+
+const ArchiveContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;

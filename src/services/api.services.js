@@ -4,7 +4,7 @@ import Config from "../pilot-app.config";
 const { serverBaseURL: URL } = Config;
 
 const EmployeesService = {
-  getAllEmployees: () => axios.get(`${URL}/employees`),
+  getEmployees: (filterString) => axios.get(`${URL}/employees?${filterString ?? ""}`),
   deleteEmployee: (id) => axios.delete(`${URL}/employees?id=${id}`),
   registerEmployee: (newEmployee) =>
     axios.post(`${URL}/employees`, newEmployee),

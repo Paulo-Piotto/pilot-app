@@ -27,7 +27,7 @@ export default function EmployeesPage() {
 
   function clearFilters() {
     setLoading(true);
-    EmployeesService.getAllEmployees()
+    EmployeesService.getEmployees()
       .then((resp) => {
         setEmployees(resp.data);
         setAbsoluteEmployees(resp.data.length);
