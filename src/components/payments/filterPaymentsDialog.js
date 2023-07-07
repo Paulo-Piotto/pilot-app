@@ -18,7 +18,7 @@ import {
   floorDateHour,
   ceilDateHour,
   lastDayTarget,
-  penultDayTarget,
+  nextDayTarget,
 } from "../../services/utils/dateServices";
 import AuthContext from "../context/AuthContext";
 
@@ -33,8 +33,8 @@ export default function FilterPaymentsDialog({
   setSnackbarType,
   setSnackbarMessage,
 }) {
-  const [from, setFrom] = useState(dayjs(penultDayTarget(21)));
-  const [to, setTo] = useState(dayjs(lastDayTarget(20)));
+  const [from, setFrom] = useState(dayjs(lastDayTarget(21)));
+  const [to, setTo] = useState(dayjs(nextDayTarget(20)));
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState("Todas");
   const [employeeName, setEmployeeName] = useState("");

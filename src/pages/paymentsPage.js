@@ -18,7 +18,7 @@ import {intToMoney} from "../services/utils/format";
 import { sumTotalPayments } from "../services/utils/sumTotal";
 import { PaymentsService } from "../services/api.services";
 import AuthContext from "../components/context/AuthContext";
-import { lastDayTarget, penultDayTarget } from "../services/utils/dateServices";
+import { lastDayTarget, nextDayTarget } from "../services/utils/dateServices";
 import paymentsPdfGenerator from "../components/pdf/paymentsPdfGenerator";
 
 export default function PaymentsPage() {
@@ -35,8 +35,8 @@ export default function PaymentsPage() {
   function clearFilters() {
     setLoading(true);
     PaymentsService.getEmployeesWorkedDays(
-      `from=${dayjs(penultDayTarget(21)).toISOString()}&to=${dayjs(
-        lastDayTarget(20)
+      `from=${dayjs(lastDayTarget(21)).toISOString()}&to=${dayjs(
+        nextDayTarget(20)
       ).toISOString()}`,
       userData.token
     )
@@ -45,8 +45,8 @@ export default function PaymentsPage() {
         const employeesArray = resp.data;
 
         PaymentsService.getPeriodWorkingDays(
-          `from=${dayjs(penultDayTarget(21)).toISOString()}&to=${dayjs(
-            lastDayTarget(20)
+          `from=${dayjs(lastDayTarget(21)).toISOString()}&to=${dayjs(
+            nextDayTarget(20)
           ).toISOString()}`,
           userData.token
         )
