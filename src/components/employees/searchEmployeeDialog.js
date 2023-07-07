@@ -18,10 +18,11 @@ export default function SearchEmployeeDialog({openDialog, handleCloseDialog, set
     const [name, setName] = useState('');
     const [snackbar, setSnackbar] = useState(false)
     const [includeArchived, setIncludeArchived] = useState(false);
+    const [onlyArchived, setOnlyArchived] = useState(false);
 
    function handleSubmit(e){
     e.preventDefault();
-    const filterString = `${includeArchived ? `includeArchived=${includeArchived}` : ''}${name ? `&name=${name}` : ''}`
+    const filterString = `${includeArchived ? `includeArchived=${includeArchived}` : ''}${name ? `&name=${name}` : ''}${onlyArchived ? `&onlyArchived=${onlyArchived}` : ''}`
     EmployeesService.getEmployees(filterString)
             .then((resp) => {
                 setEmployees(resp.data);
@@ -59,10 +60,32 @@ export default function SearchEmployeeDialog({openDialog, handleCloseDialog, set
               <ArchiveContainer>
                 <Checkbox
                   checked={includeArchived}
-                  onChange={(e) => setIncludeArchived(e.target.checked)}
+                  onChange={(e) => {
+                    if(e.target.checked){
+                      setIncludeArchived(e.target.checked);
+                      setOnlyArchived(!e.target.checked);
+                    }else{
+                      setIncludeArchived(e.target.checked);
+                    }
+                  }}
                   inputProps={{ "aria-label": "controlled" }}
                 />
                 <p>Incluir Arquivados </p>
+              </ArchiveContainer>
+              <ArchiveContainer>
+                <Checkbox
+                  checked={onlyArchived}
+                  onChange={(e) => {
+                    if(e.target.checked){
+                      setIncludeArchived(!e.target.checked);
+                      setOnlyArchived(e.target.checked);
+                    }else{
+                      setOnlyArchived(e.target.checked);
+                    }
+                  }}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+                <p>Apenas Arquivados </p>
               </ArchiveContainer>
             </DialogContentText>       
         </DialogContent>

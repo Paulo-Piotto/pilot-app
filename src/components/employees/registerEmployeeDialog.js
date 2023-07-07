@@ -31,7 +31,6 @@ export default function RegisterEmployeeDialog({
   const [contact, setContact] = useState("");
   const [document, setDocument] = useState("");
   const [pix, setPix] = useState("");
-  const [loanValue, setLoanValue] = useState("");
   const [address, setAddress] = useState("");
   const [obs, setObs] = useState("");
   const [nameHelper, setNameHelper] = useState("");
@@ -53,7 +52,6 @@ export default function RegisterEmployeeDialog({
       setDateHelper(errorObject.startDate.helper);
     } else {
       const wage = Number(wageValue.replace(",", ".") * 100);
-      const loan = Number(loanValue.replace(",",".") * 100);
       EmployeesService.registerEmployee({
         name,
         fullname,
@@ -62,7 +60,6 @@ export default function RegisterEmployeeDialog({
         contact,
         document,
         pix,
-        loan,
         obs,
         address,
         author: userData.name,
@@ -162,18 +159,7 @@ export default function RegisterEmployeeDialog({
             fullWidth
             variant="standard"
             onChange={(e) => setPix(e.target.value)}
-          />
-          <MoneyLabel>Valor Emprestado:</MoneyLabel> 
-          <MoneyInput
-            id="loan-input"
-            name="loan-name"
-            placeholder="0,00"
-            au="off"
-            value={loanValue}
-            intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-            decimalScale={2}
-            onValueChange={(value) => setLoanValue(value)}
-          />
+          />          
           <TextField
             value={address}
             margin="dense"
