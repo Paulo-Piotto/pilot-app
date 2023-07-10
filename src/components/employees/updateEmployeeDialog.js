@@ -24,6 +24,7 @@ export default function UpdateEmployeeDialog({
   setSnackbarMessage,
   setSnackbarType,
 }) {
+  console.log(rowData.loan)
   const [name, setName] = useState(rowData.name || "");
   const [fullname, setFullname] = useState(rowData.fullname || "");
   const [wageValue, setWageValue] = useState(
@@ -35,7 +36,7 @@ export default function UpdateEmployeeDialog({
   const [contact, setContact] = useState(rowData.contact || "");
   const [document, setDocument] = useState(rowData.document || "");
   const [pix, setPix] = useState(rowData.pix || "");
-  const [loanValue, setLoanValue] = useState(rowData.loan || "");
+  const [loanValue, setLoanValue] = useState((rowData.loan / 100).toString() || "");
   const [address, setAddress] = useState(rowData.address || "");
   const [obs, setObs] = useState(rowData.obs || "");
   const [nameHelper, setNameHelper] = useState("");
