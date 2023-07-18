@@ -22,9 +22,13 @@ import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import applyDiscount from "../../services/utils/applyDiscount";
 import { sumTotal } from "../../services/utils/sumTotal";
-import {intToMoney} from "../../services/utils/format";
+import { intToMoney } from "../../services/utils/format";
 import GenericSnackbar from "../generics/genericSnackbar";
 import AuthContext from "../context/AuthContext";
+import {
+  lastDayTarget,
+  floorDateHour,
+} from "../../services/utils/dateServices";
 
 export default function AddOrderDialog({
   openDialog,
@@ -124,8 +128,13 @@ export default function AddOrderDialog({
         author: userData.name,
       })
         .then(() => {
-          const todayMinus30 = Date.now() - 86400000 * 30;
-          const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0};
+          const dayOne = floorDateHour(lastDayTarget(1));
+          const searchSettings = {
+            initialDate: dayOne,
+            endDate: dayjs(Date.now()).toISOString(),
+            store: 0,
+            client: 0,
+          };
           OrdersService.filterOrders(searchSettings)
             .then((resp) => {
               setLoading(false);

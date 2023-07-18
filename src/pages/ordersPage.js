@@ -14,11 +14,12 @@ import { sumTotal } from "../services/utils/sumTotal";
 import SearchOrdersDialog from "../components/orders/searchOrdersDialog";
 import AddOrderDialog from "../components/orders/addOrderDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
-import {intToMoney} from "../services/utils/format";
+import { intToMoney } from "../services/utils/format";
 import { Container } from "../components/generics/inProgress";
 import { Clear, Loading, PrintButton } from "../styles/generalStyles";
 import pdfGenerator from "../components/pdf/pdfGenerator";
 import dayjs from "dayjs";
+import { lastDayTarget, floorDateHour } from "../services/utils/dateServices";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -31,11 +32,15 @@ export default function OrdersPage() {
     "Item deletado com sucesso"
   );
   const [loading, setLoading] = useState(true);
-  
+  const dayOne = lastDayTarget(1);
 
   useEffect(() => {
-    const todayMinus30 = Date.now() - 86400000 * 30;
-  const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0}
+    const searchSettings = {
+      initialDate: floorDateHour(lastDayTarget(1)),
+      endDate: dayjs(Date.now()).toISOString(),
+      store: 0,
+      client: 0,
+    };
     OrdersService.filterOrders(searchSettings)
       .then((resp) => {
         setOrders(resp.data);
@@ -56,8 +61,12 @@ export default function OrdersPage() {
   }
 
   function clearFilters() {
-    const todayMinus30 = Date.now() - 86400000 * 30;
-    const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0}
+    const searchSettings = {
+      initialDate: floorDateHour(dayOne),
+      endDate: dayjs(Date.now()).toISOString(),
+      store: 0,
+      client: 0,
+    };
     setLoading(true);
     OrdersService.filterOrders(searchSettings)
       .then((resp) => {

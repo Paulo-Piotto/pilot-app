@@ -1,5 +1,9 @@
 function floorDateHour(date) {
-  const stringDate = date.toISOString();
+  let stringDate = date;
+  if (typeof stringDate !== "string") {
+    stringDate = date.toISOString();
+  }
+
   const arrayDate = stringDate.split("");
   arrayDate.splice(
     11,
@@ -109,7 +113,7 @@ function penultDayTarget(target) {
   return result.toDateString();
 }
 
-function nextDayTarget(target){
+function nextDayTarget(target) {
   const today = new Date(Date.now());
   const day = today.getDate();
   const month = today.getMonth();
