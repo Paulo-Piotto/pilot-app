@@ -24,7 +24,6 @@ export default function UpdateEmployeeDialog({
   setSnackbarMessage,
   setSnackbarType,
 }) {
-  console.log(rowData.loan)
   const [name, setName] = useState(rowData.name || "");
   const [fullname, setFullname] = useState(rowData.fullname || "");
   const [wageValue, setWageValue] = useState(
@@ -36,7 +35,9 @@ export default function UpdateEmployeeDialog({
   const [contact, setContact] = useState(rowData.contact || "");
   const [document, setDocument] = useState(rowData.document || "");
   const [pix, setPix] = useState(rowData.pix || "");
-  const [loanValue, setLoanValue] = useState((rowData.loan / 100).toString() || "");
+  const [loanValue, setLoanValue] = useState(
+    (rowData.loan / 100).toString() || ""
+  );
   const [address, setAddress] = useState(rowData.address || "");
   const [obs, setObs] = useState(rowData.obs || "");
   const [nameHelper, setNameHelper] = useState("");
@@ -58,7 +59,7 @@ export default function UpdateEmployeeDialog({
       setDateHelper(errorObject.startDate.helper);
     } else {
       const wage = Number(wageValue.replace(",", ".") * 100);
-      const loan = Number(loanValue.replace(",",".") * 100)
+      const loan = Number(loanValue.replace(",", ".") * 100);
       EmployeesService.updateEmployee({
         name,
         fullname,
@@ -75,8 +76,8 @@ export default function UpdateEmployeeDialog({
       })
         .then(() => {
           setSnackbar(true);
-          setSnackbarType('success');
-          setSnackbarMessage('Funcionário Atualizado com sucesso');
+          setSnackbarType("success");
+          setSnackbarMessage("Funcionário Atualizado com sucesso");
           handleCloseDialog();
           EmployeesService.getEmployees().then((resp) => {
             setEmployees(resp.data);
@@ -84,8 +85,8 @@ export default function UpdateEmployeeDialog({
         })
         .catch(() => {
           setSnackbar(true);
-          setSnackbarType('error');
-          setSnackbarMessage('Algo deu errado ao atualizar o funcionário');
+          setSnackbarType("error");
+          setSnackbarMessage("Algo deu errado ao atualizar o funcionário");
         });
     }
   }

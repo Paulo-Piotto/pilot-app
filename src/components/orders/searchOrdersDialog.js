@@ -18,7 +18,7 @@ import {
   ClientsService,
 } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
-import {intToMoney} from "../../services/utils/format";
+import { intToMoney } from "../../services/utils/format";
 import { floorDateHour, ceilDateHour } from "../../services/utils/dateServices";
 
 export default function SearchOrdersDialog({
@@ -28,10 +28,11 @@ export default function SearchOrdersDialog({
   setTotal,
   setLoading,
 }) {
-  const todayMinus30 = Date.now() - 86400000 * 30;
+  const todayDate = new Date(Date.now()).getDate();
+  const dayOne = Date.now() - 86400000 * (todayDate - 1);
 
   const [snackbar, setSnackbar] = useState(false);
-  const [initialDate, setInitialDate] = useState(dayjs(todayMinus30));
+  const [initialDate, setInitialDate] = useState(dayjs(dayOne));
   const [endDate, setEndDate] = useState(dayjs(Date.now()));
   const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(0);

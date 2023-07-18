@@ -4,11 +4,14 @@ import dayjs from "dayjs";
 import DeleteDialog from "../generics/deleteDialog";
 import { OrdersService } from "../../services/api.services";
 import { sumTotal } from "../../services/utils/sumTotal";
-import {intToMoney} from "../../services/utils/format";
+import { intToMoney } from "../../services/utils/format";
 import DropMenu from "../generics/dropMenu";
 import OrderDetailsDialog from "./OrderDetailsDialog";
 import EditOrderDialog from "./editOrderDialog";
-
+import {
+  lastDayTarget,
+  floorDateHour,
+} from "../../services/utils/dateServices";
 export default function OrderItem({
   rowData,
   setTotal,
@@ -28,7 +31,14 @@ export default function OrderItem({
     setLoading(true);
     OrdersService.deleteOrder(rowData.id)
       .then(() => {
-        OrdersService.getAllOrders()
+        const dayOne = floorDateHour(lastDayTarget(1));
+        const searchSettings = {
+          initialDate: dayOne,
+          endDate: dayjs(Date.now()).toISOString(),
+          store: 0,
+          client: 0,
+        };
+        OrdersService.filterOrders(searchSettings)
           .then((resp) => {
             setOrders(resp.data);
             setTotal(intToMoney(sumTotal(resp.data)));

@@ -21,11 +21,15 @@ import {
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import applyDiscount from "../../services/utils/applyDiscount";
 import { sumTotal } from "../../services/utils/sumTotal";
-import {intToTwoDecimals, intToMoney} from "../../services/utils/format";
+import { intToTwoDecimals, intToMoney } from "../../services/utils/format";
 import GenericSnackbar from "../generics/genericSnackbar";
 import AuthContext from "../context/AuthContext";
 import findPaymentMethod from "../../services/utils/findPaymentMethod";
 import dayjs from "dayjs";
+import {
+  lastDayTarget,
+  floorDateHour,
+} from "../../services/utils/dateServices";
 
 export default function EditOrderDialog({
   openDialog,
@@ -138,8 +142,13 @@ export default function EditOrderDialog({
         author: userData.name,
       })
         .then(() => {
-          const todayMinus30 = Date.now() - 86400000 * 30;
-          const searchSettings = {initialDate: dayjs(todayMinus30).toISOString(), endDate: dayjs(Date.now()).toISOString(), store: 0, client: 0};
+          const dayOne = floorDateHour(lastDayTarget(1));
+          const searchSettings = {
+            initialDate: dayOne,
+            endDate: dayjs(Date.now()).toISOString(),
+            store: 0,
+            client: 0,
+          };
           OrdersService.filterOrders(searchSettings)
             .then((resp) => {
               setLoading(false);
