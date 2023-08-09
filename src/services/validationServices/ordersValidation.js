@@ -20,7 +20,7 @@ function ordersValidation(orderData) {
   } else {
     const value = Number(orderData.valueFinanced.replace(",", "."));
 
-    if (value <= 0) {
+    if (!value) {
       errorObject.valueFinanced = true;
     }
   }
@@ -34,7 +34,7 @@ function ordersValidation(orderData) {
   } else {
     if (
       !orderData.valueNegotiated ||
-      Number(orderData.valueNegotiated.replace(",", ".")) <= 0
+      !Number(orderData.valueNegotiated.replace(",", "."))
     ) {
       errorObject.valueNegotiated = true;
     } else {
