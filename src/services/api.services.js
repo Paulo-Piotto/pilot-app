@@ -4,7 +4,8 @@ import Config from "../pilot-app.config";
 const { serverBaseURL: URL } = Config;
 
 const EmployeesService = {
-  getEmployees: (filterString) => axios.get(`${URL}/employees?${filterString ?? ""}`),
+  getEmployees: (filterString) =>
+    axios.get(`${URL}/employees?${filterString ?? ""}`),
   deleteEmployee: (id) => axios.delete(`${URL}/employees?id=${id}`),
   registerEmployee: (newEmployee) =>
     axios.post(`${URL}/employees`, newEmployee),
@@ -39,7 +40,7 @@ const OrdersService = {
   getAllOrders: () => axios.get(`${URL}/orders`),
   filterOrders: (searchSettings) =>
     axios.get(
-      `${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&store=${searchSettings.store}&client=${searchSettings.client}`
+      `${URL}/orders?initialDate=${searchSettings.initialDate}&endDate=${searchSettings.endDate}&store=${searchSettings.store}&client=${searchSettings.client}&order=${searchSettings.order}`
     ),
   addOrder: (orderData) => axios.post(`${URL}/orders`, orderData),
   updateOrder: (orderData) => axios.put(`${URL}/orders`, orderData),
@@ -136,24 +137,24 @@ const FoodControlService = {
         Authorization: `Bearer ${token}`,
       },
     }),
-  deleteFoodOrder: (deleteSettings, token) => 
-  axios.delete(`${URL}/employeesFood?${deleteSettings ?? ""}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }),
-  createFoodOrder: (foodOrder, token) => 
-  axios.post(`${URL}/employeesFood`, foodOrder, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }),
-  updateFoodOrder: (foodOrder, token) => 
-  axios.put(`${URL}/employeesFood`, foodOrder, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }),
+  deleteFoodOrder: (deleteSettings, token) =>
+    axios.delete(`${URL}/employeesFood?${deleteSettings ?? ""}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  createFoodOrder: (foodOrder, token) =>
+    axios.post(`${URL}/employeesFood`, foodOrder, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  updateFoodOrder: (foodOrder, token) =>
+    axios.put(`${URL}/employeesFood`, foodOrder, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };
 
 export {

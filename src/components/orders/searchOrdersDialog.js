@@ -38,6 +38,7 @@ export default function SearchOrdersDialog({
   const [selectedStore, setSelectedStore] = useState(0);
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(0);
+  const [order, setOrder] = useState("");
 
   useEffect(() => {
     StoresService.getAllStores().then((resp) => {
@@ -59,6 +60,7 @@ export default function SearchOrdersDialog({
       endDate: ceilDateHour(endDate),
       store: selectedStore,
       client: selectedClient,
+      order,
     };
 
     OrdersService.filterOrders(searchSettings)
@@ -66,6 +68,7 @@ export default function SearchOrdersDialog({
         setLoading(false);
         setOrders(resp.data);
         setTotal(intToMoney(sumTotal(resp.data)));
+        setOrder("");
         handleCloseDialog();
       })
       .catch(() => {
@@ -158,6 +161,18 @@ export default function SearchOrdersDialog({
                 </MenuItem>
               ))}
             </TextField>
+            <TextField
+              value={order}
+              margin="dense"
+              id="order"
+              label="Pedido"
+              type="text"
+              fullWidth
+              autoComplete="off"
+              variant="outlined"
+              onChange={(e) => setOrder(e.target.value.toUpperCase())}
+              inputProps={{ style: { fontSize: 18 } }}
+            />
           </DialogContent>
           <DialogActions sx={{ mb: 2, mr: 2 }}>
             <Button onClick={handleCloseDialog}>Cancelar</Button>
