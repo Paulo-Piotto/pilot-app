@@ -3,6 +3,7 @@ import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
 import { CircularProgress } from "@material-ui/core";
 import PrintIcon from "@mui/icons-material/Print";
+import { Delete } from "@mui/icons-material";
 import {
   TableContainer,
   TableHeader,
@@ -16,10 +17,16 @@ import AddOrderDialog from "../components/orders/addOrderDialog";
 import GenericSnackbar from "../components/generics/genericSnackbar";
 import { intToMoney } from "../services/utils/format";
 import { Container } from "../components/generics/inProgress";
-import { Clear, Loading, PrintButton } from "../styles/generalStyles";
+import {
+  Clear,
+  Loading,
+  PrintButton,
+  TrashButton,
+} from "../styles/generalStyles";
 import pdfGenerator from "../components/pdf/pdfGenerator";
 import dayjs from "dayjs";
 import { lastDayTarget, floorDateHour } from "../services/utils/dateServices";
+import { deleteMany } from "../services/utils/deleteMany";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -82,6 +89,17 @@ export default function OrdersPage() {
       });
   }
 
+  async function handleMassDelete() {
+    const confirm = window.confirm(
+      `Você tem certeza que deseja excluir ${orders.length} itens?`
+    );
+    if (confirm) {
+      const result = await deleteMany(orders);
+      if (!result) setSnackbar(true);
+      clearFilters();
+    }
+  }
+
   return (
     <>
       <Clear onClick={clearFilters}>Limpar filtros</Clear>
@@ -139,6 +157,9 @@ export default function OrdersPage() {
                   <p>Valor</p>
                   <p>Data</p>
                   <p></p>
+                  <TrashButton onClick={handleMassDelete}>
+                    <Delete sx={{ color: "#EAEAEA" }} />
+                  </TrashButton>
                   <PrintButton onClick={() => pdfGenerator(orders)}>
                     <PrintIcon sx={{ color: "#EAEAEA" }} />
                   </PrintButton>
