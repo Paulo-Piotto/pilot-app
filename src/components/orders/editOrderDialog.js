@@ -60,6 +60,7 @@ export default function EditOrderDialog({
       negotiated: rowData.value_negotiated,
     })
   );
+  const [obs, setObs] = useState(rowData.obs || "");
   const [clients, setClients] = useState([]);
   const [stores, setStores] = useState([]);
   const [clientError, setClientError] = useState(false);
@@ -139,6 +140,7 @@ export default function EditOrderDialog({
         cash: parseInt(Number(valueCash.replace(",", ".")) * 100),
         negotiated: negotiatedValue,
         date,
+        obs,
         author: userData.name,
       })
         .then(() => {
@@ -310,6 +312,24 @@ export default function EditOrderDialog({
               />
             </DateWrapper>
           </LocalizationProvider>
+          <TextField
+            sx={{ mt: 3 }}
+            value={obs}
+            margin="dense"
+            id="obs"
+            label="Observações: (opcional)"
+            type="text"
+            multiline
+            rows={3}
+            fullWidth
+            variant="outlined"
+            onChange={(e) => setObs(e.target.value)}
+            InputProps={{
+              sx: {
+                fontSize: 16,
+              },
+            }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancelar</Button>
