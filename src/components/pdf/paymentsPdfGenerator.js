@@ -21,9 +21,10 @@ export default function paymentsPdfGenerator(employees, workingDays) {
     ).toFixed(0);
     const foodTotal = sumTotal(employee.employees_food);
     const realPayment = (fullPayment - preWage - foodTotal).toFixed(0);
+    const warning = employee.obs.includes("!") ? "! " : "";
 
     return [
-      { text: employee.name, fontSize: 7, margin: [0, 2, 0, 2] },
+      { text: `${warning}${employee.name}`, fontSize: 7, margin: [0, 2, 0, 2] },
       {
         text: `R$${intToMoney(employee.wage)}`,
         fontSize: 7,

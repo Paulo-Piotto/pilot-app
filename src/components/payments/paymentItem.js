@@ -16,11 +16,15 @@ export default function PaymentItem({ rowData, workingDays }) {
     (workingDays - employeeWorkedDays) * (rowData.wage * 0.05)
   ).toFixed(0);
   const realPayment = (fullPayment - preWage - foodTotal).toFixed(0);
+  const warning = rowData.obs.includes("!") ? "! " : "";
 
   return (
     <>
       <TableRow>
-        <RowCell>{rowData.name}</RowCell>
+        <RowCell>
+          {warning}
+          {rowData.name}
+        </RowCell>
         <RowCell>R${intToMoney(baseWage)}</RowCell>
         <RowCell>R${intToMoney(preWage)}</RowCell>
         <RowCell>{`${employeeWorkedDays}/${workingDays}`}</RowCell>
