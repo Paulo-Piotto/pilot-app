@@ -25,9 +25,9 @@ export default function LunchboxItem({
   const { userData } = useContext(AuthContext);
 
   function handleDelete() {
-    const deleteSettings = `id=${rowData.id}`
+    const deleteSettings = `id=${rowData.id}`;
     const today = ceilDateHour(new Date(Date.now()));
-    const todayMinus30 = floorDateHour(new Date(Date.now() - 86400000 * 30)); ;
+    const todayMinus30 = floorDateHour(new Date(Date.now() - 86400000 * 30));
     const filterString = `from=${todayMinus30}&to=${today}`;
     setLoading(true);
     deleteFoodOrder(deleteSettings, userData.token)
@@ -74,15 +74,16 @@ export default function LunchboxItem({
             details={false}
             edit={true}
             deletion={true}
+            author={rowData.author}
           />
         </RowCell>
       </TableRow>
-       <DeleteDialog
+      <DeleteDialog
         openDialog={openDelete}
         handleCloseDialog={() => setOpenDelete(false)}
         handleSubmit={handleDelete}
       />
-      
+
       <UpdateLunchboxDialog
         openDialog={openUpdate}
         handleCloseDialog={() => setOpenUpdate(false)}
