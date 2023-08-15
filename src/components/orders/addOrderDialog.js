@@ -45,6 +45,7 @@ export default function AddOrderDialog({
   const [valueCash, setValueCash] = useState("0,00");
   const [valueNegotiated, setValueNegotiated] = useState("");
   const [paymentMethod, setPaymentMethod] = useState(1);
+  const [obs, setObs] = useState("");
   const [clients, setClients] = useState([]);
   const [stores, setStores] = useState([]);
   const [nameError, setNameError] = useState(false);
@@ -125,6 +126,7 @@ export default function AddOrderDialog({
         cash: parseInt(Number(valueCash.replace(",", ".")) * 100),
         negotiated: negotiatedValue,
         date,
+        obs,
         author: userData.name,
       })
         .then(() => {
@@ -165,6 +167,7 @@ export default function AddOrderDialog({
       setValueCash("0,00");
       setValueNegotiated("");
       setPaymentMethod(1);
+      setObs("");
     } else setLoading(false);
   }
 
@@ -310,6 +313,24 @@ export default function AddOrderDialog({
               />
             </DateWrapper>
           </LocalizationProvider>
+          <TextField
+            sx={{ mt: 3 }}
+            value={obs}
+            margin="dense"
+            id="obs"
+            label="Observações: (opcional)"
+            type="text"
+            multiline
+            rows={3}
+            fullWidth
+            variant="outlined"
+            onChange={(e) => setObs(e.target.value)}
+            InputProps={{
+              sx: {
+                fontSize: 16,
+              },
+            }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancelar</Button>
