@@ -45,6 +45,8 @@ const OrdersService = {
   addOrder: (orderData) => axios.post(`${URL}/orders`, orderData),
   updateOrder: (orderData) => axios.put(`${URL}/orders`, orderData),
   deleteOrder: (id) => axios.delete(`${URL}/orders?id=${id}`),
+  deleteMany: (deleteSettings) =>
+    axios.delete(`${URL}/orders/many`, { data: { deleteSettings } }),
 };
 
 const AuthService = {

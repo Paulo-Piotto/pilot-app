@@ -124,6 +124,10 @@ const PrintButton = styled.div`
   }
 `;
 
+const TrashButton = styled(PrintButton)`
+  right: 7%;
+`;
+
 export {
   Background,
   Header,
@@ -136,4 +140,5 @@ export {
   Clear,
   Loading,
   PrintButton,
+  TrashButton,
 };
