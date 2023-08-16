@@ -27,12 +27,14 @@ import pdfGenerator from "../components/pdf/pdfGenerator";
 import dayjs from "dayjs";
 import { lastDayTarget, floorDateHour } from "../services/utils/dateServices";
 import { deleteMany } from "../services/utils/deleteMany";
+import DeleteDialog from "../components/generics/deleteDialog";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState("0,00");
   const [openSearch, setOpenSearch] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [snackbar, setSnackbar] = useState(false);
   const [snackbarType, setSnackbarType] = useState("success");
   const [snackbarMessage, setSnackbarMessage] = useState(
@@ -65,6 +67,7 @@ export default function OrdersPage() {
   function handleCloseDialog() {
     setOpenSearch(false);
     setOpenAdd(false);
+    setOpenDelete(false);
   }
 
   function clearFilters() {
@@ -90,14 +93,10 @@ export default function OrdersPage() {
   }
 
   async function handleMassDelete() {
-    const confirm = window.confirm(
-      `Você tem certeza que deseja excluir ${orders.length} itens?`
-    );
-    if (confirm) {
-      const result = await deleteMany(orders);
-      if (!result) setSnackbar(true);
-      clearFilters();
-    }
+    const result = await deleteMany(orders);
+    if (!result) setSnackbar(true);
+    clearFilters();
+    handleCloseDialog();
   }
 
   return (
@@ -140,6 +139,12 @@ export default function OrdersPage() {
         type={snackbarType}
         message={snackbarMessage}
       />
+      <DeleteDialog
+        openDialog={openDelete}
+        handleCloseDialog={handleCloseDialog}
+        handleSubmit={handleMassDelete}
+        amount={orders.length}
+      />
       {loading ? (
         <Loading>
           {" "}
@@ -157,7 +162,7 @@ export default function OrdersPage() {
                   <p>Valor</p>
                   <p>Data</p>
                   <p></p>
-                  <TrashButton onClick={handleMassDelete}>
+                  <TrashButton onClick={() => setOpenDelete(true)}>
                     <Delete sx={{ color: "#EAEAEA" }} />
                   </TrashButton>
                   <PrintButton onClick={() => pdfGenerator(orders)}>
