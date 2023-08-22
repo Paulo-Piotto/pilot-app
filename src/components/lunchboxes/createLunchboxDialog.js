@@ -48,7 +48,7 @@ export default function CreateLunchboxDialog({
   const [valueError, setValueError] = useState(false);
   const { userData } = useContext(AuthContext);
 
-  const values = ["0,00", "16,00", "18,00", "20,00", "0,00"];
+  const values = ["0,00", "14,00", "16,00", "18,00", "0,00"];
   const types = ["none", "Marmita P", "Marmita M", "Marmita G", "Outro"];
   const today = ceilDateHour(new Date(Date.now()));
   const todayMinus30 = floorDateHour(new Date(Date.now() - 86400000 * 30));
