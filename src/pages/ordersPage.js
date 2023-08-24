@@ -101,7 +101,7 @@ export default function OrdersPage() {
 
   return (
     <>
-      <Clear onClick={clearFilters}>Limpar filtros</Clear>
+      <Clear onClick={clearFilters}>Limpar filtros ({orders.length})</Clear>
       <CardsContainer>
         <Card
           contrast={false}
