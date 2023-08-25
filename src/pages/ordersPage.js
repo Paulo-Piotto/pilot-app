@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { CardsContainer } from "../styles/cardStyles";
 import Card from "../components/generics/card";
@@ -25,7 +26,7 @@ import {
 } from "../styles/generalStyles";
 import pdfGenerator from "../components/pdf/pdfGenerator";
 import dayjs from "dayjs";
-import { lastDayTarget, floorDateHour } from "../services/utils/dateServices";
+import { floorDateHour } from "../services/utils/dateServices";
 import { deleteMany } from "../services/utils/deleteMany";
 import DeleteDialog from "../components/generics/deleteDialog";
 
@@ -41,11 +42,11 @@ export default function OrdersPage() {
     "Item deletado com sucesso"
   );
   const [loading, setLoading] = useState(true);
-  const dayOne = lastDayTarget(1);
+  const todayMinus5 = floorDateHour(new Date(Date.now() - 86400000 * 5));
 
   useEffect(() => {
     const searchSettings = {
-      initialDate: floorDateHour(lastDayTarget(1)),
+      initialDate: todayMinus5,
       endDate: dayjs(Date.now()).toISOString(),
       store: 0,
       client: 0,
@@ -72,7 +73,7 @@ export default function OrdersPage() {
 
   function clearFilters() {
     const searchSettings = {
-      initialDate: floorDateHour(dayOne),
+      initialDate: todayMinus5,
       endDate: dayjs(Date.now()).toISOString(),
       store: 0,
       client: 0,
@@ -165,7 +166,7 @@ export default function OrdersPage() {
                   <TrashButton onClick={() => setOpenDelete(true)}>
                     <Delete sx={{ color: "#EAEAEA" }} />
                   </TrashButton>
-                  <PrintButton onClick={() => pdfGenerator(orders)}>
+                  <PrintButton onClick={() => pdfGenerator(orders, total)}>
                     <PrintIcon sx={{ color: "#EAEAEA" }} />
                   </PrintButton>
                 </TableHeader>
