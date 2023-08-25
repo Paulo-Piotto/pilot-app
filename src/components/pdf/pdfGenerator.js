@@ -1,10 +1,13 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import dayjs from "dayjs";
-import {intToMoney} from "../../services/utils/format";
+import { intToMoney } from "../../services/utils/format";
 
-export default function pdfGenerator(items) {
+export default function pdfGenerator(items, total) {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  const trimmedTotal = total.replace(".", "");
+  const liquidTotal =
+    Number(trimmedTotal.replace(",", ".")) * 0.85 * 0.975 * 100;
 
   const data = items.map((item) => {
     return [
@@ -46,6 +49,42 @@ export default function pdfGenerator(items) {
       },
       layout: "lightHorizontalLines",
     },
+    {
+      table: {
+        headerRows: 1,
+        widths: ["*", "*"],
+        body: [
+          [
+            {
+              text: "Total sem descontos:",
+              style: "tableHeader",
+              fontSize: 12,
+              bold: true,
+            },
+            {
+              text: "Total com descontos (15% + 2,5%):",
+              style: "tableHeader",
+              fontSize: 12,
+              bold: true,
+            },
+          ],
+          [
+            {
+              text: `R$ ${total}`,
+              fontSize: 11,
+              margin: [0, 2, 0, 2],
+            },
+            {
+              text: `R$ ${intToMoney(liquidTotal.toFixed(0))}`,
+              fontSize: 11,
+              margin: [0, 2, 0, 2],
+            },
+          ],
+        ],
+      },
+      layout: "lightHorizontalLines",
+      margin: [0, 50, 0, 0],
+    },
   ];
   function pdfFooter(currentPage, pageCount) {
     return [
@@ -66,5 +105,9 @@ export default function pdfGenerator(items) {
     footer: pdfFooter,
   };
 
-  pdfMake.createPdf(docDefinitions).download("pedidos.pdf");
+  const today = Date.now();
+
+  pdfMake
+    .createPdf(docDefinitions)
+    .download(`pedidos-${dayjs(today).format("DD-MM-YY")}.pdf`);
 }
