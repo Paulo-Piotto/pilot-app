@@ -74,9 +74,17 @@ export default function CreateLunchboxDialog({
   function handleSubmit(e) {
     setLoading(true);
     e.preventDefault();
+    let selectedItem = type;
+    if (selectedItem === "Outro") {
+      selectedItem = {
+        name: "Outro",
+        id: 0,
+        value: 0,
+      };
+    }
     const { errorObject, intValue } = foodValidation({
       employee,
-      type,
+      type: selectedItem,
       date,
       value,
     });
@@ -90,6 +98,11 @@ export default function CreateLunchboxDialog({
       setEmployeeError(errorObject.employee);
       setTypeError(errorObject.type);
       setValueError(errorObject.value);
+      setSnackbar(true);
+      setSnackbarType("error");
+      setSnackbarMessage(
+        "Seu pedido precisa de funcionário, item, valor e data válidos"
+      );
       setLoading(false);
     } else {
       FoodControlService.createFoodOrder(
