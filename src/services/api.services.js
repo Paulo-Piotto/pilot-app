@@ -157,6 +157,12 @@ const FoodControlService = {
         Authorization: `Bearer ${token}`,
       },
     }),
+  getMenu: (token) =>
+    axios.get(`${URL}/menu`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };
 
 export {

@@ -11,15 +11,15 @@ function foodValidation(foodData) {
     value: false,
     date: false,
   };
-  const intValue = Number(foodData.value.replace(",", "."))*100;
+  const intValue = Number(foodData.value.replace(",", ".")) * 100;
 
   if (error) {
     const errorType = error.details[0].path[0];
     errorObject[errorType] = true;
   } else if (intValue <= 0) {
-      errorObject.value = true;
+    errorObject.value = true;
   }
-  
+
   return { errorObject, intValue };
 }
 

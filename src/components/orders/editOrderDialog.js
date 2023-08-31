@@ -26,10 +26,7 @@ import GenericSnackbar from "../generics/genericSnackbar";
 import AuthContext from "../context/AuthContext";
 import findPaymentMethod from "../../services/utils/findPaymentMethod";
 import dayjs from "dayjs";
-import {
-  lastDayTarget,
-  floorDateHour,
-} from "../../services/utils/dateServices";
+import { floorDateHour } from "../../services/utils/dateServices";
 
 export default function EditOrderDialog({
   openDialog,
@@ -144,9 +141,11 @@ export default function EditOrderDialog({
         author: userData.name,
       })
         .then(() => {
-          const dayOne = floorDateHour(lastDayTarget(1));
+          const todayMinus5 = floorDateHour(
+            new Date(Date.now() - 86400000 * 5)
+          );
           const searchSettings = {
-            initialDate: dayOne,
+            initialDate: todayMinus5,
             endDate: dayjs(Date.now()).toISOString(),
             store: 0,
             client: 0,

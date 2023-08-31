@@ -27,6 +27,7 @@ import {
   ceilDateHour,
   floorDateHour,
 } from "../../services/utils/dateServices";
+import { intToMoney } from "../../services/utils/format";
 
 export default function CreateLunchboxDialog({
   openDialog,
@@ -40,6 +41,7 @@ export default function CreateLunchboxDialog({
 }) {
   const [employee, setEmployee] = useState(0);
   const [employees, setEmployees] = useState([]);
+  const [menu, setMenu] = useState([]);
   const [type, setType] = useState(0);
   const [date, setDate] = useState(dayjs(Date.now()));
   const [value, setValue] = useState("0,00");
@@ -48,30 +50,41 @@ export default function CreateLunchboxDialog({
   const [valueError, setValueError] = useState(false);
   const { userData } = useContext(AuthContext);
 
-  const values = ["0,00", "14,00", "16,00", "18,00", "0,00"];
-  const types = ["none", "Marmita P", "Marmita M", "Marmita G", "Outro"];
   const today = ceilDateHour(new Date(Date.now()));
-  const todayMinus30 = floorDateHour(new Date(Date.now() - 86400000 * 30));
-  const filterString = `from=${todayMinus30}&to=${today}`;
+  const todayMinus5 = floorDateHour(new Date(Date.now() - 86400000 * 5));
+  const filterString = `from=${todayMinus5}&to=${today}`;
+
+  async function getData() {
+    try {
+      const employeesResp = await EmployeesService.getEmployees();
+      const menuResp = await FoodControlService.getMenu(userData.token);
+      setEmployees(employeesResp.data);
+      setMenu(menuResp.data);
+    } catch (error) {
+      setSnackbar(true);
+      setSnackbarType("error");
+      setSnackbarMessage("Algo deu errado...");
+    }
+  }
 
   useEffect(() => {
-    EmployeesService.getEmployees()
-      .then((resp) => {
-        setEmployees(resp.data);
-      })
-      .catch((err) => {
-        setSnackbar(true);
-        setSnackbarType("error");
-        setSnackbarMessage("Algo deu errado ao recuperar os funcionários");
-      });
+    getData();
   }, []);
 
   function handleSubmit(e) {
     setLoading(true);
     e.preventDefault();
+    let selectedItem = type;
+    if (selectedItem === "Outro") {
+      selectedItem = {
+        name: "Outro",
+        id: 0,
+        value: 0,
+      };
+    }
     const { errorObject, intValue } = foodValidation({
       employee,
-      type,
+      type: selectedItem,
       date,
       value,
     });
@@ -85,12 +98,24 @@ export default function CreateLunchboxDialog({
       setEmployeeError(errorObject.employee);
       setTypeError(errorObject.type);
       setValueError(errorObject.value);
+      setSnackbar(true);
+      setSnackbarType("error");
+      setSnackbarMessage(
+        "Seu pedido precisa de funcionário, item, valor e data válidos"
+      );
       setLoading(false);
     } else {
+      console.log({
+        employee,
+        type: type.name,
+        value: intValue,
+        date: averageDateHour(date),
+        author: userData.name,
+      });
       FoodControlService.createFoodOrder(
         {
           employee,
-          type: types[type],
+          type: selectedItem.name,
           value: intValue,
           date: averageDateHour(date),
           author: userData.name,
@@ -168,23 +193,19 @@ export default function CreateLunchboxDialog({
             value={type}
             onChange={(e) => {
               setType(e.target.value);
-              setValue(values[e.target.value]);
+              setValue(intToMoney(e.target.value.value || 0));
               setValueError(false);
             }}
           >
             <MenuItem value={0} sx={{ fontSize: 15 }}>
               {"Escolha um tipo"}
             </MenuItem>
-            <MenuItem value={1} sx={{ fontSize: 15 }}>
-              {"Marmita P"}
-            </MenuItem>
-            <MenuItem value={2} sx={{ fontSize: 15 }}>
-              {"Marmita M"}
-            </MenuItem>
-            <MenuItem value={3} sx={{ fontSize: 15 }}>
-              {"Marmita G"}
-            </MenuItem>
-            <MenuItem value={4} sx={{ fontSize: 15 }}>
+            {menu.map((item, index) => (
+              <MenuItem key={index} value={item} sx={{ fontSize: 15 }}>
+                {`${item.name} ${item.description}`}
+              </MenuItem>
+            ))}
+            <MenuItem value={"Outro"} sx={{ fontSize: 15 }}>
               {"Outro"}
             </MenuItem>
           </TextField>
@@ -194,7 +215,7 @@ export default function CreateLunchboxDialog({
             name="input-value"
             placeholder="0,00"
             warning={valueError}
-            disabled={type === 4 ? false : true}
+            disabled={type === "Outro" ? false : true}
             value={value}
             intlConfig={{ locale: "pt-BR", currency: "BRL" }}
             decimalScale={2}
