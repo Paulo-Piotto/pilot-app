@@ -142,17 +142,21 @@ export default function AddOrderDialog({
               setOrders(resp.data);
               setTotal(intToMoney(sumTotal(resp.data)));
             })
-            .catch(() => {
+            .catch((err) => {
               setLoading(false);
               setSnackbarType("error");
-              setSnackbarMessage("Algo deu errado ao recuperar os itens");
+              setSnackbarMessage(
+                `Erro ${err.response.status}: ${err.response.data}`
+              );
               setSnackbar(true);
             });
         })
-        .catch(() => {
+        .catch((err) => {
           setLoading(false);
           setSnackbarType("error");
-          setSnackbarMessage("Algo deu errado ao recuperar os itens");
+          setSnackbarMessage(
+            `Erro ${err.response.status}: ${err.response.data}`
+          );
           setSnackbar(true);
         });
 
