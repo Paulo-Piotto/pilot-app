@@ -8,7 +8,8 @@ import {
   HeaderContainer,
 } from "../styles/tableStyles";
 import { Container } from "../components/generics/inProgress";
-import { Clear, Loading } from "../styles/generalStyles";
+import { Clear, Loading, PrintButton } from "../styles/generalStyles";
+import PrintIcon from "@mui/icons-material/Print";
 import CircularProgress from "@mui/material/CircularProgress";
 import LunchboxItem from "../components/lunchboxes/lunchboxItem";
 import GenericSnackbar from "../components/generics/genericSnackbar";
@@ -19,6 +20,7 @@ import AuthContext from "../components/context/AuthContext";
 import { floorDateHour, ceilDateHour } from "../services/utils/dateServices";
 import CreateLunchboxDialog from "../components/lunchboxes/createLunchboxDialog";
 import FilterLunchboxesDialog from "../components/lunchboxes/filterLunchboxesDialog";
+import foodPdfGenerator from "../components/pdf/foodPdfGenerator";
 
 export default function FoodControlPage() {
   const [loading, setLoading] = useState(true);
@@ -123,6 +125,9 @@ export default function FoodControlPage() {
               <p>Tipo</p>
               <p>Valor</p>
               <p></p>
+              <PrintButton onClick={() => foodPdfGenerator(lunchboxes, total)}>
+                <PrintIcon sx={{ color: "#EAEAEA" }} />
+              </PrintButton>
             </TableHeader>
           </HeaderContainer>
           {lunchboxes[0] ? (
