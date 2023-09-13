@@ -16,7 +16,7 @@ export default function PaymentItem({ rowData, workingDays }) {
     (workingDays - employeeWorkedDays) * (rowData.wage * 0.05)
   ).toFixed(0);
   const realPayment = (fullPayment - preWage - foodTotal).toFixed(0);
-  const warning = rowData.obs.includes("!") ? "! " : "";
+  const warning = rowData.obs && rowData.obs.includes("!") ? "! " : "";
 
   return (
     <>
