@@ -19,10 +19,32 @@ const Header = styled.header`
   height: 15%;
   background-color: #131e31;
   position: fixed;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+`;
+
+const IconButton = styled.div`
+  height: 6.5vh;
+  width: 6.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: all ease-in-out 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
 `;
 
 const Logo = styled.img`
-  width: 18%;
+  width: 14%;
 `;
 
 const SideMenu = styled.div`
@@ -141,4 +163,5 @@ export {
   Loading,
   PrintButton,
   TrashButton,
+  IconButton,
 };
