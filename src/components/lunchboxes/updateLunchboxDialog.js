@@ -19,10 +19,9 @@ import {
 } from "../../services/api.services";
 import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
-import { intToMoney } from "../../services/utils/format";
 import { sumTotal } from "../../services/utils/sumTotal";
 import AuthContext from "../context/AuthContext";
-import { foodValidation } from "../../services/validationServices/foodValidation";
+import { updateFoodValidation } from "../../services/validationServices/foodValidation";
 import {
   averageDateHour,
   ceilDateHour,
@@ -40,44 +39,55 @@ export default function UpdateLunchboxDialog({
   setSnackbarType,
   setLoading,
 }) {
-  const types = { none: 0, Pequena: 1, Média: 2, Grande: 3, Outro: 4 };
-  const [employee, setEmployee] = useState(0);
+  const [employee, setEmployee] = useState(rowData.employees.id || 0);
   const [employees, setEmployees] = useState([]);
-  const [type, setType] = useState(types[rowData.type] || 0);
+  const [type, setType] = useState(rowData.type || "escolha");
+  const [menu, setMenu] = useState([]);
   const [date, setDate] = useState(rowData.date || dayjs(Date.now()));
-  const [value, setValue] = useState(intToMoney(rowData.value) || "0,00");
+  const [value, setValue] = useState(rowData.value / 100 || "0,00");
   const [employeeError, setEmployeeError] = useState(false);
   const [typeError, setTypeError] = useState(false);
   const [valueError, setValueError] = useState(false);
   const { userData } = useContext(AuthContext);
-  const stringTypes = ["none", "Marmita P", "Marmita M", "Marmita G", "Outro"];
-  const values = ["0,00", "14,00", "16,00", "18,00", "0,00"];
   const today = ceilDateHour(new Date(Date.now()));
   const todayMinus30 = floorDateHour(new Date(Date.now() - 86400000 * 30));
   const filterString = `from=${todayMinus30}&to=${today}`;
 
+  async function getData() {
+    try {
+      const employeesResp = await EmployeesService.getEmployees();
+      const menuResp = await FoodControlService.getMenu(userData.token);
+      setEmployees(employeesResp.data);
+      setMenu(menuResp.data);
+    } catch (error) {
+      setSnackbar(true);
+      setSnackbarType("error");
+      setSnackbarMessage("Algo deu errado...");
+    }
+  }
+
   useEffect(() => {
-    EmployeesService.getEmployees()
-      .then((resp) => {
-        setEmployees(resp.data);
-      })
-      .catch((err) => {
-        setSnackbar(true);
-        setSnackbarType("error");
-        setSnackbarMessage("Algo deu errado ao recuperar os funcionários");
-      });
+    getData();
   }, []);
+
+  function updateType(typeName) {
+    setType(typeName);
+    for (let i = 0; i < menu.length; i++) {
+      if (menu[i].name === typeName) setValue(menu[i].value / 100);
+      else if (typeName === "Outro") setValue(0);
+    }
+    setValueError(false);
+  }
 
   function handleSubmit(e) {
     setLoading(true);
     e.preventDefault();
-    const { errorObject, intValue } = foodValidation({
+    const { errorObject } = updateFoodValidation({
       employee,
       type,
       date,
-      value,
+      value: (value * 100).toFixed(0),
     });
-
     if (
       errorObject.employee ||
       errorObject.type ||
@@ -87,14 +97,19 @@ export default function UpdateLunchboxDialog({
       setEmployeeError(errorObject.employee);
       setTypeError(errorObject.type);
       setValueError(errorObject.value);
+      setSnackbar(true);
+      setSnackbarType("error");
+      setSnackbarMessage(
+        "Seu pedido precisa de funcionário, item, valor e data válidos"
+      );
       setLoading(false);
     } else {
       FoodControlService.updateFoodOrder(
         {
           id: rowData.id,
           employee,
-          type: stringTypes[type],
-          value: intValue,
+          type,
+          value: Number((value * 100).toFixed(0)),
           date: averageDateHour(date),
           author: userData.name,
         },
@@ -105,10 +120,6 @@ export default function UpdateLunchboxDialog({
           setSnackbarType("success");
           setSnackbarMessage("Pedido Registrado com sucesso");
           handleCloseDialog();
-          setEmployee(0);
-          setType(0);
-          setValue("0,00");
-          setDate(dayjs(Date.now()));
           FoodControlService.getFoodOrders(filterString, userData.token)
             .then((resp) => {
               setItems(resp.data);
@@ -126,9 +137,7 @@ export default function UpdateLunchboxDialog({
           setLoading(false);
           setSnackbar(true);
           setSnackbarType("error");
-          setSnackbarMessage(
-            "Algo deu errado ao tentar registrar o funcionário"
-          );
+          setSnackbarMessage("Algo deu errado ao tentar registrar a alteração");
         });
     }
   }
@@ -146,7 +155,6 @@ export default function UpdateLunchboxDialog({
             fullWidth
             required
             label="Funcionário"
-            defaultValue={0}
             value={employee}
             onChange={(e) => setEmployee(e.target.value)}
           >
@@ -167,27 +175,17 @@ export default function UpdateLunchboxDialog({
             error={typeError}
             required
             label="Opção"
-            defaultValue={0}
             value={type}
             onChange={(e) => {
-              setType(e.target.value);
-              setValue(values[e.target.value]);
-              setValueError(false);
+              updateType(e.target.value);
             }}
           >
-            <MenuItem value={0} sx={{ fontSize: 15 }}>
-              {"Escolha um tipo"}
-            </MenuItem>
-            <MenuItem value={1} sx={{ fontSize: 15 }}>
-              {"Marmita P"}
-            </MenuItem>
-            <MenuItem value={2} sx={{ fontSize: 15 }}>
-              {"Marmita M"}
-            </MenuItem>
-            <MenuItem value={3} sx={{ fontSize: 15 }}>
-              {"Marmita G"}
-            </MenuItem>
-            <MenuItem value={4} sx={{ fontSize: 15 }}>
+            {menu.map((item, index) => (
+              <MenuItem key={index} value={item.name} sx={{ fontSize: 15 }}>
+                {`${item.name} ${item.description}`}
+              </MenuItem>
+            ))}
+            <MenuItem value={"Outro"} sx={{ fontSize: 15 }}>
               {"Outro"}
             </MenuItem>
           </TextField>
@@ -197,7 +195,7 @@ export default function UpdateLunchboxDialog({
             name="input-value"
             placeholder="0,00"
             warning={valueError}
-            disabled={type === 4 ? false : true}
+            disabled={type === "Outro" ? false : true}
             value={value}
             intlConfig={{ locale: "pt-BR", currency: "BRL" }}
             decimalScale={2}

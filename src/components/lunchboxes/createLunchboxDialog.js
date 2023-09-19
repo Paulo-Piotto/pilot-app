@@ -105,13 +105,6 @@ export default function CreateLunchboxDialog({
       );
       setLoading(false);
     } else {
-      console.log({
-        employee,
-        type: type.name,
-        value: intValue,
-        date: averageDateHour(date),
-        author: userData.name,
-      });
       FoodControlService.createFoodOrder(
         {
           employee,
