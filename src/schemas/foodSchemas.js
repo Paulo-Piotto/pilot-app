@@ -14,4 +14,11 @@ const foodSchema = Joi.object({
   date: Joi.date().required(),
 });
 
-export { foodSchema };
+const updateFoodSchema = Joi.object({
+  employee: Joi.number().min(1).required(),
+  type: Joi.string().required(),
+  value: Joi.string().required(),
+  date: Joi.date().required(),
+});
+
+export { foodSchema, updateFoodSchema };
