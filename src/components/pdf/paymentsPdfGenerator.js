@@ -33,6 +33,11 @@ export default function paymentsPdfGenerator(employees, workingDays) {
       { text: `R$${intToMoney(preWage)}`, fontSize: 7, margin: [0, 2, 0, 2] },
       { text: employee.pix, fontSize: 7, margin: [0, 2, 0, 2] },
       {
+        text: `${workedDays}/${workingDays}`,
+        fontSize: 7,
+        margin: [0, 2, 0, 2],
+      },
+      {
         text: `R$${intToMoney(employee.loan)}`,
         fontSize: 7,
         margin: [0, 2, 0, 2],
@@ -58,10 +63,10 @@ export default function paymentsPdfGenerator(employees, workingDays) {
   const total = sumTotalPayments(employees, workingDays).toFixed(0);
   const preWageTotal = sumTotalPreWage(employees);
   const realPaymentTotal = sumTotalRealPayment(employees, workingDays);
-
+  const today = Date.now();
   const pdfHeader = [
     {
-      text: "Pagamentos",
+      text: `Pagamentos - ${dayjs(today).format("DD/MM/YY")}`,
       fontSize: 15,
       bold: true,
       margin: [15, 20, 0, 45],
@@ -71,7 +76,7 @@ export default function paymentsPdfGenerator(employees, workingDays) {
     {
       table: {
         headerRows: 1,
-        widths: [50, 50, 50, 120, 50, 50, 50, 50],
+        widths: [50, 40, 40, 100, 30, 50, 40, 40, 40],
         body: [
           [
             {
@@ -83,6 +88,7 @@ export default function paymentsPdfGenerator(employees, workingDays) {
             { text: "Base", style: "tableHeader", fontSize: 8, bold: true },
             { text: "Vale", style: "tableHeader", fontSize: 8, bold: true },
             { text: "PIX", style: "tableHeader", fontSize: 8, bold: true },
+            { text: "Dias", style: "tableHeader", fontSize: 8, bold: true },
             {
               text: "Emprestado",
               style: "tableHeader",
@@ -165,9 +171,5 @@ export default function paymentsPdfGenerator(employees, workingDays) {
     footer: pdfFooter,
   };
 
-  const today = Date.now();
-
-  pdfMake
-    .createPdf(docDefinitions)
-    .download(`pagamentos-${dayjs(today).format("DD-MM-YY")}.pdf`);
+  pdfMake.createPdf(docDefinitions).open();
 }
