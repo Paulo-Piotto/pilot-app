@@ -146,6 +146,30 @@ const PrintButton = styled.div`
   }
 `;
 
+const CardButton = styled.div`
+  position: absolute;
+  top: calc(50% - 3.25vh);
+  right: 7%;
+  height: 6.5vh;
+  width: 7.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: all ease-in-out 0.2s;
+  font-size: 22px;
+  color: #eaeaea;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+`;
+
 const TrashButton = styled(PrintButton)`
   right: 7%;
 `;
@@ -164,4 +188,5 @@ export {
   PrintButton,
   TrashButton,
   IconButton,
+  CardButton,
 };

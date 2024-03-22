@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -13,14 +13,10 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import styled from "styled-components";
-import {
-  FoodControlService,
-  EmployeesService,
-} from "../../services/api.services";
 import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import { sumTotal } from "../../services/utils/sumTotal";
-import AuthContext from "../context/AuthContext";
+
 import { foodValidation } from "../../services/validationServices/foodValidation";
 import {
   averageDateHour,
@@ -38,18 +34,27 @@ export default function CreateLunchboxDialog({
   setSnackbarMessage,
   setSnackbarType,
   setLoading,
+  setEmployees,
+  employees,
+  menu,
+  setMenu,
+  userData,
+  EmployeesService,
+  FoodControlService,
+  employee,
+  setEmployee,
+  employeeError,
+  setEmployeeError,
+  typeError,
+  setTypeError,
+  type,
+  setType,
+  value,
+  setValue,
+  valueError,
+  setValueError,
 }) {
-  const [employee, setEmployee] = useState(0);
-  const [employees, setEmployees] = useState([]);
-  const [menu, setMenu] = useState([]);
-  const [type, setType] = useState(0);
   const [date, setDate] = useState(dayjs(Date.now()));
-  const [value, setValue] = useState("0,00");
-  const [employeeError, setEmployeeError] = useState(false);
-  const [typeError, setTypeError] = useState(false);
-  const [valueError, setValueError] = useState(false);
-  const { userData } = useContext(AuthContext);
-
   const today = ceilDateHour(new Date(Date.now()));
   const todayMinus5 = floorDateHour(new Date(Date.now() - 86400000 * 5));
   const filterString = `from=${todayMinus5}&to=${today}`;
