@@ -5,58 +5,22 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import { MenuItem } from "@mui/material";
 
-import { useState, useEffect } from "react";
-import { intToMoney } from "../services/utils/format";
-import { FaShoppingBasket } from "react-icons/fa";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
 
-export default function Cart({
-  setSnackbar,
-  setSnackbarType,
-  setSnackbarMessage,
-  setEmployees,
-  setMenu,
-  userData,
-  EmployeesService,
-  FoodControlService,
-  menu,
-  employee,
-  setEmployee,
-  employeeError,
-  employees,
-  typeError,
-  type,
-  setType,
-  setValue,
-  setValueError,
-  ClientsService,
-}) {
+import sendMessage from "./sendMessage";
+
+const estilo = {
+  p: 0,
+  borderColor: "divider",
+  backgroundColor: "background.paper",
+};
+
+export default function Cart() {
   const [open, setOpen] = React.useState(false);
-  const [client, setClient] = useState(0);
-  const [clients, setClients] = useState([]);
-  const [clientError, setClientError] = useState(false);
-
-  async function getData() {
-    try {
-      const employeesResp = await EmployeesService.getEmployees();
-      const menuResp = await FoodControlService.getMenu(userData.token);
-      const clientsResp = await ClientsService.getAllClients(userData);
-      setEmployees(employeesResp.data);
-      setMenu(menuResp.data);
-      setClients(clientsResp.data);
-    } catch (error) {
-      setSnackbar(true);
-      setSnackbarType("error");
-      setSnackbarMessage("Algo deu errado...");
-    }
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -68,127 +32,46 @@ export default function Cart({
 
   return (
     <React.Fragment>
-      <CartButton onClick={handleClickOpen}>
-        {" "}
-        <CartIcon variant="outlined"></CartIcon>
-      </CartButton>
-
+      <Button onClick={handleClickOpen}>Carrinho</Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Seu Carrinho"}</DialogTitle>
-        <DialogContent>
-          <Stack sx={{ width: 500, height: 250 }}>
-            <TextField
-              id="outlined-select-employee"
-              sx={{ mt: 3, mr: 1, mb: 1 }}
-              select
-              error={employeeError}
-              fullWidth
-              required
-              label="Funcionário"
-              defaultValue={0}
-              value={employee}
-              onChange={(e) => setEmployee(e.target.value)}
-            >
-              <MenuItem key={0} value={0} sx={{ fontSize: 15 }}>
-                {"Escolha um funcionário"}
-              </MenuItem>
-              {employees.map((employee, index) => (
-                <MenuItem key={index} value={employee.id} sx={{ fontSize: 15 }}>
-                  {employee.name}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              id="outlined-select-type"
-              sx={{ mt: 1, mr: 1, mb: 1 }}
-              select
-              fullWidth
-              error={typeError}
-              required
-              label="Opção"
-              defaultValue={0}
-              value={type}
-              onChange={(e) => {
-                setType(e.target.value);
-                setValue(intToMoney(e.target.value.value || 0));
-                setValueError(false);
-              }}
-            >
-              <MenuItem value={0} sx={{ fontSize: 15 }}>
-                {"Escolha um tipo"}
-              </MenuItem>
-              {menu.map((item, index) => (
-                <MenuItem key={index} value={item} sx={{ fontSize: 15 }}>
-                  {`${item.name} ${item.description}`}
-                </MenuItem>
-              ))}
-              <MenuItem value={"Outro"} sx={{ fontSize: 15 }}>
-                {"Outro"}
-              </MenuItem>
-            </TextField>
-            <TextField
-              id="outlined-select-client"
-              sx={{ mt: 1, mr: 1, mb: 1 }}
-              select
-              fullWidth
-              error={clientError}
-              label="Obra"
-              defaultValue={0}
-              value={client}
-              onChange={(e) => setClient(e.target.value)}
-            >
-              <MenuItem key={0} value={0} sx={{ fontSize: 15 }}>
-                {"Escolha uma Obra"}
-              </MenuItem>
-              {clients.map((client) => (
-                <MenuItem
-                  key={client.id}
-                  value={client.id}
-                  sx={{ fontSize: 15 }}
-                >
-                  {client.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Stack>
+        <DialogTitle id="alert-dialog-title">{"Carrinho"}</DialogTitle>
+        <DialogContent sx={{ width: 550, height: 240 }}>
+          <List sx={estilo} aria-label="mailbox folders">
+            {/* <ListItem sx={{ marginLeft: 2 }}>
+              <ListItemText primary="Marmita G" />
+              <ListItemText primary="R$ 19,00" />
+              <ListItemText primary="Luisa" />
+              <ListItemText primary="Obra: Ácacio" />
+            </ListItem>
+            <Divider component="li" /> */}
+          </List>
         </DialogContent>
+        <Rodape>
+          <ListItemText primary="Itens:" sx={{ marginLeft: 7 }} />
+          <ListItemText primary="Total: R$" sx={{ marginLeft: 23 }} />
+        </Rodape>
         <DialogActions>
-          <Button onClick={handleClose}>Finalizar</Button>
-          <Button onClick={handleClose}>Adicionar</Button>
+          <Button onClick={handleClose} autoFocus>
+            Voltar
+          </Button>
+          <Button onClick={sendMessage} autoFocus>
+            Finalizar
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
   );
 }
 
-const CartButton = styled.div`
-  position: absolute;
-  top: calc(50% - 3.25vh);
-  right: 7.5%;
-  height: 6.5vh;
-  width: 6.5vh;
+const Rodape = styled.div`
+  background-color: "background.paper";
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100%;
-  transition: all ease-in-out 0.2s;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-  }
-
-  &:active {
-    background-color: rgba(0, 0, 0, 0.6);
-  }
-`;
-
-const CartIcon = styled(FaShoppingBasket)`
-  color: #eaeaea;
-  font-size: 23px;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid #b2babb;
 `;

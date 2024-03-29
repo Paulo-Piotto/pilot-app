@@ -15,6 +15,8 @@ import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import AuthContext from "../context/AuthContext";
 
+import Autocomplete from "@mui/material/Autocomplete";
+
 export default function RegisterEmployeeDialog({
   openDialog,
   handleCloseDialog,
@@ -66,8 +68,8 @@ export default function RegisterEmployeeDialog({
       })
         .then((resp) => {
           setSnackbar(true);
-          setSnackbarType('success');
-          setSnackbarMessage('Funcionário Registrado com sucesso');
+          setSnackbarType("success");
+          setSnackbarMessage("Funcionário Registrado com sucesso");
           handleCloseDialog();
           setName("");
           setFullname("");
@@ -85,11 +87,28 @@ export default function RegisterEmployeeDialog({
         })
         .catch(() => {
           setSnackbar(true);
-          setSnackbarType('error');
-          setSnackbarMessage('Algo deu errado ao tentar registrar o funcionário');
+          setSnackbarType("error");
+          setSnackbarMessage(
+            "Algo deu errado ao tentar registrar o funcionário"
+          );
         });
     }
   }
+
+  const defaultShirts = {
+    options: Camisetas,
+    getOptionLabel: (option) => option.title,
+  };
+
+  const defaultPants = {
+    options: Calcas,
+    getOptionLabel: (option) => option.title,
+  };
+
+  const defaultBoots = {
+    options: Botinas,
+    getOptionLabel: (option) => option.title,
+  };
 
   return (
     <>
@@ -159,7 +178,7 @@ export default function RegisterEmployeeDialog({
             fullWidth
             variant="standard"
             onChange={(e) => setPix(e.target.value)}
-          />          
+          />
           <TextField
             value={address}
             margin="dense"
@@ -170,6 +189,35 @@ export default function RegisterEmployeeDialog({
             variant="standard"
             onChange={(e) => setAddress(e.target.value)}
           />
+          <Uniforme>
+            <Autocomplete
+              sx={{ width: 160 }}
+              {...defaultShirts}
+              id="Camiseta"
+              disableCloseOnSelect
+              renderInput={(params) => (
+                <TextField {...params} label="Camiseta" variant="standard" />
+              )}
+            />
+            <Autocomplete
+              sx={{ width: 160 }}
+              {...defaultPants}
+              id="Calça"
+              disableCloseOnSelect
+              renderInput={(params) => (
+                <TextField {...params} label="Calça" variant="standard" />
+              )}
+            />
+            <Autocomplete
+              sx={{ width: 160 }}
+              {...defaultBoots}
+              id="Botina"
+              disableCloseOnSelect
+              renderInput={(params) => (
+                <TextField {...params} label="Botina" variant="standard" />
+              )}
+            />
+          </Uniforme>
           <TextField
             sx={{ mt: 3 }}
             value={obs}
@@ -224,3 +272,38 @@ export default function RegisterEmployeeDialog({
 const DateWrapper = styled.div`
   margin-top: 10px;
 `;
+
+const Uniforme = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1vh;
+`;
+
+const Camisetas = [
+  { title: "Tamanho P" },
+  { title: "Tamanho M" },
+  { title: "Tamanho G" },
+];
+
+const Calcas = [
+  { title: "Tamanho 36" },
+  { title: "Tamanho 38" },
+  { title: "Tamanho 40" },
+  { title: "Tamanho 42" },
+  { title: "Tamanho 44" },
+  { title: "Tamanho 46" },
+  { title: "Tamanho 48" },
+  { title: "Tamanho 50" },
+  { title: "Tamanho 60" },
+];
+
+const Botinas = [
+  { title: "Tamanho 36" },
+  { title: "Tamanho 38" },
+  { title: "Tamanho 39" },
+  { title: "Tamanho 40" },
+  { title: "Tamanho 41" },
+  { title: "Tamanho 42" },
+  { title: "Tamanho 43" },
+  { title: "Tamanho 44" },
+];

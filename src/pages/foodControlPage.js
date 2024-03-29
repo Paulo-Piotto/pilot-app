@@ -25,7 +25,7 @@ import { floorDateHour, ceilDateHour } from "../services/utils/dateServices";
 import CreateLunchboxDialog from "../components/lunchboxes/createLunchboxDialog";
 import FilterLunchboxesDialog from "../components/lunchboxes/filterLunchboxesDialog";
 import foodPdfGenerator from "../components/pdf/foodPdfGenerator";
-import Cart from "./Cart";
+import OrderCart from "./OrderCart";
 
 export default function FoodControlPage() {
   const [loading, setLoading] = useState(true);
@@ -159,7 +159,7 @@ export default function FoodControlPage() {
               <PrintButton onClick={() => foodPdfGenerator(lunchboxes, total)}>
                 <PrintIcon sx={{ color: "#EAEAEA" }} />
               </PrintButton>
-              <Cart
+              <OrderCart
                 setSnackbar={setSnackbar}
                 setSnackbarType={setSnackbarType}
                 setSnackbarMessage={setSnackbarMessage}
@@ -180,7 +180,7 @@ export default function FoodControlPage() {
                 setValue={setValue}
                 setValueError={setValueError}
                 ClientsService={ClientsService}
-              ></Cart>
+              ></OrderCart>
             </TableHeader>
           </HeaderContainer>
           {lunchboxes[0] ? (
