@@ -177,6 +177,7 @@ export default function FoodControlPage() {
                 typeError={typeError}
                 type={type}
                 setType={setType}
+                value={value}
                 setValue={setValue}
                 setValueError={setValueError}
                 ClientsService={ClientsService}

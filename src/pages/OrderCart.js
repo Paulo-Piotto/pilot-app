@@ -31,6 +31,7 @@ export default function OrderCart({
   typeError,
   type,
   setType,
+  value,
   setValue,
   setValueError,
   ClientsService,
@@ -39,11 +40,11 @@ export default function OrderCart({
   const [client, setClient] = useState(0);
   const [clients, setClients] = useState([]);
   const [clientError, setClientError] = useState(false);
-  // const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]);
 
-  // function AddItem() {
-  //   setCart([...cart, { client, employee, type }]);
-  // }
+  function AddItem() {
+    setCart([...cart, { client, employee, type, value }]);
+  }
 
   async function getData() {
     try {
@@ -104,7 +105,7 @@ export default function OrderCart({
                 {"Escolha um Funcionário"}
               </MenuItem>
               {employees.map((employee, index) => (
-                <MenuItem key={index} value={employee.id} sx={{ fontSize: 15 }}>
+                <MenuItem key={index} value={employee} sx={{ fontSize: 15 }}>
                   {employee.name}
                 </MenuItem>
               ))}
@@ -152,11 +153,7 @@ export default function OrderCart({
                 {"Escolha uma Obra"}
               </MenuItem>
               {clients.map((client) => (
-                <MenuItem
-                  key={client.id}
-                  value={client.id}
-                  sx={{ fontSize: 15 }}
-                >
+                <MenuItem key={client.id} value={client} sx={{ fontSize: 15 }}>
                   {client.name}
                 </MenuItem>
               ))}
@@ -164,8 +161,8 @@ export default function OrderCart({
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Cart></Cart>
-          <Button onClick={handleClose}>Adicionar</Button>
+          <Cart cart={cart} setCart={setCart}></Cart>
+          <Button onClick={AddItem}>Adicionar</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

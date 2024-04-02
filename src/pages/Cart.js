@@ -7,10 +7,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 
+import CartItem from "../components/foodOrder/cartItem";
 import sendMessage from "./sendMessage";
 
 const estilo = {
@@ -19,7 +18,7 @@ const estilo = {
   backgroundColor: "background.paper",
 };
 
-export default function Cart() {
+export default function Cart({ cart, setCart }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -42,13 +41,9 @@ export default function Cart() {
         <DialogTitle id="alert-dialog-title">{"Carrinho"}</DialogTitle>
         <DialogContent sx={{ width: 550, height: 240 }}>
           <List sx={estilo} aria-label="mailbox folders">
-            {/* <ListItem sx={{ marginLeft: 2 }}>
-              <ListItemText primary="Marmita G" />
-              <ListItemText primary="R$ 19,00" />
-              <ListItemText primary="Luisa" />
-              <ListItemText primary="Obra: Ácacio" />
-            </ListItem>
-            <Divider component="li" /> */}
+            {cart.map((item, index) => (
+              <CartItem key={index} item={item} />
+            ))}
           </List>
         </DialogContent>
         <Rodape>
