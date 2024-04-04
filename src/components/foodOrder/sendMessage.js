@@ -1,28 +1,32 @@
+import { intToMoney } from "../../services/utils/format";
+
 function sendMessage(cart) {
   let valorTotal = 0;
   const d = new Date();
   let text = d.toLocaleDateString();
+
   let mensagem = `
     *Pedido PIOTTO - ${text}*
 
-Itens:
-   
----------------------------
+Itens: ${cart.length}
    `;
 
   cart.forEach((item) => {
     mensagem += `
-      *Produto:* ${item.title}
+*1x - ${item.type.name} - ${item.type.description}*
 
-      *Preço: R$ ${item.price}*
+Funcionário: ${item.employee.name}
+Entrega: ${item.client.address}
 
-      ---------------------------
+*R$ ${item.value}*
+
+*---------------------------*
         `;
-    valorTotal += item.price;
+    valorTotal += item.type.value;
   });
 
   mensagem += `
-      *TOTAL: R$ ${valorTotal.toFixed(2)}*
+*TOTAL: R$ ${intToMoney(valorTotal)}*
 
         `;
 

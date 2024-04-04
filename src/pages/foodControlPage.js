@@ -25,7 +25,7 @@ import { floorDateHour, ceilDateHour } from "../services/utils/dateServices";
 import CreateLunchboxDialog from "../components/lunchboxes/createLunchboxDialog";
 import FilterLunchboxesDialog from "../components/lunchboxes/filterLunchboxesDialog";
 import foodPdfGenerator from "../components/pdf/foodPdfGenerator";
-import OrderCart from "./OrderCart";
+import OrderCart from "../components/foodOrder/OrderCart";
 
 export default function FoodControlPage() {
   const [loading, setLoading] = useState(true);

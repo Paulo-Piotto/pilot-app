@@ -10,7 +10,7 @@ import Stack from "@mui/material/Stack";
 import { MenuItem } from "@mui/material";
 
 import { useState, useEffect } from "react";
-import { intToMoney } from "../services/utils/format";
+import { intToMoney } from "../../services/utils/format";
 import Cart from "./Cart";
 import { FaShoppingBasket } from "react-icons/fa";
 
@@ -44,6 +44,9 @@ export default function OrderCart({
 
   function AddItem() {
     setCart([...cart, { client, employee, type, value }]);
+    setClient(0);
+    setEmployee(0);
+    setType(0);
   }
 
   async function getData() {
@@ -95,7 +98,6 @@ export default function OrderCart({
               select
               error={employeeError}
               fullWidth
-              required
               label="Funcionário"
               defaultValue={0}
               value={employee}
@@ -116,7 +118,6 @@ export default function OrderCart({
               select
               fullWidth
               error={typeError}
-              required
               label="Opção"
               defaultValue={0}
               value={type}
