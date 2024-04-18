@@ -4,24 +4,18 @@ import { IoPencilSharp, IoTrashOutline } from "react-icons/io5";
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
-  background: rgb(207, 206, 203);
-  background-image: linear-gradient(
-      180deg,
-      rgba(207, 206, 203, 0.95) 0%,
-      rgba(207, 206, 203, 0.9) 50%,
-      rgba(207, 206, 203, 0.8) 100%
-    ),
-    url("./assets/padrao-pontes.jpg");
+  background: #34393a;
 `;
 
 const Header = styled.header`
-  width: 100%;
+  width: 100vw;
   height: 15%;
-  background-color: #131e31;
+  background-color: #f6f6f6;
   position: fixed;
   display: flex;
   align-items: center;
   padding-left: 15px;
+  background-image: url("./assets/padrao-header.png");
 `;
 
 const IconButton = styled.div`
@@ -44,7 +38,12 @@ const IconButton = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 14%;
+  width: 10%;
+  margin-left: 1vw;
+`;
+
+const LogoInicial = styled.img`
+  height: 16vh;
 `;
 
 const SideMenu = styled.div`
@@ -108,6 +107,7 @@ const Clear = styled.p`
   font-family: "Roboto", sans-serif;
   font-size: 0.75rem;
   transition: all ease-in-out 0.1s;
+  color: #eaeaea;
   &&:hover {
     color: #605c57;
     cursor: pointer;
@@ -189,4 +189,5 @@ export {
   TrashButton,
   IconButton,
   CardButton,
+  LogoInicial,
 };

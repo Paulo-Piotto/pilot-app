@@ -14,7 +14,7 @@ export default function Main() {
       <>
         <Header>
           <IconButton onClick={() => setOpenDrawer(true)}>
-            <MenuIcon sx={{ color: "#FAFAFA", fontSize: 30 }} />
+            <MenuIcon sx={{ color: "#34393a", fontSize: 30 }} />
           </IconButton>
           <Logo src="./assets/piotto-logo.png" />
         </Header>

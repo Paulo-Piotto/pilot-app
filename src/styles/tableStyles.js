@@ -16,9 +16,9 @@ const TableHeader = styled.div`
   //margin-left: calc(50% - 35vw);
   justify-content: space-between;
   align-items: center;
-  background-color: #4d5666;
+  background-color: #bb9d6f;
   border-radius: 4px 4px 0 0;
-  color: white;
+  color: #eaeaea;
   position: relative;
 
   p {
@@ -26,7 +26,7 @@ const TableHeader = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 `;
 

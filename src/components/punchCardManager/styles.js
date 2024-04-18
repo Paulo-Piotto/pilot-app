@@ -18,15 +18,15 @@ export const AdaptedCardsContainer = styled(CardsContainer)`
     border-radius: 5px;
     padding: 10px;
 
-    >input {
-        width: 100%;
-        height: 60px;
-        margin-bottom: 5px;
-        outline-color: #131E31;
-        color: #131E31;
-        border: none;
-        border-bottom: 2px solid #131E31;
-    } 
+    > input {
+      width: 100%;
+      height: 60px;
+      margin-bottom: 5px;
+      outline-color: #131e31;
+      color: #131e31;
+      border: none;
+      border-bottom: 2px solid #131e31;
+    }
   }
 `;
 
