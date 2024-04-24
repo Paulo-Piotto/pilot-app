@@ -13,7 +13,7 @@ Itens: ${cart.length}
 
   cart.forEach((item) => {
     mensagem += `
-*1x - ${item.type.name} - ${item.type.description}*
+*1x - ${item.type.name} ${item.type.description}*
 
 Funcionário: ${item.employee.name}
 Entrega: ${item.client.address}

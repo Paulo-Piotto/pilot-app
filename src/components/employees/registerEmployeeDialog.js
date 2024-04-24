@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import { MoneyInput, MoneyLabel } from "../../styles/moneyInputStyles";
 import AuthContext from "../context/AuthContext";
 
-import Autocomplete from "@mui/material/Autocomplete";
+// import Autocomplete from "@mui/material/Autocomplete";
 
 export default function RegisterEmployeeDialog({
   openDialog,
@@ -95,20 +95,20 @@ export default function RegisterEmployeeDialog({
     }
   }
 
-  const defaultShirts = {
-    options: Camisetas,
-    getOptionLabel: (option) => option.title,
-  };
+  // const defaultShirts = {
+  //   options: Camisetas,
+  //   getOptionLabel: (option) => option.title,
+  // };
 
-  const defaultPants = {
-    options: Calcas,
-    getOptionLabel: (option) => option.title,
-  };
+  // const defaultPants = {
+  //   options: Calcas,
+  //   getOptionLabel: (option) => option.title,
+  // };
 
-  const defaultBoots = {
-    options: Botinas,
-    getOptionLabel: (option) => option.title,
-  };
+  // const defaultBoots = {
+  //   options: Botinas,
+  //   getOptionLabel: (option) => option.title,
+  // };
 
   return (
     <>
@@ -189,7 +189,7 @@ export default function RegisterEmployeeDialog({
             variant="standard"
             onChange={(e) => setAddress(e.target.value)}
           />
-          <Uniforme>
+          {/* <Uniforme>
             <Autocomplete
               sx={{ width: 160 }}
               {...defaultShirts}
@@ -217,7 +217,7 @@ export default function RegisterEmployeeDialog({
                 <TextField {...params} label="Botina" variant="standard" />
               )}
             />
-          </Uniforme>
+          </Uniforme> */}
           <TextField
             sx={{ mt: 3 }}
             value={obs}
@@ -273,37 +273,37 @@ const DateWrapper = styled.div`
   margin-top: 10px;
 `;
 
-const Uniforme = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1vh;
-`;
+// const Uniforme = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   margin-top: 1vh;
+// `;
 
-const Camisetas = [
-  { title: "Tamanho P" },
-  { title: "Tamanho M" },
-  { title: "Tamanho G" },
-];
+// const Camisetas = [
+//   { title: "Tamanho P" },
+//   { title: "Tamanho M" },
+//   { title: "Tamanho G" },
+// ];
 
-const Calcas = [
-  { title: "Tamanho 36" },
-  { title: "Tamanho 38" },
-  { title: "Tamanho 40" },
-  { title: "Tamanho 42" },
-  { title: "Tamanho 44" },
-  { title: "Tamanho 46" },
-  { title: "Tamanho 48" },
-  { title: "Tamanho 50" },
-  { title: "Tamanho 60" },
-];
+// const Calcas = [
+//   { title: "Tamanho 36" },
+//   { title: "Tamanho 38" },
+//   { title: "Tamanho 40" },
+//   { title: "Tamanho 42" },
+//   { title: "Tamanho 44" },
+//   { title: "Tamanho 46" },
+//   { title: "Tamanho 48" },
+//   { title: "Tamanho 50" },
+//   { title: "Tamanho 60" },
+// ];
 
-const Botinas = [
-  { title: "Tamanho 36" },
-  { title: "Tamanho 38" },
-  { title: "Tamanho 39" },
-  { title: "Tamanho 40" },
-  { title: "Tamanho 41" },
-  { title: "Tamanho 42" },
-  { title: "Tamanho 43" },
-  { title: "Tamanho 44" },
-];
+// const Botinas = [
+//   { title: "Tamanho 36" },
+//   { title: "Tamanho 38" },
+//   { title: "Tamanho 39" },
+//   { title: "Tamanho 40" },
+//   { title: "Tamanho 41" },
+//   { title: "Tamanho 42" },
+//   { title: "Tamanho 43" },
+//   { title: "Tamanho 44" },
+// ];
