@@ -5,20 +5,19 @@ import Login from "./Login";
 import Register from "./Register";
 
 export default function Auth() {
-    const [ side, setSide ] = useState("left");
+  const [side, setSide] = useState("left");
 
-    function igniteMotion() {
-        setSide(prevState => prevState === "left" ? "right" : "left")
-    }
+  function igniteMotion() {
+    setSide((prevState) => (prevState === "left" ? "right" : "left"));
+  }
 
-    return (
-        <sc.Background>
-            <sc.TrackContainer>
-                <Slider igniteMotion={igniteMotion} side={side} />
-                <Register side={side} callLoginScreen={() => setSide("left")} />
-                <Login side={side} />
-            </sc.TrackContainer>
-        </sc.Background>
-    )
+  return (
+    <sc.Background>
+      <sc.TrackContainer>
+        <Slider igniteMotion={igniteMotion} side={side} />
+        <Register side={side} callLoginScreen={() => setSide("left")} />
+        <Login side={side} />
+      </sc.TrackContainer>
+    </sc.Background>
+  );
 }
-

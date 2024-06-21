@@ -15,12 +15,17 @@ import LunchboxItem from "../components/lunchboxes/lunchboxItem";
 import GenericSnackbar from "../components/generics/genericSnackbar";
 import { sumTotal } from "../services/utils/sumTotal";
 import { intToMoney } from "../services/utils/format";
-import { FoodControlService } from "../services/api.services";
+import {
+  FoodControlService,
+  EmployeesService,
+  ClientsService,
+} from "../services/api.services";
 import AuthContext from "../components/context/AuthContext";
 import { floorDateHour, ceilDateHour } from "../services/utils/dateServices";
 import CreateLunchboxDialog from "../components/lunchboxes/createLunchboxDialog";
 import FilterLunchboxesDialog from "../components/lunchboxes/filterLunchboxesDialog";
 import foodPdfGenerator from "../components/pdf/foodPdfGenerator";
+import OrderCart from "../components/foodOrder/OrderCart";
 
 export default function FoodControlPage() {
   const [loading, setLoading] = useState(true);
@@ -31,8 +36,15 @@ export default function FoodControlPage() {
   const [snackbar, setSnackbar] = useState(false);
   const [snackbarType, setSnackbarType] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
-
+  const [employees, setEmployees] = useState([]);
+  const [menu, setMenu] = useState([]);
   const { userData } = useContext(AuthContext);
+  const [employee, setEmployee] = useState(0);
+  const [employeeError, setEmployeeError] = useState(false);
+  const [typeError, setTypeError] = useState(false);
+  const [type, setType] = useState(0);
+  const [value, setValue] = useState("0,00");
+  const [valueError, setValueError] = useState(false);
 
   function clearFilters() {
     const today = ceilDateHour(new Date(Date.now()));
@@ -100,6 +112,25 @@ export default function FoodControlPage() {
         setSnackbarMessage={setSnackbarMessage}
         setSnackbarType={setSnackbarType}
         setLoading={setLoading}
+        employees={employees}
+        setEmployees={setEmployees}
+        menu={menu}
+        setMenu={setMenu}
+        userData={userData}
+        FoodControlService={FoodControlService}
+        EmployeesService={EmployeesService}
+        employee={employee}
+        setEmployee={setEmployee}
+        employeeError={employeeError}
+        setEmployeeError={setEmployeeError}
+        typeError={typeError}
+        setTypeError={setTypeError}
+        type={type}
+        setType={setType}
+        value={value}
+        setValue={setValue}
+        valueError={valueError}
+        setValueError={setValueError}
       />
       <FilterLunchboxesDialog
         openDialog={openSearch}
@@ -128,6 +159,29 @@ export default function FoodControlPage() {
               <PrintButton onClick={() => foodPdfGenerator(lunchboxes, total)}>
                 <PrintIcon sx={{ color: "#EAEAEA" }} />
               </PrintButton>
+              <OrderCart
+                setSnackbar={setSnackbar}
+                setSnackbarType={setSnackbarType}
+                setSnackbarMessage={setSnackbarMessage}
+                employees={employees}
+                setEmployees={setEmployees}
+                menu={menu}
+                setMenu={setMenu}
+                userData={userData}
+                FoodControlService={FoodControlService}
+                EmployeesService={EmployeesService}
+                employee={employee}
+                setEmployee={setEmployee}
+                employeeError={employeeError}
+                setEmployeeError={setEmployeeError}
+                typeError={typeError}
+                type={type}
+                setType={setType}
+                value={value}
+                setValue={setValue}
+                setValueError={setValueError}
+                ClientsService={ClientsService}
+              ></OrderCart>
             </TableHeader>
           </HeaderContainer>
           {lunchboxes[0] ? (
